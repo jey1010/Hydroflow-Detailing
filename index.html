@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hydroflow Detailing</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:Arial,Helvetica,sans-serif;background:#001b2e;color:#fff}
+a{text-decoration:none;color:inherit}
+header{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(0,20,35,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,174,255,.4)}
+.navbar{max-width:1200px;margin:auto;height:80px;display:flex;align-items:center;justify-content:space-between;padding:0 25px}
+.nav-logo{display:flex;align-items:center;gap:12px}.nav-logo img{width:55px;height:55px;object-fit:contain}.nav-logo span{font-size:22px;font-weight:800;letter-spacing:1px}.nav-logo span strong{color:#00aaff}
+nav{display:flex;gap:30px}nav a{font-size:15px;font-weight:bold;transition:.3s}nav a:hover{color:#00aaff}.nav-button{background:#009fe3;padding:12px 22px;border-radius:25px}.nav-button:hover{background:#fff;color:#008fd0}
+.hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;padding:130px 20px 80px;background:linear-gradient(rgba(0,30,55,.35),rgba(0,18,35,.75)),url("images/fondo-agua.jpg");background-size:cover;background-position:center}
+.hero-content{max-width:900px}.hero-logo{width:300px;max-width:80%;margin-bottom:20px;filter:drop-shadow(0 0 15px rgba(0,174,255,.5))}
+.hero h1{font-size:60px;font-weight:900;letter-spacing:3px;text-transform:uppercase;text-shadow:0 4px 15px rgba(0,0,0,.8)}.hero h1 span{color:#00aaff}.hero h2{font-size:28px;margin-top:5px;letter-spacing:5px}.hero p{font-size:20px;margin:25px auto;max-width:700px;line-height:1.6}
+.hero-buttons{display:flex;justify-content:center;gap:15px;flex-wrap:wrap;margin-top:30px}.btn{display:inline-block;padding:15px 30px;border-radius:30px;font-weight:bold;font-size:16px;transition:.3s}.btn-primary{background:#00a8f0}.btn-primary:hover{background:#fff;color:#008ed0;transform:translateY(-3px)}.btn-secondary{border:2px solid #00a8f0}.btn-secondary:hover{background:#00a8f0;transform:translateY(-3px)}
+section{padding:100px 20px}.section-container{max-width:1100px;margin:auto}.section-title{text-align:center;margin-bottom:60px}.section-title h2{font-size:42px;text-transform:uppercase;letter-spacing:2px}.section-title h2 span{color:#00aaff}.section-title p{margin-top:15px;color:#c7e8f7;font-size:17px}
+.packages{background:linear-gradient(rgba(0,28,48,.94),rgba(0,13,26,.97)),url("images/fondo-agua.jpg");background-size:cover;background-position:center}.package-box{margin-bottom:80px}.package-heading{text-align:center;margin-bottom:35px}.package-heading h3{display:inline-block;font-size:32px;font-style:italic;color:#fff;border-bottom:3px solid #00aaff;padding:0 20px 10px}
+.package-description{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-bottom:40px}.service-column{background:rgba(0,95,150,.2);border:1px solid rgba(0,174,255,.3);border-radius:15px;padding:25px}.service-column h4{color:#00aaff;font-size:22px;margin-bottom:20px}.service-column ul{list-style:none}.service-column li{margin-bottom:13px;line-height:1.5;color:#f1f9ff}.service-column li::before{content:"✓";color:#00aaff;font-weight:bold;margin-right:10px}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:25px}.price-card{position:relative;background:linear-gradient(145deg,rgba(0,155,230,.55),rgba(0,30,70,.9));border:2px solid rgba(0,170,255,.8);border-radius:15px;padding:30px 20px;text-align:center;overflow:hidden;transition:.3s}.price-card:hover{transform:translateY(-8px);box-shadow:0 15px 35px rgba(0,150,255,.25)}
+.vehicle-label{display:inline-block;padding:10px 35px;margin-bottom:15px;border-radius:8px;background:linear-gradient(#eee,#a9b3ba);color:#00065c;font-size:25px;font-weight:900;font-style:italic;box-shadow:0 5px 10px rgba(0,0,0,.4)}.price-card:first-child .vehicle-label{background:linear-gradient(#ffc62e,#f28c00)}
+.vehicle-image{width:100%;height:130px;object-fit:contain;margin:5px 0 20px}.starting{font-size:15px;font-weight:bold;text-decoration:underline}.price{font-size:38px;font-weight:900;font-style:italic;margin-left:5px}
+.services{background:#062b40}.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:25px}.service-card{padding:35px 25px;background:rgba(0,140,210,.1);border:1px solid rgba(0,174,255,.4);border-radius:15px;text-align:center;transition:.3s}.service-card:hover{transform:translateY(-5px);background:rgba(0,150,220,.18)}.service-icon{font-size:45px;margin-bottom:20px}.service-card h3{color:#00aaff;margin-bottom:15px}.service-card p{color:#d9f3ff;line-height:1.6}
+.detailed{background:linear-gradient(rgba(0,26,44,.94),rgba(0,26,44,.97)),url("images/fondo-agua.jpg");background-size:cover}.detailed-layout{display:grid;grid-template-columns:1fr 1fr;min-height:500px;border-radius:20px;overflow:hidden;background:#082d42}.detailed-content{padding:55px 45px}.detailed-content h2{color:#00aaff;font-size:42px;line-height:1.1;margin-bottom:35px}.detailed-content ul{list-style:none}.detailed-content li{font-size:19px;margin-bottom:20px;line-height:1.4}.detailed-content li::before{content:"●";color:#00aaff;margin-right:15px}.detailed-image{background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.6)),url("images/detailing.jpg");background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center}.detailed-image-content{text-align:center}.detailed-image-content img{width:150px;filter:drop-shadow(0 0 15px rgba(0,174,255,.7))}.detailed-image-content h3{font-size:38px;margin-top:15px}.detailed-image-content p{font-size:24px;font-weight:bold;letter-spacing:3px}
+.contact{background:#001b2e}.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}.contact-info h2{font-size:42px;margin-bottom:25px}.contact-info h2 span{color:#00aaff}.contact-info p{color:#c8e7f5;font-size:18px;line-height:1.6;margin-bottom:30px}.contact-item{display:flex;align-items:center;gap:15px;margin-bottom:22px;font-size:18px}.contact-icon{width:45px;height:45px;border:2px solid #00aaff;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#00aaff;font-size:20px}.contact-item a:hover{color:#00aaff}.contact-card{background:linear-gradient(145deg,#063b58,#021c2e);border:1px solid #008fd0;border-radius:20px;padding:40px;text-align:center}.contact-card img{width:180px;max-width:80%;margin-bottom:20px}.contact-card h3{font-size:27px;margin-bottom:10px}.contact-card p{color:#00aaff;font-weight:bold;letter-spacing:2px}
+footer{background:#00121f;border-top:1px solid rgba(0,174,255,.3);text-align:center;padding:30px 20px;color:#9bc8da}footer strong{color:#00aaff}
+@media(max-width:900px){nav{gap:15px}.hero h1{font-size:45px}.price-grid,.services-grid{grid-template-columns:1fr}.package-description{grid-template-columns:1fr}.detailed-layout,.contact-grid{grid-template-columns:1fr}.detailed-image{min-height:350px}}
+@media(max-width:650px){header{position:static}.navbar{height:auto;padding:15px;flex-direction:column;gap:15px}nav{flex-wrap:wrap;justify-content:center}.hero{padding-top:80px}.hero h1{font-size:35px}.hero h2{font-size:20px}.hero p{font-size:16px}.section-title h2{font-size:32px}.detailed-content{padding:35px 25px}.detailed-content h2,.contact-info h2{font-size:32px}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="navbar">
+<a href="#inicio" class="nav-logo">
+<img src="images/logo.png" alt="Hydroflow Logo">
+<span>HYDRO<strong>FLOW</strong></span>
+</a>
+<nav>
+<a href="#inicio">Inicio</a>
+<a href="#paquetes">Paquetes</a>
+<a href="#servicios">Servicios</a>
+<a href="#contacto">Contacto</a>
+<a href="#contacto" class="nav-button">Reservar</a>
+</nav>
+</div>
+</header>
+
+<section class="hero" id="inicio">
+<div class="hero-content">
+<img src="images/logo.png" alt="Hydroflow Detailing" class="hero-logo">
+<h1>HYDRO<span>FLOW</span></h1>
+<h2>DETAILING</h2>
+<p>Dale a tu vehículo el cuidado que merece. Servicios profesionales de detailing a domicilio en el área metro.</p>
+<div class="hero-buttons">
+<a href="#paquetes" class="btn btn-primary">Ver paquetes</a>
+<a href="#contacto" class="btn btn-secondary">Contactarnos</a>
+</div>
+</div>
+</section>
+
+<section class="packages" id="paquetes">
+<div class="section-container">
+<div class="section-title"><h2>Nuestros <span>Paquetes</span></h2><p>Escoge el servicio ideal para tu vehículo.</p></div>
+
+<div class="package-box">
+<div class="package-heading"><h3>– Paquete Hydro –</h3></div>
+<div class="package-description">
+<div class="service-column"><h4>• Lavado exterior</h4><ul>
+<li>Limpieza de aros y guardalodo</li><li>Prelavado</li><li>Limpieza de carrocería con jabón pH balanceado</li>
+</ul></div>
+<div class="service-column"><h4>• Lavado interior</h4><ul>
+<li>Aspirado de alfombras</li><li>Aspirado de asientos</li><li>Limpieza de cristales</li><li>Remoción de polvo</li>
+</ul></div>
+</div>
+
+<div class="price-grid">
+<div class="price-card"><div class="vehicle-label">AUTO</div><img src="images/auto.png" alt="Auto" class="vehicle-image"><span class="starting">DESDE</span><span class="price">$55</span></div>
+<div class="price-card"><div class="vehicle-label">SUV</div><img src="images/suv.png" alt="SUV" class="vehicle-image"><span class="starting">DESDE</span><span class="price">$65</span></div>
+<div class="price-card"><div class="vehicle-label">PICK-UP</div><img src="images/pickup.png" alt="Pick-up" class="vehicle-image"><span class="starting">DESDE</span><span class="price">$75</span></div>
+</div>
+</div>
+
+<div class="package-box">
+<div class="package-heading"><h3>– Paquete Detallado Pro –</h3></div>
+<div class="package-description">
+<div class="service-column"><h4>• Lavado exterior</h4><ul>
+<li>Limpieza de aros</li><li>Limpieza de suspensión y frenos</li><li>Guardalodo</li><li>Carrocería</li><li>Sellador hidrofóbico (3 meses)</li><li>Acondicionamiento de plásticos</li>
+</ul></div>
+<div class="service-column"><h4>• Lavado interior</h4><ul>
+<li>Aspirado de alfombras</li><li>Remoción de polvo en dash, portavasos y paneles</li><li>Limpieza de cristales</li><li>Aspirado de asientos</li><li>Acondicionamiento de plásticos y asientos interiores</li>
+</ul></div>
+</div>
+
+<div class="price-grid">
+<div class="price-card"><div class="vehicle-label">AUTO</div><img src="images/auto.png" alt="Auto" class="vehicle-image"><span class="starting">DESDE</span><span class="price">$75</span></div>
+<div class="price-card"><div class="vehicle-label">SUV</div><img src="images/suv.png" alt="SUV" class="vehicle-image"><span class="starting">DESDE</span><span class="price">$85</span></div>
+<div class="price-card"><div class="vehicle-label">PICK-UP</div><img src="images/pickup.png" alt="Pick-up" class="vehicle-image"><span class="starting">DESDE</span><span class="price">$100</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="services" id="servicios">
+<div class="section-container">
+<div class="section-title"><h2><span>Servicios</span></h2><p>Tratamos cada vehículo con atención al detalle.</p></div>
+<div class="services-grid">
+<div class="service-card"><div class="service-icon">💦</div><h3>Lavado Detallado</h3><p>Limpieza exterior profesional, incluyendo carrocería, aros, guardalodos y diferentes áreas del vehículo.</p></div>
+<div class="service-card"><div class="service-icon">✨</div><h3>Limpieza Interior</h3><p>Limpieza profunda del interior, aspirado de alfombras, asientos, cristales, dash y paneles.</p></div>
+<div class="service-card"><div class="service-icon">🛡️</div><h3>Protección</h3><p>Aplicación de selladores hidrofóbicos para ayudar a proteger la pintura y mantener el vehículo limpio.</p></div>
+</div>
+</div>
+</section>
+
+<section class="detailed">
+<div class="section-container">
+<div class="detailed-layout">
+<div class="detailed-content">
+<h2>SERVICIOS<br>DETALLADOS</h2>
+<ul><li>LAVADO DETALLADO EXTERIOR</li><li>LIMPIEZA PROFUNDA INTERIOR</li><li>PULIDO Y APLICACIÓN DE CERÁMICA</li></ul>
+</div>
+<div class="detailed-image">
+<div class="detailed-image-content">
+<img src="images/logo.png" alt="Hydroflow">
+<h3>HYDROFLOW</h3><p>DETAILING</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="contact" id="contacto">
+<div class="section-container">
+<div class="contact-grid">
+<div class="contact-info">
+<h2>¡Lleva tu auto al <span>próximo nivel!</span></h2>
+<p>Servicios de detailing a domicilio en el Área Metro. Comunícate con nosotros para coordinar tu cita.</p>
+<div class="contact-item"><div class="contact-icon">☎</div><a href="tel:+17876488108">(787)-648-8108</a></div>
+<div class="contact-item"><div class="contact-icon">◎</div><a href="https://instagram.com/hydroflow_detailing" target="_blank">@hydroflow_detailing</a></div>
+<div class="contact-item"><div class="contact-icon">📍</div><span>Servicios a domicilio en Área Metro</span></div>
+</div>
+<div class="contact-card">
+<img src="images/logo.png" alt="Hydroflow Detailing">
+<h3>HYDROFLOW</h3><p>DETAILING</p><br>
+<a href="tel:+17876488108" class="btn btn-primary">Reservar ahora</a>
+</div>
+</div>
+</div>
+</section>
+
+<footer>
+<p>© 2026 <strong>Hydroflow Detailing</strong>. Todos los derechos reservados.</p>
+<p style="margin-top:8px;">Servicios de detailing a domicilio en Área Metro.</p>
+</footer>
+
+</body>
+</html>
