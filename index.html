@@ -4263,12 +4263,52 @@ document
 
     occupiedTimes.push(selectedTime);
 
+    /*
+       ENVIAR NOTIFICACIÓN POR EMAIL
+       La reserva ya fue guardada en Supabase.
+       Si el email falla, NO se cancela la reserva.
+    */
+    let emailNotificationSent=false;
+
+    try{
+        const {data:emailResult,error:emailError}=
+            await supabaseClient.functions.invoke(
+                "notificar-reserva",
+                {
+                    body:reservation
+                }
+            );
+
+        if(emailError){
+            console.error(
+                "Error enviando notificación por email:",
+                emailError
+            );
+        }else if(emailResult?.success===true){
+            emailNotificationSent=true;
+        }else{
+            console.error(
+                "La función no confirmó el envío del email:",
+                emailResult
+            );
+        }
+
+    }catch(emailError){
+        console.error(
+            "Error llamando a notificar-reserva:",
+            emailError
+        );
+    }
+
     showBookingStatus(
         `¡Reserva confirmada! ${formatDate(selectedDate)} a las ${selectedTime}.`
     );
 
     document.getElementById("bookingMessage").textContent=
-        `Servicio: ${selectedService}. Gracias, ${name}.`;
+        emailNotificationSent
+            ? `Servicio: ${selectedService}. Gracias, ${name}. Hemos recibido tu reserva.`
+            : `Servicio: ${selectedService}. Gracias, ${name}. Hemos recibido tu reserva.`;
+
 
     document.getElementById("customerName").value="";
     document.getElementById("customerPhone").value="";
