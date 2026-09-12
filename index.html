@@ -1130,34 +1130,2748 @@ section.active{
 
 
 /* =========================================
-   SUPABASE
+   CALENDARIO
 ========================================= */
 
-const SUPABASE_URL = "https://gqcrbqzhfcybguigkkwa.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_cTV8SNmiDsKvasLivQcc7Q_srxWsClY";
-const { createClient } = window.supabase;
-const supabaseClient = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+.calendar-box{
+
+    width:100%;
+
+    max-width:700px;
+
+    margin:
+        0
+        auto
+        22px;
+
+    padding:
+        12px
+        18px
+        18px;
+
+    background:
+        rgba(
+            10,
+            25,
+            35,
+            .86
+        );
+
+    border:
+        1px solid
+        rgba(
+            170,
+            210,
+            225,
+            .45
+        );
+
+    border-radius:4px;
+}
+
+
+.calendar-header{
+
+    display:grid;
+
+    grid-template-columns:
+        45px
+        1fr
+        45px;
+
+    align-items:center;
+
+    text-align:center;
+
+    margin-bottom:8px;
+}
+
+
+.calendar-header button{
+
+    background:transparent;
+
+    border:none;
+
+    color:white;
+
+    font-size:22px;
+
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+
+.calendar-header button:hover{
+
+    color:#00aaff;
+}
+
+
+.calendar-month{
+
+    font-size:17px;
+
+    font-weight:800;
+}
+
+
+.calendar-weekdays,
+.calendar-days{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(7,1fr);
+
+    text-align:center;
+}
+
+
+.calendar-weekdays div{
+
+    padding:
+        7px
+        2px;
+
+    font-size:14px;
+
+    font-weight:800;
+}
+
+
+.calendar-day{
+
+    min-height:38px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:3px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    margin:2px;
+
+    transition:.2s;
+}
+
+
+.calendar-day:hover:not(.empty):not(.unavailable){
+
+    background:
+        rgba(
+            0,
+            170,
+            255,
+            .22
+        );
+}
+
+
+.calendar-day.empty{
+
+    cursor:default;
+}
+
+
+.calendar-day.unavailable{
+
+    color:#ff2020;
+
+    cursor:not-allowed;
+}
+
+
+.calendar-day.today{
+
+    outline:
+        1px solid
+        rgba(
+            0,
+            170,
+            255,
+            .65
+        );
+}
+
+
+.calendar-day.selected{
+
+    background:#00aaff;
+
+    color:#001b2e;
+
+    font-weight:900;
+
+    box-shadow:
+        0 0 15px
+        rgba(
+            0,
+            170,
+            255,
+            .45
+        );
+}
+
+
+.booking-availability{
+
+    text-align:center;
+
+    margin:
+        12px
+        0
+        15px;
+
+    font-size:16px;
+
+    font-weight:500;
+}
+
+
+.booking-availability strong{
+
+    color:#ffd400;
+}
+
 
 /* =========================================
-   CALENDARIO Y RESERVAS
+   HORARIOS
 ========================================= */
 
-const monthNames=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-const weekDays=["domingo","lunes","martes","miércoles","jueves","viernes","sábado"];
-const timeSlots=["8:00 AM","9:00 AM","10:00 AM","11:00 AM","12:00 PM","1:00 PM","2:00 PM","3:00 PM"];
+.time-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:10px;
+
+    margin-bottom:18px;
+}
+
+
+.time-button{
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .14
+        );
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .06
+        );
+
+    color:white;
+
+    border-radius:8px;
+
+    padding:
+        11px
+        8px;
+
+    font-family:
+        'Montserrat',
+        sans-serif;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+
+.time-button:hover:not(:disabled),
+.time-button.selected{
+
+    border-color:#00aaff;
+
+    background:
+        rgba(
+            0,
+            170,
+            255,
+            .18
+        );
+
+    box-shadow:
+        0 0 10px
+        rgba(
+            0,
+            170,
+            255,
+            .2
+        );
+}
+
+
+.time-button:disabled{
+
+    opacity:.35;
+
+    cursor:not-allowed;
+}
+
+
+/* =========================================
+   SERVICIO DE DETAILING
+========================================= */
+
+.booking-services{
+
+    display:block;
+
+    width:100%;
+}
+
+
+.booking-service-panel{
+
+    background:
+        rgba(
+            10,
+            18,
+            25,
+            .78
+        );
+
+    border-radius:10px;
+
+    padding:15px;
+}
+
+
+.booking-service-group{
+
+    margin-bottom:18px;
+}
+
+
+.booking-service-group:last-child{
+
+    margin-bottom:0;
+}
+
+
+.booking-service-heading{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding-bottom:9px;
+
+    margin-bottom:10px;
+
+    border-bottom:
+        2px solid
+        rgba(
+            210,
+            225,
+            230,
+            .65
+        );
+
+    box-shadow:
+        0 3px 8px
+        rgba(
+            255,
+            255,
+            255,
+            .12
+        );
+
+    font-size:16px;
+
+    font-weight:800;
+}
+
+
+.booking-service-heading span{
+
+    color:#00ff82;
+
+    font-size:20px;
+}
+
+
+.service-options{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(5,1fr);
+
+    gap:8px;
+}
+
+
+.service-option{
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .12
+        );
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .055
+        );
+
+    color:#f4f8fa;
+
+    border-radius:6px;
+
+    padding:
+        10px
+        7px;
+
+    font-family:
+        'Montserrat',
+        sans-serif;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+
+.service-option:hover,
+.service-option.selected{
+
+    border-color:#00aaff;
+
+    background:
+        rgba(
+            0,
+            170,
+            255,
+            .18
+        );
+
+    color:white;
+}
+
+
+/* =========================================
+   RESUMEN
+========================================= */
+
+.booking-summary{
+
+    margin-top:20px;
+
+    padding:18px;
+
+    border:
+        1px solid
+        rgba(
+            0,
+            174,
+            255,
+            .35
+        );
+
+    border-radius:12px;
+
+    background:
+        rgba(
+            0,
+            80,
+            120,
+            .16
+        );
+
+    text-align:center;
+}
+
+
+.booking-summary p{
+
+    margin-bottom:12px;
+
+    color:#c7e8f7;
+
+    font-size:14px;
+}
+
+
+.booking-summary strong{
+
+    color:white;
+}
+
+
+.booking-continue{
+
+    border:
+        2px solid
+        #00a8f0;
+
+    background:transparent;
+
+    color:white;
+
+    box-shadow:
+
+        0 0 10px
+        rgba(
+            0,
+            168,
+            240,
+            .55
+        ),
+
+        0 0 25px
+        rgba(
+            0,
+            168,
+            240,
+            .22
+        );
+}
+
+
+.booking-continue:hover:not(:disabled){
+
+    background:#00a8f0;
+
+    box-shadow:
+
+        0 0 15px
+        rgba(
+            0,
+            168,
+            240,
+            .8
+        ),
+
+        0 0 30px
+        rgba(
+            0,
+            168,
+            240,
+            .4
+        );
+
+    transform:
+        translateY(-3px);
+}
+
+
+.booking-continue:disabled{
+
+    opacity:.35;
+
+    cursor:not-allowed;
+}
+
+
+.booking-message{
+
+    margin-top:12px;
+
+    color:#00ff82;
+
+    font-size:13px;
+
+    font-weight:600;
+}
+
+
+/* =========================================
+   CONTACTO
+========================================= */
+
+.contact{
+
+    background:#001b2e;
+}
+
+
+.contact-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:50px;
+
+    align-items:center;
+
+    min-height:65vh;
+}
+
+
+.contact-info h2{
+
+    font-family:
+        'Bebas Neue',
+        sans-serif;
+
+    font-size:60px;
+
+    font-weight:400;
+
+    line-height:1;
+
+    letter-spacing:2px;
+
+    margin-bottom:25px;
+}
+
+
+.contact-info h2 span{
+
+    color:#00aaff;
+}
+
+
+.contact-info>p{
+
+    color:#c8e7f5;
+
+    font-size:16px;
+
+    font-weight:500;
+
+    line-height:1.7;
+
+    margin-bottom:30px;
+}
+
+
+.contact-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    margin-bottom:22px;
+
+    font-size:17px;
+
+    font-weight:600;
+}
+
+
+.contact-icon{
+
+    width:45px;
+
+    height:45px;
+
+    border:
+        2px solid
+        #00aaff;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#00aaff;
+
+    font-size:20px;
+
+    flex-shrink:0;
+}
+
+
+.contact-item a:hover{
+
+    color:#00aaff;
+}
+
+
+.contact-card{
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #063b58,
+            #021c2e
+        );
+
+    border:
+        1px solid
+        #008fd0;
+
+    border-radius:20px;
+
+    padding:40px;
+
+    text-align:center;
+}
+
+
+.contact-card img{
+
+    width:180px;
+
+    max-width:80%;
+
+    margin-bottom:20px;
+}
+
+
+.contact-card h3{
+
+    font-family:
+        'Bebas Neue',
+        sans-serif;
+
+    font-size:42px;
+
+    font-weight:400;
+
+    letter-spacing:3px;
+
+    margin-bottom:5px;
+}
+
+
+.contact-card p{
+
+    font-family:
+        'Bebas Neue',
+        sans-serif;
+
+    color:#00aaff;
+
+    font-size:25px;
+
+    letter-spacing:4px;
+}
+
+
+/* =========================================
+   FLECHAS
+========================================= */
+
+.screen-navigation{
+
+    position:fixed;
+
+    right:25px;
+
+    bottom:25px;
+
+    z-index:1100;
+
+    display:flex;
+
+    gap:10px;
+}
+
+
+.screen-arrow{
+
+    width:45px;
+
+    height:45px;
+
+    border:
+        1px solid
+        rgba(
+            0,
+            174,
+            255,
+            .6
+        );
+
+    border-radius:50%;
+
+    background:
+        rgba(
+            0,
+            20,
+            35,
+            .9
+        );
+
+    color:white;
+
+    font-size:24px;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+
+.screen-arrow:hover{
+
+    background:#00a8f0;
+
+    transform:
+        translateY(-3px);
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media(max-width:1100px){
+
+    .services-grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .service-options{
+
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+}
+
+
+@media(max-width:900px){
+
+    nav{
+
+        gap:15px;
+    }
+
+
+    .price-grid{
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .services-grid{
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .package-description{
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .detailed-layout{
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .detailed-image{
+
+        min-height:350px;
+    }
+
+
+    .contact-grid{
+
+        grid-template-columns:
+            1fr;
+    }
+
+}
+
+
+@media(max-width:650px){
+
+    header{
+
+        height:auto;
+    }
+
+
+    .navbar{
+
+        height:auto;
+
+        min-height:75px;
+
+        padding:
+            10px
+            15px;
+
+        flex-direction:column;
+
+        gap:10px;
+    }
+
+
+    .nav-logo span{
+
+        display:none;
+    }
+
+
+    nav{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+        gap:
+            10px
+            15px;
+    }
+
+
+    nav a{
+
+        font-size:12px;
+    }
+
+
+    .nav-button{
+
+        padding:
+            9px
+            15px;
+    }
+
+
+    section{
+
+        padding-top:145px;
+
+        padding-bottom:75px;
+    }
+
+
+    #inicio{
+
+        padding-top:120px;
+    }
+
+
+    .hero-logo{
+
+        width:320px;
+
+        max-width:80vw;
+
+        margin-bottom:25px;
+    }
+
+
+    .hero p{
+
+        font-size:15px;
+    }
+
+
+    .section-title h2{
+
+        font-size:45px;
+    }
+
+
+    .package-heading h3{
+
+        font-size:32px;
+    }
+
+
+    .detailed-content{
+
+        padding:
+            35px
+            25px;
+    }
+
+
+    .detailed-content h2{
+
+        font-size:48px;
+    }
+
+
+    .contact-info h2{
+
+        font-size:48px;
+    }
+
+
+    .screen-navigation{
+
+        right:12px;
+
+        bottom:12px;
+    }
+
+
+    .booking-title h2{
+
+        font-size:34px;
+
+        letter-spacing:3px;
+    }
+
+
+    .calendar-box{
+
+        padding:
+            10px
+            8px
+            12px;
+    }
+
+
+    .calendar-day{
+
+        min-height:34px;
+
+        font-size:13px;
+    }
+
+
+    .calendar-weekdays div{
+
+        font-size:11px;
+    }
+
+
+    .time-grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+
+    .service-options{
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+
+/* RESERVA CONECTADA */
+.time-button.booked{background:rgba(120,120,120,.18);border-color:rgba(255,255,255,.08);color:#9aa7ad;text-decoration:line-through;cursor:not-allowed;opacity:.45;}
+.booking-form{margin-top:18px;padding:18px;border-top:1px solid rgba(0,174,255,.3);}
+.booking-form h3{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;margin-bottom:14px;color:#00aaff;}
+.booking-form input{width:100%;margin:6px 0;padding:12px 14px;border:1px solid rgba(255,255,255,.18);border-radius:7px;background:rgba(0,0,0,.25);color:white;font-family:'Montserrat',sans-serif;font-size:14px;outline:none;}
+.booking-form input:focus{border-color:#00aaff;}
+.booking-form input::placeholder{color:#9db2bd;}
+.booking-form button{margin-top:10px;}
+.booking-status{margin-top:12px;font-size:13px;font-weight:600;}
+.booking-status.error{color:#ff5b5b;}
+.booking-status.success{color:#00ff82;}
+
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
+<header>
+
+<div class="navbar">
+
+
+<a
+href="#inicio"
+data-page="inicio"
+class="nav-logo"
+>
+
+<img
+src="logo.png"
+alt="Hydroflow Logo"
+>
+
+<span>
+
+HYDROFLOW
+<strong>DETAILING</strong>
+
+</span>
+
+</a>
+
+
+<nav>
+
+
+<a
+href="#inicio"
+data-page="inicio"
+>
+Inicio
+</a>
+
+
+<a
+href="#paquetes"
+data-page="paquetes"
+>
+Paquetes
+</a>
+
+
+<a
+href="#servicios"
+data-page="servicios"
+>
+Servicios
+</a>
+
+
+<a
+href="#reservar"
+data-page="reservar"
+>
+Reservar
+</a>
+
+
+<a
+href="#contacto"
+data-page="contacto"
+>
+Contacto
+</a>
+
+
+<a
+href="#reservar"
+data-page="reservar"
+class="nav-button"
+>
+Reservar
+</a>
+
+
+</nav>
+
+</div>
+
+</header>
+
+
+<!-- =========================================
+     INICIO
+========================================= -->
+
+<section
+id="inicio"
+class="hero active"
+>
+
+
+<div class="hero-content">
+
+
+<img
+src="logo.png"
+alt="Hydroflow Detailing"
+class="hero-logo"
+>
+
+
+<p>
+
+Dale a tu vehículo el cuidado
+que merece. Servicios profesionales
+de detailing a domicilio en el
+Área Metro.
+
+</p>
+
+
+<div class="hero-buttons">
+
+
+<a
+href="#reservar"
+data-page="reservar"
+class="btn btn-reservar"
+>
+
+Reservar
+
+</a>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     PAQUETES
+========================================= -->
+
+<section
+id="paquetes"
+class="packages"
+>
+
+
+<div class="section-container">
+
+
+<div class="section-title">
+
+
+<h2>
+
+Nuestros
+<span>Paquetes</span>
+
+</h2>
+
+
+<p>
+
+Escoge el servicio ideal
+para tu vehículo.
+
+</p>
+
+
+</div>
+
+
+<!-- PAQUETE HYDRO -->
+
+<div class="package-box">
+
+
+<div class="package-heading">
+
+<h3>
+
+– Paquete Hydro –
+
+</h3>
+
+</div>
+
+
+<div class="package-description">
+
+
+<div class="service-column">
+
+
+<h4>
+
+• Lavado exterior
+
+</h4>
+
+
+<ul>
+
+
+<li>
+
+Limpieza de aros
+y guardalodo
+
+</li>
+
+
+<li>
+
+Prelavado
+
+</li>
+
+
+<li>
+
+Limpieza de carrocería
+con jabón pH balanceado
+
+</li>
+
+
+</ul>
+
+
+</div>
+
+
+<div class="service-column">
+
+
+<h4>
+
+• Lavado interior
+
+</h4>
+
+
+<ul>
+
+
+<li>
+
+Aspirado de alfombras
+
+</li>
+
+
+<li>
+
+Aspirado de asientos
+
+</li>
+
+
+<li>
+
+Limpieza de cristales
+
+</li>
+
+
+<li>
+
+Remoción de polvo
+
+</li>
+
+
+</ul>
+
+
+</div>
+
+
+</div>
+
+
+<div class="price-grid">
+
+
+<div class="price-card">
+
+
+<div class="vehicle-label">
+
+AUTO
+
+</div>
+
+
+<img
+src="auto.png"
+alt="Auto"
+class="vehicle-image"
+>
+
+
+<span class="starting">
+
+DESDE
+
+</span>
+
+
+<span class="price">
+
+$55
+
+</span>
+
+
+</div>
+
+
+<div class="price-card">
+
+
+<div class="vehicle-label">
+
+SUV
+
+</div>
+
+
+<img
+src="suv.png"
+alt="SUV"
+class="vehicle-image"
+>
+
+
+<span class="starting">
+
+DESDE
+
+</span>
+
+
+<span class="price">
+
+$65
+
+</span>
+
+
+</div>
+
+
+<div class="price-card">
+
+
+<div class="vehicle-label">
+
+PICK-UP
+
+</div>
+
+
+<img
+src="pickup.png"
+alt="Pick-up"
+class="vehicle-image"
+>
+
+
+<span class="starting">
+
+DESDE
+
+</span>
+
+
+<span class="price">
+
+$75
+
+</span>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+<!-- PAQUETE PRO -->
+
+<div class="package-box">
+
+
+<div class="package-heading">
+
+<h3>
+
+– Paquete Detallado Pro –
+
+</h3>
+
+</div>
+
+
+<div class="package-description">
+
+
+<div class="service-column">
+
+
+<h4>
+
+• Lavado exterior
+
+</h4>
+
+
+<ul>
+
+
+<li>
+
+Limpieza de aros
+
+</li>
+
+
+<li>
+
+Limpieza de suspensión
+y frenos
+
+</li>
+
+
+<li>
+
+Guardalodo
+
+</li>
+
+
+<li>
+
+Carrocería
+
+</li>
+
+
+<li>
+
+Sellador hidrofóbico
+(3 meses)
+
+</li>
+
+
+<li>
+
+Acondicionamiento
+de plásticos
+
+</li>
+
+
+</ul>
+
+
+</div>
+
+
+<div class="service-column">
+
+
+<h4>
+
+• Lavado interior
+
+</h4>
+
+
+<ul>
+
+
+<li>
+
+Aspirado de alfombras
+
+</li>
+
+
+<li>
+
+Remoción de polvo en dash,
+portavasos y paneles
+
+</li>
+
+
+<li>
+
+Limpieza de cristales
+
+</li>
+
+
+<li>
+
+Aspirado de asientos
+
+</li>
+
+
+<li>
+
+Acondicionamiento
+de plásticos y asientos
+interiores
+
+</li>
+
+
+</ul>
+
+
+</div>
+
+
+</div>
+
+
+<div class="price-grid">
+
+
+<div class="price-card">
+
+
+<div class="vehicle-label">
+
+AUTO
+
+</div>
+
+
+<img
+src="auto.png"
+alt="Auto"
+class="vehicle-image"
+>
+
+
+<span class="starting">
+
+DESDE
+
+</span>
+
+
+<span class="price">
+
+$75
+
+</span>
+
+
+</div>
+
+
+<div class="price-card">
+
+
+<div class="vehicle-label">
+
+SUV
+
+</div>
+
+
+<img
+src="suv.png"
+alt="SUV"
+class="vehicle-image"
+>
+
+
+<span class="starting">
+
+DESDE
+
+</span>
+
+
+<span class="price">
+
+$85
+
+</span>
+
+
+</div>
+
+
+<div class="price-card">
+
+
+<div class="vehicle-label">
+
+PICK-UP
+
+</div>
+
+
+<img
+src="pickup.png"
+alt="Pick-up"
+class="vehicle-image"
+>
+
+
+<span class="starting">
+
+DESDE
+
+</span>
+
+
+<span class="price">
+
+$100
+
+</span>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     SERVICIOS
+========================================= -->
+
+<section
+id="servicios"
+class="services"
+>
+
+
+<div class="section-container">
+
+
+<div class="section-title">
+
+
+<h2>
+
+<span>Servicios</span>
+
+</h2>
+
+
+<p>
+
+Tratamos cada vehículo
+con atención al detalle.
+
+</p>
+
+
+</div>
+
+
+<div class="services-grid">
+
+
+<!-- LAVADO -->
+
+<div class="service-card">
+
+
+<div class="service-icon">
+
+💦
+
+</div>
+
+
+<h3>
+
+Lavado Detallado
+
+</h3>
+
+
+<p>
+
+Limpieza exterior profesional,
+incluyendo carrocería, aros,
+guardalodos y diferentes áreas
+del vehículo.
+
+</p>
+
+
+</div>
+
+
+<!-- INTERIOR -->
+
+<div class="service-card">
+
+
+<div class="service-icon">
+
+✨
+
+</div>
+
+
+<h3>
+
+Limpieza Interior
+
+</h3>
+
+
+<p>
+
+Limpieza profunda del interior,
+aspirado de alfombras, asientos,
+cristales, dash y paneles.
+
+</p>
+
+
+</div>
+
+
+<!-- PROTECCIÓN -->
+
+<div class="service-card">
+
+
+<div class="service-icon">
+
+🛡️
+
+</div>
+
+
+<h3>
+
+Protección
+
+</h3>
+
+
+<p>
+
+Aplicación de selladores
+hidrofóbicos para ayudar
+a proteger la pintura.
+
+</p>
+
+
+</div>
+
+
+<!-- REMOCIÓN DE BREA -->
+
+<div class="service-card">
+
+
+<div class="service-icon">
+
+🧽
+
+</div>
+
+
+<h3>
+
+Remoción de Brea
+
+</h3>
+
+
+<p>
+
+Eliminación de brea y residuos
+adheridos a la pintura del
+vehículo para mantener una
+superficie limpia y uniforme.
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+<!-- SERVICIOS DETALLADOS -->
+
+<div class="detailed-layout">
+
+
+<div class="detailed-content">
+
+
+<h2>
+
+SERVICIOS
+<br>
+DETALLADOS
+
+</h2>
+
+
+<ul>
+
+
+<li>
+
+LAVADO DETALLADO EXTERIOR
+
+</li>
+
+
+<li>
+
+LIMPIEZA PROFUNDA INTERIOR
+
+</li>
+
+
+<li>
+
+PULIDO Y APLICACIÓN
+DE CERÁMICA
+
+</li>
+
+
+</ul>
+
+
+</div>
+
+
+<div class="detailed-image">
+
+
+<div class="detailed-image-content">
+
+
+<img
+src="logo.png"
+alt="Hydroflow"
+>
+
+
+<h3>
+
+HYDROFLOW
+
+</h3>
+
+
+<p>
+
+DETAILING
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     RESERVAR
+========================================= -->
+
+<section
+id="reservar"
+class="booking"
+>
+
+
+<div class="booking-container">
+
+
+<a
+href="#inicio"
+data-page="inicio"
+class="booking-back"
+>
+
+← Back
+
+</a>
+
+
+<div class="booking-title">
+
+
+<h2>
+
+SELECCIONA EL
+<span>DÍA</span>
+DE TU CITA
+
+</h2>
+
+
+<div class="title-line"></div>
+
+
+</div>
+
+
+<!-- CALENDARIO -->
+
+<div class="calendar-box">
+
+
+<div class="calendar-header">
+
+
+<button
+id="prevMonth"
+type="button"
+>
+
+‹
+
+</button>
+
+
+<div
+id="calendarMonth"
+class="calendar-month"
+></div>
+
+
+<button
+id="nextMonth"
+type="button"
+>
+
+›
+
+</button>
+
+
+</div>
+
+
+<div class="calendar-weekdays">
+
+
+<div>Lun</div>
+<div>Mar</div>
+<div>Mié</div>
+<div>Jue</div>
+<div>Vie</div>
+<div>Sáb</div>
+<div>Dom</div>
+
+
+</div>
+
+
+<div
+id="calendarDays"
+class="calendar-days"
+></div>
+
+
+</div>
+
+
+<div class="booking-availability">
+
+
+DISPONIBILIDAD PARA:
+
+
+<strong id="selectedDateText">
+
+selecciona un día
+
+</strong>
+
+
+</div>
+
+
+<!-- HORARIOS -->
+
+<div
+id="timeGrid"
+class="time-grid"
+></div>
+
+
+<!-- SERVICIO -->
+
+<div class="booking-services">
+
+
+<div class="booking-service-panel">
+
+
+<div class="booking-service-group">
+
+
+<div class="booking-service-heading">
+
+
+<span>🚗</span>
+
+SERVICIO DE DETAILING
+
+
+</div>
+
+
+<div class="service-options">
+
+
+<button
+class="service-option"
+data-service="Basic Detailing"
+>
+
+Basic Detailing
+
+</button>
+
+
+<button
+class="service-option"
+data-service="Full Detailing"
+>
+
+Full Detailing
+
+</button>
+
+
+<button
+class="service-option"
+data-service="Brillo a Máquina"
+>
+
+Brillo a Máquina
+
+</button>
+
+
+<button
+class="service-option"
+data-service="Mantenimiento Cerámico"
+>
+
+Mantenimiento Cerámico
+
+</button>
+
+
+<button
+class="service-option"
+data-service="Shampoo Master"
+>
+
+Shampoo Master
+
+</button>
+
+
+<button
+class="service-option"
+data-service="Sellado de Pintura"
+>
+
+Sellado de Pintura
+
+</button>
+
+
+<button
+class="service-option"
+data-service="Interior Conditioner"
+>
+
+Interior Conditioner
+
+</button>
+
+
+<button
+class="service-option"
+data-service="Cerámica 1 Año"
+>
+
+Cerámica 1 Año
+
+</button>
+
+
+<button
+class="service-option"
+data-service="Cerámica 3 Años"
+>
+
+Cerámica 3 Años
+
+</button>
+
+
+<button
+class="service-option"
+data-service="Cerámica 5 Años"
+>
+
+Cerámica 5 Años
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+<!-- RESUMEN -->
+
+<div class="booking-summary">
+
+
+<p>
+
+<strong>
+
+Tu cita:
+
+</strong>
+
+
+<span id="bookingSummary">
+
+Selecciona día, hora y servicio.
+
+</span>
+
+
+</p>
+
+
+<button
+id="bookingContinue"
+class="btn booking-continue"
+type="button"
+disabled
+>
+
+CONTINUAR
+
+</button>
+
+
+<div
+id="bookingMessage"
+class="booking-message"
+></div>
+
+<div id="bookingForm" class="booking-form" style="display:none;">
+<h3>DATOS PARA TU RESERVA</h3>
+<input id="customerName" type="text" placeholder="Nombre completo" autocomplete="name" required>
+<input id="customerPhone" type="tel" placeholder="Teléfono" autocomplete="tel" required>
+<input id="customerEmail" type="email" placeholder="Email (opcional)" autocomplete="email">
+<button id="confirmBooking" class="btn booking-continue" type="button">CONFIRMAR RESERVA</button>
+<div id="bookingStatus" class="booking-status"></div>
+</div>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     CONTACTO
+========================================= -->
+
+<section
+id="contacto"
+class="contact"
+>
+
+
+<div class="section-container">
+
+
+<div class="contact-grid">
+
+
+<div class="contact-info">
+
+
+<h2>
+
+¡Lleva tu auto al
+
+<span>
+
+próximo nivel!
+
+</span>
+
+</h2>
+
+
+<p>
+
+Servicios de detailing
+a domicilio en el Área Metro.
+Comunícate con nosotros
+para coordinar tu cita.
+
+</p>
+
+
+<div class="contact-item">
+
+
+<div class="contact-icon">
+
+☎
+
+</div>
+
+
+<a href="tel:+17876488108">
+
+(787)-648-8108
+
+</a>
+
+
+</div>
+
+
+<div class="contact-item">
+
+
+<div class="contact-icon">
+
+◎
+
+</div>
+
+
+<a
+href="https://instagram.com/hydroflow_detailing"
+target="_blank"
+>
+
+@hydroflow_detailing
+
+</a>
+
+
+</div>
+
+
+<div class="contact-item">
+
+
+<div class="contact-icon">
+
+📍
+
+</div>
+
+
+<span>
+
+Servicios a domicilio
+en Área Metro
+
+</span>
+
+
+</div>
+
+
+</div>
+
+
+<div class="contact-card">
+
+
+<img
+src="logo.png"
+alt="Hydroflow Detailing"
+>
+
+
+<h3>
+
+HYDROFLOW
+
+</h3>
+
+
+<p>
+
+DETAILING
+
+</p>
+
+
+<br>
+
+
+<a
+href="#reservar"
+data-page="reservar"
+class="btn btn-primary"
+>
+
+Reservar ahora
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     FLECHAS
+========================================= -->
+
+<div class="screen-navigation">
+
+
+<button
+class="screen-arrow"
+id="prevPage"
+>
+
+‹
+
+</button>
+
+
+<button
+class="screen-arrow"
+id="nextPage"
+>
+
+›
+
+</button>
+
+
+</div>
+
+
+<script>
+
+/* =========================================
+   NAVEGACIÓN
+========================================= */
+
+const pages=[
+    "inicio",
+    "paquetes",
+    "servicios",
+    "reservar",
+    "contacto"
+];
+
+
+function showPage(
+    page,
+    updateURL=true
+){
+
+    if(!pages.includes(page)){
+
+        page="inicio";
+
+    }
+
+
+    document
+    .querySelectorAll("section")
+    .forEach(section=>{
+
+        section.classList.remove(
+            "active"
+        );
+
+    });
+
+
+    const target=
+        document.getElementById(page);
+
+
+    if(target){
+
+        target.classList.add(
+            "active"
+        );
+
+        target.scrollTop=0;
+
+    }
+
+
+    document
+    .querySelectorAll("[data-page]")
+    .forEach(link=>{
+
+        link.classList.toggle(
+
+            "active",
+
+            link.dataset.page===page
+
+        );
+
+    });
+
+
+    if(
+        updateURL &&
+        location.hash!=="#"+page
+    ){
+
+        history.pushState(
+
+            {page:page},
+
+            "",
+
+            "#"+page
+
+        );
+
+    }
+
+}
+
+
+/* LINKS */
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        const link=
+            event.target.closest(
+                "[data-page]"
+            );
+
+
+        if(!link)return;
+
+
+        event.preventDefault();
+
+
+        showPage(
+            link.dataset.page
+        );
+
+    }
+);
+
+
+/* =========================================
+   INDEX ACTUAL
+========================================= */
+
+function currentPageIndex(){
+
+    const current=
+        location.hash.replace(
+            "#",
+            ""
+        );
+
+
+    const index=
+        pages.indexOf(current);
+
+
+    return index>=0
+        ?index
+        :0;
+
+}
+
+
+/* =========================================
+   ANTERIOR
+========================================= */
+
+document
+.getElementById("prevPage")
+.addEventListener(
+    "click",
+    function(){
+
+        const index=
+            currentPageIndex();
+
+
+        const previous=
+            (
+                index-1+pages.length
+            )%pages.length;
+
+
+        showPage(
+            pages[previous]
+        );
+
+    }
+);
+
+
+/* =========================================
+   SIGUIENTE
+========================================= */
+
+document
+.getElementById("nextPage")
+.addEventListener(
+    "click",
+    function(){
+
+        const index=
+            currentPageIndex();
+
+
+        const next=
+            (
+                index+1
+            )%pages.length;
+
+
+        showPage(
+            pages[next]
+        );
+
+    }
+);
+
+
+/* =========================================
+   CALENDARIO + SUPABASE
+========================================= */
+
+const SUPABASE_URL="https://gqcrbqzhfcybguigkkwa.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY="sb_publishable_cTV8SNmiDsKvasLivQcc7Q_srxWsClY";
+
+const supabaseClient=
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+const monthNames=[
+    "Enero","Febrero","Marzo","Abril","Mayo","Junio",
+    "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"
+];
+
+const weekDays=[
+    "domingo","lunes","martes","miércoles",
+    "jueves","viernes","sábado"
+];
+
+const timeSlots=[
+    "8:00 AM","9:00 AM","10:00 AM","11:00 AM",
+    "12:00 PM","1:00 PM","2:00 PM","3:00 PM"
+];
 
 let calendarDate=new Date();
 calendarDate.setDate(1);
+
 let selectedDate=null;
 let selectedTime=null;
 let selectedService=null;
 let occupiedTimes=[];
 
 function formatDate(date){
-    return `${weekDays[date.getDay()]}, ${monthNames[date.getMonth()].toLowerCase()} ${date.getDate()}, ${date.getFullYear()}`;
+    return `${weekDays[date.getDay()]}, ${
+        monthNames[date.getMonth()].toLowerCase()
+    } ${date.getDate()}, ${date.getFullYear()}`;
 }
 
-function toDatabaseDate(date){
+function dateToDatabase(date){
     const year=date.getFullYear();
     const month=String(date.getMonth()+1).padStart(2,"0");
     const day=String(date.getDate()).padStart(2,"0");
@@ -1167,53 +3881,29 @@ function toDatabaseDate(date){
 function isPastDate(date){
     const today=new Date();
     today.setHours(0,0,0,0);
+
     const compare=new Date(date);
     compare.setHours(0,0,0,0);
+
     return compare<today;
 }
 
-function isSunday(date){return date.getDay()===0;}
-
-function showBookingStatus(message,isError=false){
-    const element=document.getElementById("bookingStatus");
-    element.textContent=message;
-    element.style.color=isError ? "#ff7777" : "#00ff82";
-}
-
-function showBookingMessage(message,isError=false){
-    const element=document.getElementById("bookingMessage");
-    element.textContent=message;
-    element.style.color=isError ? "#ff7777" : "#00ff82";
-}
-
-async function loadOccupiedTimes(){
-    occupiedTimes=[];
-    if(!selectedDate){renderTimes();return;}
-
-    const {data,error}=await supabaseClient.rpc("obtener_horas_ocupadas",{p_fecha:toDatabaseDate(selectedDate)});
-
-    if(error){
-        console.error("Error consultando disponibilidad:",error);
-        showBookingMessage("No pudimos consultar la disponibilidad. Intenta nuevamente.",true);
-        renderTimes();
-        return;
-    }
-
-    occupiedTimes=(data||[]).map(row=>row.hora);
-
-    if(selectedTime && occupiedTimes.includes(selectedTime)) selectedTime=null;
-    renderTimes();
-    updateBookingSummary();
+function isSunday(date){
+    return date.getDay()===0;
 }
 
 function renderCalendar(){
     const month=calendarDate.getMonth();
     const year=calendarDate.getFullYear();
-    document.getElementById("calendarMonth").textContent=`${monthNames[month]} ${year}`;
+
+    document.getElementById("calendarMonth").textContent=
+        `${monthNames[month]} ${year}`;
+
     const daysContainer=document.getElementById("calendarDays");
     daysContainer.innerHTML="";
+
     const firstDay=new Date(year,month,1).getDay();
-    const mondayIndex=firstDay===0?6:firstDay-1;
+    const mondayIndex=firstDay===0 ? 6 : firstDay-1;
     const daysInMonth=new Date(year,month+1,0).getDate();
 
     for(let i=0;i<mondayIndex;i++){
@@ -1225,22 +3915,72 @@ function renderCalendar(){
     for(let day=1;day<=daysInMonth;day++){
         const date=new Date(year,month,day);
         const cell=document.createElement("div");
+
         cell.className="calendar-day";
         cell.textContent=day;
+
         const today=new Date();
 
-        if(date.getDate()===today.getDate()&&date.getMonth()===today.getMonth()&&date.getFullYear()===today.getFullYear()) cell.classList.add("today");
+        if(
+            date.getDate()===today.getDate() &&
+            date.getMonth()===today.getMonth() &&
+            date.getFullYear()===today.getFullYear()
+        ){
+            cell.classList.add("today");
+        }
 
-        if(isPastDate(date)||isSunday(date)){
+        if(isPastDate(date) || isSunday(date)){
             cell.classList.add("unavailable");
-            cell.title=isSunday(date)?"No hay citas los domingos":"Fecha no disponible";
+            cell.title=isSunday(date)
+                ? "No hay citas los domingos"
+                : "Fecha no disponible";
         }else{
             cell.addEventListener("click",()=>selectDate(date));
         }
 
-        if(selectedDate&&date.getDate()===selectedDate.getDate()&&date.getMonth()===selectedDate.getMonth()&&date.getFullYear()===selectedDate.getFullYear()) cell.classList.add("selected");
+        if(
+            selectedDate &&
+            date.getDate()===selectedDate.getDate() &&
+            date.getMonth()===selectedDate.getMonth() &&
+            date.getFullYear()===selectedDate.getFullYear()
+        ){
+            cell.classList.add("selected");
+        }
+
         daysContainer.appendChild(cell);
     }
+}
+
+async function loadOccupiedTimes(){
+    occupiedTimes=[];
+
+    if(!selectedDate){
+        renderTimes();
+        return;
+    }
+
+    const selectedDatabaseDate=dateToDatabase(selectedDate);
+
+    const {data,error}=await supabaseClient.rpc(
+        "obtener_horas_ocupadas",
+        {p_fecha:selectedDatabaseDate}
+    );
+
+    if(error){
+        console.error("Error consultando disponibilidad:",error);
+        showBookingStatus(
+            "No se pudo consultar la disponibilidad. Intenta nuevamente.",
+            true
+        );
+        renderTimes();
+        return;
+    }
+
+    occupiedTimes=(data||[])
+        .map(row=>row.hora)
+        .filter(Boolean);
+
+    renderTimes();
 }
 
 function renderTimes(){
@@ -1249,42 +3989,64 @@ function renderTimes(){
 
     timeSlots.forEach(time=>{
         const button=document.createElement("button");
+
         button.type="button";
         button.className="time-button";
-        button.textContent=time;
-        const occupied=occupiedTimes.includes(time);
 
-        if(occupied){
+        const isBooked=occupiedTimes.includes(time);
+
+        if(isBooked){
+            button.textContent="OCUPADO";
+            button.title=`${time} no está disponible`;
             button.disabled=true;
-            button.classList.add("occupied");
-            button.textContent=`${time} • OCUPADO`;
-        }else if(!selectedDate){
-            button.disabled=true;
+            button.classList.add("booked");
+
+            if(selectedTime===time){
+                selectedTime=null;
+            }
         }else{
-            button.addEventListener("click",()=>{
-                selectedTime=time;
-                document.querySelectorAll(".time-button").forEach(b=>b.classList.remove("selected"));
-                button.classList.add("selected");
-                showBookingMessage("");
-                updateBookingSummary();
-            });
+            button.textContent=time;
+
+            if(!selectedDate){
+                button.disabled=true;
+            }else{
+                button.addEventListener("click",()=>{
+                    selectedTime=time;
+
+                    document
+                        .querySelectorAll(".time-button")
+                        .forEach(b=>b.classList.remove("selected"));
+
+                    button.classList.add("selected");
+                    updateBookingSummary();
+                    hideCustomerForm();
+                });
+            }
         }
 
-        if(selectedTime===time&&!occupied) button.classList.add("selected");
+        if(selectedTime===time && !isBooked){
+            button.classList.add("selected");
+        }
+
         grid.appendChild(button);
     });
+
+    updateBookingSummary();
 }
 
 async function selectDate(date){
     selectedDate=new Date(date);
     selectedTime=null;
-    occupiedTimes=[];
-    document.getElementById("selectedDateText").textContent=formatDate(selectedDate);
-    document.getElementById("customerForm").classList.remove("visible");
-    showBookingMessage("");
+
+    document.getElementById("selectedDateText").textContent=
+        formatDate(selectedDate);
+
+    hideCustomerForm();
+    clearBookingStatus();
+
     renderCalendar();
-    renderTimes();
     updateBookingSummary();
+
     await loadOccupiedTimes();
 }
 
@@ -1292,92 +4054,232 @@ function updateBookingSummary(){
     const summary=document.getElementById("bookingSummary");
     const continueButton=document.getElementById("bookingContinue");
 
-    if(selectedDate&&selectedTime&&selectedService){
-        summary.textContent=`${formatDate(selectedDate)} • ${selectedTime} • ${selectedService}`;
+    if(selectedDate && selectedTime && selectedService){
+        summary.textContent=
+            `${formatDate(selectedDate)} • ${selectedTime} • ${selectedService}`;
         continueButton.disabled=false;
     }else{
         const parts=[];
-        if(selectedDate)parts.push(formatDate(selectedDate));
-        if(selectedTime)parts.push(selectedTime);
-        if(selectedService)parts.push(selectedService);
-        summary.textContent=parts.length?parts.join(" • "):"Selecciona día, hora y servicio.";
+
+        if(selectedDate) parts.push(formatDate(selectedDate));
+        if(selectedTime) parts.push(selectedTime);
+        if(selectedService) parts.push(selectedService);
+
+        summary.textContent=parts.length
+            ? parts.join(" • ")
+            : "Selecciona día, hora y servicio.";
+
         continueButton.disabled=true;
     }
 }
 
-document.getElementById("prevMonth").addEventListener("click",()=>{
+function hideCustomerForm(){
+    const form=document.getElementById("bookingForm");
+    if(form) form.style.display="none";
+
+    clearBookingStatus();
+}
+
+function showBookingStatus(message,isError=false){
+    const status=document.getElementById("bookingStatus");
+
+    if(!status)return;
+
+    status.textContent=message;
+    status.className=
+        `booking-status ${isError ? "error" : "success"}`;
+}
+
+function clearBookingStatus(){
+    const status=document.getElementById("bookingStatus");
+
+    if(status){
+        status.textContent="";
+        status.className="booking-status";
+    }
+
+    const message=document.getElementById("bookingMessage");
+
+    if(message){
+        message.textContent="";
+    }
+}
+
+/* MES ANTERIOR */
+
+document
+.getElementById("prevMonth")
+.addEventListener("click",function(){
+
     const now=new Date();
-    const currentMonth=new Date(now.getFullYear(),now.getMonth(),1);
-    const previousMonth=new Date(calendarDate.getFullYear(),calendarDate.getMonth()-1,1);
-    if(previousMonth>=currentMonth){calendarDate=previousMonth;renderCalendar();}
+    const currentMonth=new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        1
+    );
+
+    const previousMonth=new Date(
+        calendarDate.getFullYear(),
+        calendarDate.getMonth()-1,
+        1
+    );
+
+    if(previousMonth>=currentMonth){
+        calendarDate.setMonth(
+            calendarDate.getMonth()-1
+        );
+        renderCalendar();
+    }
 });
 
-document.getElementById("nextMonth").addEventListener("click",()=>{
-    calendarDate.setMonth(calendarDate.getMonth()+1);
+/* MES SIGUIENTE */
+
+document
+.getElementById("nextMonth")
+.addEventListener("click",function(){
+
+    calendarDate.setMonth(
+        calendarDate.getMonth()+1
+    );
+
     renderCalendar();
 });
 
-document.querySelectorAll(".service-option").forEach(button=>{
-    button.addEventListener("click",()=>{
+/* SERVICIOS */
+
+document
+.querySelectorAll(".service-option")
+.forEach(button=>{
+
+    button.addEventListener("click",function(){
+
         selectedService=button.dataset.service;
-        document.querySelectorAll(".service-option").forEach(b=>b.classList.remove("selected"));
+
+        document
+        .querySelectorAll(".service-option")
+        .forEach(b=>b.classList.remove("selected"));
+
         button.classList.add("selected");
-        showBookingMessage("");
+
         updateBookingSummary();
+        hideCustomerForm();
     });
 });
 
-document.getElementById("bookingContinue").addEventListener("click",async()=>{
-    if(!selectedDate||!selectedTime||!selectedService)return;
-    await loadOccupiedTimes();
-    if(!selectedTime||occupiedTimes.includes(selectedTime)){
-        showBookingMessage("Ese horario acaba de ser ocupado. Selecciona otro horario.",true);
+/* CONTINUAR */
+
+document
+.getElementById("bookingContinue")
+.addEventListener("click",function(){
+
+    if(!selectedDate || !selectedTime || !selectedService){
         return;
     }
-    document.getElementById("customerForm").classList.add("visible");
-    document.getElementById("customerForm").scrollIntoView({behavior:"smooth",block:"center"});
-    showBookingStatus("");
+
+    const form=document.getElementById("bookingForm");
+
+    form.style.display="block";
+
+    document.getElementById("bookingMessage").textContent=
+        "Completa tus datos para confirmar la reserva.";
+
+    form.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
 });
 
-document.getElementById("confirmBooking").addEventListener("click",async()=>{
-    const name=document.getElementById("customerName").value.trim();
-    const phone=document.getElementById("customerPhone").value.trim();
-    const email=document.getElementById("customerEmail").value.trim();
-    const button=document.getElementById("confirmBooking");
+/* CONFIRMAR RESERVA */
 
-    if(!selectedDate||!selectedTime||!selectedService){showBookingStatus("Selecciona día, hora y servicio.",true);return;}
-    if(!name||!phone){showBookingStatus("Nombre y teléfono son obligatorios.",true);return;}
-    if(email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showBookingStatus("Escribe un email válido o déjalo vacío.",true);return;}
+document
+.getElementById("confirmBooking")
+.addEventListener("click",async function(){
 
-    button.disabled=true;
-    button.textContent="GUARDANDO...";
-    showBookingStatus("Procesando tu reserva...");
+    if(!selectedDate || !selectedTime || !selectedService){
+        showBookingStatus(
+            "Selecciona día, hora y servicio.",
+            true
+        );
+        return;
+    }
 
-    const {data,error}=await supabaseClient.from("reservas").insert({
-        nombre:name,telefono:phone,email:email||null,fecha:toDatabaseDate(selectedDate),hora:selectedTime,servicio:selectedService,estado:"confirmada"
-    }).select().single();
+    const name=document.getElementById("customerName")
+        .value.trim();
+
+    const phone=document.getElementById("customerPhone")
+        .value.trim();
+
+    const email=document.getElementById("customerEmail")
+        .value.trim();
+
+    if(!name || !phone){
+        showBookingStatus(
+            "Escribe tu nombre y teléfono.",
+            true
+        );
+        return;
+    }
+
+    const confirmButton=
+        document.getElementById("confirmBooking");
+
+    confirmButton.disabled=true;
+    showBookingStatus("Confirmando tu reserva...");
+
+    const reservation={
+        nombre:name,
+        telefono:phone,
+        email:email || null,
+        fecha:dateToDatabase(selectedDate),
+        hora:selectedTime,
+        servicio:selectedService,
+        estado:"confirmada"
+    };
+
+    const {error}=await supabaseClient
+        .from("reservas")
+        .insert(reservation);
 
     if(error){
         console.error("Error creando reserva:",error);
-        button.disabled=false;
-        button.textContent="CONFIRMAR RESERVA";
+
         if(error.code==="23505"){
-            showBookingStatus("Ese horario acaba de ser reservado por otra persona. Selecciona otro.",true);
+            showBookingStatus(
+                "Ese horario acaba de ser reservado por otra persona. Selecciona otro horario.",
+                true
+            );
+
             await loadOccupiedTimes();
         }else{
-            showBookingStatus("No pudimos guardar la reserva. Intenta nuevamente.",true);
+            showBookingStatus(
+                "No se pudo confirmar la reserva. Intenta nuevamente.",
+                true
+            );
         }
+
+        confirmButton.disabled=false;
         return;
     }
 
-    console.log("Reserva creada:",data);
-    showBookingStatus("¡Reserva confirmada correctamente!");
-    showBookingMessage(`¡Cita confirmada! ${formatDate(selectedDate)} a las ${selectedTime}.`);
-    button.textContent="RESERVA CONFIRMADA";
     occupiedTimes.push(selectedTime);
+
+    showBookingStatus(
+        `¡Reserva confirmada! ${formatDate(selectedDate)} a las ${selectedTime}.`
+    );
+
+    document.getElementById("bookingMessage").textContent=
+        `Servicio: ${selectedService}. Gracias, ${name}.`;
+
+    document.getElementById("customerName").value="";
+    document.getElementById("customerPhone").value="";
+    document.getElementById("customerEmail").value="";
+
     renderTimes();
-    setTimeout(()=>document.getElementById("customerForm").classList.remove("visible"),2500);
+
+    confirmButton.disabled=false;
 });
+
+/* INICIALIZAR */
 
 renderCalendar();
 renderTimes();
