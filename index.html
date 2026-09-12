@@ -2,16 +2,35 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Hydroflow Detailing</title>
 
+
+    <!-- =========================================
+         GOOGLE FONTS
+    ========================================== -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+
     <style>
 
-        /* ================================
-           CONFIGURACIÓN GENERAL
-        ================================= */
+        /* =========================================
+           RESET
+        ========================================== */
 
         * {
             margin: 0;
@@ -19,14 +38,20 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
+        html,
+        body {
+            width: 100%;
+            height: 100%;
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #001b2e;
+            font-family: 'Montserrat', sans-serif;
+
+            background: #001b2e;
+
             color: white;
+
+            overflow: hidden;
         }
 
         a {
@@ -35,330 +60,645 @@
         }
 
 
-        /* ================================
-           HEADER / NAVEGACIÓN
-        ================================= */
+        /* =========================================
+           HEADER
+        ========================================== */
 
         header {
+
             position: fixed;
+
             top: 0;
             left: 0;
+
             width: 100%;
-            z-index: 1000;
-
-            background: rgba(0, 20, 35, 0.92);
-            backdrop-filter: blur(10px);
-
-            border-bottom: 1px solid rgba(0, 174, 255, 0.4);
-        }
-
-        .navbar {
-            max-width: 1200px;
-            margin: auto;
 
             height: 80px;
 
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            z-index: 1000;
+
+            background:
+                rgba(0, 20, 35, 0.94);
+
+            backdrop-filter: blur(10px);
+
+            border-bottom:
+                1px solid
+                rgba(0, 174, 255, 0.4);
+        }
+
+
+        .navbar {
+
+            width: 100%;
+
+            max-width: 1200px;
+
+            height: 80px;
+
+            margin: auto;
 
             padding: 0 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
         }
+
+
+        /* LOGO DEL MENU */
 
         .nav-logo {
+
             display: flex;
+
             align-items: center;
+
             gap: 12px;
+
+            cursor: pointer;
         }
 
+
         .nav-logo img {
-            width: 55px;
-            height: 55px;
+
+            width: 48px;
+
+            height: 48px;
+
             object-fit: contain;
         }
 
+
         .nav-logo span {
-            font-size: 22px;
-            font-weight: 800;
-            letter-spacing: 1px;
+
+            font-family:
+                'Bebas Neue',
+                sans-serif;
+
+            font-size: 28px;
+
+            letter-spacing: 2px;
         }
 
-        .nav-logo span strong {
+
+        .nav-logo strong {
+
             color: #00aaff;
         }
 
+
+        /* MENU */
+
         nav {
+
             display: flex;
-            gap: 30px;
+
+            align-items: center;
+
+            gap: 28px;
         }
 
+
         nav a {
-            font-size: 15px;
-            font-weight: bold;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
             transition: 0.3s;
         }
 
-        nav a:hover {
+
+        nav a:hover,
+        nav a.active {
+
             color: #00aaff;
         }
 
+
         .nav-button {
+
             background: #009fe3;
-            padding: 12px 22px;
+
+            padding: 11px 21px;
+
             border-radius: 25px;
+
+            color: white !important;
         }
+
 
         .nav-button:hover {
+
             background: white;
-            color: #008fd0;
+
+            color: #008fd0 !important;
         }
 
 
-        /* ================================
-           HERO
-        ================================= */
+        /* =========================================
+           PANTALLAS
+        ========================================== */
 
-        .hero {
+        section {
+
+            display: none;
+
+            width: 100%;
+
+            height: 100vh;
+
             min-height: 100vh;
 
-            position: relative;
+            overflow-y: auto;
 
-            display: flex;
+            overflow-x: hidden;
+
+            padding: 110px 20px 50px;
+        }
+
+
+        section.active {
+
+            display: block;
+
+            animation:
+                pageIn
+                0.35s
+                ease;
+        }
+
+
+        @keyframes pageIn {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(12px);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+        /* =========================================
+           INICIO
+        ========================================== */
+
+        #inicio {
+
+            display: none;
+
             align-items: center;
+
             justify-content: center;
 
             text-align: center;
 
-            padding: 130px 20px 80px;
+            padding:
+                80px
+                20px
+                20px;
 
             background:
+
                 linear-gradient(
                     rgba(0, 30, 55, 0.35),
-                    rgba(0, 18, 35, 0.75)
+                    rgba(0, 18, 35, 0.78)
                 ),
+
                 url("images/fondo-agua.jpg");
 
             background-size: cover;
+
             background-position: center;
         }
 
-        .hero-content {
-            max-width: 900px;
+
+        #inicio.active {
+
+            display: flex;
         }
+
+
+        .hero-content {
+
+            width: 100%;
+
+            max-width: 950px;
+
+            margin: auto;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
 
         .hero-logo {
-            width: 300px;
-            max-width: 80%;
 
-            margin-bottom: 20px;
+            width: 280px;
 
-            filter: drop-shadow(0 0 15px rgba(0, 174, 255, 0.5));
+            max-width: 70vw;
+
+            margin-bottom: 10px;
+
+            /* SIN GLOW */
         }
+
 
         .hero h1 {
-            font-size: 60px;
-            font-weight: 900;
-            letter-spacing: 3px;
-            text-transform: uppercase;
+
+            font-family:
+                'Bebas Neue',
+                sans-serif;
+
+            font-size:
+                clamp(
+                    55px,
+                    8vw,
+                    90px
+                );
+
+            font-weight: 400;
+
+            letter-spacing: 5px;
+
+            line-height: 0.95;
 
             text-shadow:
-                0 4px 15px rgba(0,0,0,0.8);
+                0 4px 15px
+                rgba(0,0,0,0.8);
         }
 
+
         .hero h1 span {
+
             color: #00aaff;
         }
 
+
         .hero h2 {
-            font-size: 28px;
+
+            font-family:
+                'Bebas Neue',
+                sans-serif;
+
+            font-size:
+                clamp(
+                    28px,
+                    4vw,
+                    45px
+                );
+
+            letter-spacing: 8px;
+
             margin-top: 5px;
-            letter-spacing: 5px;
         }
+
 
         .hero p {
-            font-size: 20px;
-            margin: 25px auto;
+
             max-width: 700px;
-            line-height: 1.6;
+
+            margin: 25px auto;
+
+            font-size: 18px;
+
+            font-weight: 500;
+
+            line-height: 1.7;
+
+            color: #e4f6ff;
         }
+
 
         .hero-buttons {
+
             display: flex;
+
             justify-content: center;
+
             gap: 15px;
+
             flex-wrap: wrap;
-            margin-top: 30px;
+
+            margin-top: 15px;
         }
 
+
+        /* =========================================
+           BOTONES
+        ========================================== */
+
         .btn {
+
             display: inline-block;
 
             padding: 15px 30px;
 
             border-radius: 30px;
 
-            font-weight: bold;
-            font-size: 16px;
+            font-size: 15px;
+
+            font-weight: 800;
 
             transition: 0.3s;
+
+            cursor: pointer;
         }
+
 
         .btn-primary {
+
             background: #00a8f0;
         }
+
 
         .btn-primary:hover {
+
             background: white;
+
             color: #008ed0;
-            transform: translateY(-3px);
+
+            transform:
+                translateY(-3px);
         }
+
 
         .btn-secondary {
-            border: 2px solid #00a8f0;
+
+            border:
+                2px solid
+                #00a8f0;
         }
+
 
         .btn-secondary:hover {
+
             background: #00a8f0;
-            transform: translateY(-3px);
+
+            transform:
+                translateY(-3px);
         }
 
 
-        /* ================================
-           SECCIONES
-        ================================= */
-
-        section {
-            padding: 100px 20px;
-        }
+        /* =========================================
+           CONTENEDORES
+        ========================================== */
 
         .section-container {
+
+            width: 100%;
+
             max-width: 1100px;
+
             margin: auto;
         }
 
+
         .section-title {
+
             text-align: center;
-            margin-bottom: 60px;
+
+            margin-bottom: 50px;
         }
+
 
         .section-title h2 {
-            font-size: 42px;
+
+            font-family:
+                'Bebas Neue',
+                sans-serif;
+
+            font-size: 55px;
+
+            font-weight: 400;
+
+            letter-spacing: 3px;
+
             text-transform: uppercase;
-            letter-spacing: 2px;
         }
 
+
         .section-title h2 span {
+
             color: #00aaff;
         }
 
+
         .section-title p {
-            margin-top: 15px;
+
+            margin-top: 10px;
+
             color: #c7e8f7;
-            font-size: 17px;
+
+            font-size: 16px;
+
+            font-weight: 500;
         }
 
 
-        /* ================================
+        /* =========================================
            PAQUETES
-        ================================= */
+        ========================================== */
 
         .packages {
+
             background:
+
                 linear-gradient(
-                    rgba(0, 28, 48, 0.94),
-                    rgba(0, 13, 26, 0.97)
+                    rgba(0, 28, 48, 0.95),
+                    rgba(0, 13, 26, 0.98)
                 ),
+
                 url("images/fondo-agua.jpg");
 
             background-size: cover;
+
             background-position: center;
         }
 
+
         .package-box {
-            margin-bottom: 80px;
+
+            margin-bottom: 70px;
         }
 
+
         .package-heading {
+
             text-align: center;
+
+            margin-bottom: 30px;
+        }
+
+
+        .package-heading h3 {
+
+            display: inline-block;
+
+            font-family:
+                'Bebas Neue',
+                sans-serif;
+
+            font-size: 38px;
+
+            font-weight: 400;
+
+            font-style: italic;
+
+            letter-spacing: 2px;
+
+            border-bottom:
+                3px solid
+                #00aaff;
+
+            padding:
+                0
+                20px
+                10px;
+        }
+
+
+        .package-description {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 25px;
+
             margin-bottom: 35px;
         }
 
-        .package-heading h3 {
-            display: inline-block;
-
-            font-size: 32px;
-            font-style: italic;
-
-            color: white;
-
-            border-bottom: 3px solid #00aaff;
-
-            padding: 0 20px 10px;
-        }
-
-        .package-description {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-
-            margin-bottom: 40px;
-        }
 
         .service-column {
-            background: rgba(0, 95, 150, 0.2);
 
-            border: 1px solid rgba(0, 174, 255, 0.3);
+            background:
+                rgba(
+                    0,
+                    95,
+                    150,
+                    0.2
+                );
+
+            border:
+                1px solid
+                rgba(
+                    0,
+                    174,
+                    255,
+                    0.3
+                );
 
             border-radius: 15px;
 
             padding: 25px;
         }
 
+
         .service-column h4 {
+
+            font-family:
+                'Bebas Neue',
+                sans-serif;
+
             color: #00aaff;
-            font-size: 22px;
+
+            font-size: 29px;
+
+            font-weight: 400;
+
+            letter-spacing: 1px;
+
             margin-bottom: 20px;
         }
 
+
         .service-column ul {
+
             list-style: none;
         }
 
+
         .service-column li {
+
             margin-bottom: 13px;
+
             line-height: 1.5;
+
             color: #f1f9ff;
+
+            font-size: 15px;
+
+            font-weight: 500;
         }
 
+
         .service-column li::before {
+
             content: "✓";
+
             color: #00aaff;
-            font-weight: bold;
+
+            font-weight: 900;
+
             margin-right: 10px;
         }
 
 
-        /* ================================
+        /* =========================================
            PRECIOS
-        ================================= */
+        ========================================== */
 
         .price-grid {
+
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
             gap: 25px;
         }
 
+
         .price-card {
-            position: relative;
 
             background:
+
                 linear-gradient(
                     145deg,
-                    rgba(0, 155, 230, 0.55),
-                    rgba(0, 30, 70, 0.9)
+                    rgba(0,155,230,0.55),
+                    rgba(0,30,70,0.9)
                 );
 
-            border: 2px solid rgba(0, 170, 255, 0.8);
+            border:
+                2px solid
+                rgba(
+                    0,
+                    170,
+                    255,
+                    0.8
+                );
 
             border-radius: 15px;
 
@@ -366,94 +706,164 @@
 
             text-align: center;
 
-            overflow: hidden;
-
             transition: 0.3s;
         }
 
+
         .price-card:hover {
-            transform: translateY(-8px);
+
+            transform:
+                translateY(-8px);
 
             box-shadow:
-                0 15px 35px rgba(0, 150, 255, 0.25);
+
+                0 15px 35px
+                rgba(
+                    0,
+                    150,
+                    255,
+                    0.25
+                );
         }
 
+
         .vehicle-label {
+
             display: inline-block;
 
-            padding: 10px 35px;
+            padding:
+                9px
+                35px;
 
             margin-bottom: 15px;
 
             border-radius: 8px;
 
-            background: linear-gradient(
-                #eeeeee,
-                #a9b3ba
-            );
+            background:
+
+                linear-gradient(
+                    #eeeeee,
+                    #a9b3ba
+                );
 
             color: #00065c;
 
-            font-size: 25px;
-            font-weight: 900;
+            font-family:
+                'Bebas Neue',
+                sans-serif;
+
+            font-size: 30px;
+
+            font-weight: 400;
+
             font-style: italic;
 
-            box-shadow:
-                0 5px 10px rgba(0,0,0,0.4);
+            letter-spacing: 2px;
         }
 
-        .price-card:first-child .vehicle-label {
-            background: linear-gradient(
-                #ffc62e,
-                #f28c00
-            );
+
+        .price-card:first-child
+        .vehicle-label {
+
+            background:
+
+                linear-gradient(
+                    #ffc62e,
+                    #f28c00
+                );
         }
+
 
         .vehicle-image {
+
             width: 100%;
+
             height: 130px;
 
             object-fit: contain;
 
-            margin: 5px 0 20px;
+            margin:
+                5px
+                0
+                20px;
         }
+
 
         .starting {
-            font-size: 15px;
-            font-weight: bold;
-            text-decoration: underline;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            text-decoration:
+                underline;
         }
 
+
         .price {
-            font-size: 38px;
-            font-weight: 900;
+
+            font-family:
+                'Bebas Neue',
+                sans-serif;
+
+            font-size: 50px;
+
+            font-weight: 400;
+
             font-style: italic;
+
+            letter-spacing: 1px;
+
             margin-left: 5px;
         }
 
 
-        /* ================================
+        /* =========================================
            SERVICIOS
-        ================================= */
+        ========================================== */
 
         .services {
+
             background: #062b40;
         }
 
+
         .services-grid {
+
             display: grid;
 
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns:
+                repeat(3, 1fr);
 
             gap: 25px;
+
+            margin-bottom: 60px;
         }
 
+
         .service-card {
-            padding: 35px 25px;
 
-            background: rgba(0, 140, 210, 0.1);
+            padding:
+                35px
+                25px;
 
-            border: 1px solid rgba(0, 174, 255, 0.4);
+            background:
+
+                rgba(
+                    0,
+                    140,
+                    210,
+                    0.1
+                );
+
+            border:
+                1px solid
+                rgba(
+                    0,
+                    174,
+                    255,
+                    0.4
+                );
 
             border-radius: 15px;
 
@@ -462,83 +872,133 @@
             transition: 0.3s;
         }
 
-        .service-card:hover {
-            transform: translateY(-5px);
 
-            background: rgba(0, 150, 220, 0.18);
+        .service-card:hover {
+
+            transform:
+                translateY(-5px);
+
+            background:
+
+                rgba(
+                    0,
+                    150,
+                    220,
+                    0.18
+                );
         }
 
+
         .service-icon {
+
             font-size: 45px;
+
             margin-bottom: 20px;
         }
 
+
         .service-card h3 {
+
+            font-family:
+                'Bebas Neue',
+                sans-serif;
+
             color: #00aaff;
+
+            font-size: 30px;
+
+            font-weight: 400;
+
+            letter-spacing: 1px;
+
             margin-bottom: 15px;
         }
 
+
         .service-card p {
+
             color: #d9f3ff;
-            line-height: 1.6;
+
+            line-height: 1.7;
+
+            font-size: 15px;
+
+            font-weight: 500;
         }
 
 
-        /* ================================
+        /* =========================================
            SERVICIOS DETALLADOS
-        ================================= */
-
-        .detailed {
-            background:
-                linear-gradient(
-                    rgba(0, 26, 44, 0.94),
-                    rgba(0, 26, 44, 0.97)
-                ),
-                url("images/fondo-agua.jpg");
-
-            background-size: cover;
-        }
+           DENTRO DE SERVICIOS
+        ========================================== */
 
         .detailed-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
 
-            min-height: 500px;
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            min-height: 450px;
 
             border-radius: 20px;
 
             overflow: hidden;
 
             background: #082d42;
+
+            margin-top: 30px;
         }
+
 
         .detailed-content {
-            padding: 55px 45px;
+
+            padding:
+                55px
+                45px;
         }
 
+
         .detailed-content h2 {
+
+            font-family:
+                'Bebas Neue',
+                sans-serif;
+
             color: #00aaff;
 
-            font-size: 42px;
+            font-size: 60px;
 
-            line-height: 1.1;
+            font-weight: 400;
+
+            line-height: 0.95;
+
+            letter-spacing: 3px;
 
             margin-bottom: 35px;
         }
 
+
         .detailed-content ul {
+
             list-style: none;
         }
 
+
         .detailed-content li {
-            font-size: 19px;
+
+            font-size: 17px;
+
+            font-weight: 700;
 
             margin-bottom: 20px;
 
             line-height: 1.4;
         }
 
+
         .detailed-content li::before {
+
             content: "●";
 
             color: #00aaff;
@@ -546,120 +1006,196 @@
             margin-right: 15px;
         }
 
+
         .detailed-image {
+
             background:
+
                 linear-gradient(
                     rgba(0,0,0,0.25),
                     rgba(0,0,0,0.6)
                 ),
+
                 url("images/detailing.jpg");
 
             background-size: cover;
+
             background-position: center;
 
             display: flex;
+
             align-items: center;
+
             justify-content: center;
         }
 
+
         .detailed-image-content {
+
             text-align: center;
         }
 
-        .detailed-image-content img {
-            width: 150px;
 
-            filter:
-                drop-shadow(
-                    0 0 15px rgba(0,174,255,0.7)
-                );
+        .detailed-image-content img {
+
+            width: 150px;
         }
 
+
         .detailed-image-content h3 {
-            font-size: 38px;
+
+            font-family:
+                'Bebas Neue',
+                sans-serif;
+
+            font-size: 45px;
+
+            font-weight: 400;
+
+            letter-spacing: 3px;
+
             margin-top: 15px;
         }
 
+
         .detailed-image-content p {
-            font-size: 24px;
-            font-weight: bold;
-            letter-spacing: 3px;
+
+            font-family:
+                'Bebas Neue',
+                sans-serif;
+
+            font-size: 30px;
+
+            letter-spacing: 5px;
+
+            font-weight: 400;
         }
 
 
-        /* ================================
+        /* =========================================
            CONTACTO
-        ================================= */
+        ========================================== */
 
         .contact {
+
             background: #001b2e;
         }
 
+
         .contact-grid {
+
             display: grid;
-            grid-template-columns: 1fr 1fr;
+
+            grid-template-columns:
+                1fr 1fr;
 
             gap: 50px;
 
             align-items: center;
+
+            min-height: 65vh;
         }
 
+
         .contact-info h2 {
-            font-size: 42px;
+
+            font-family:
+                'Bebas Neue',
+                sans-serif;
+
+            font-size: 60px;
+
+            font-weight: 400;
+
+            line-height: 1;
+
+            letter-spacing: 2px;
+
             margin-bottom: 25px;
         }
 
+
         .contact-info h2 span {
+
             color: #00aaff;
         }
 
-        .contact-info p {
+
+        .contact-info > p {
+
             color: #c8e7f5;
-            font-size: 18px;
-            line-height: 1.6;
+
+            font-size: 16px;
+
+            font-weight: 500;
+
+            line-height: 1.7;
+
             margin-bottom: 30px;
         }
 
+
         .contact-item {
+
             display: flex;
+
             align-items: center;
 
             gap: 15px;
 
             margin-bottom: 22px;
 
-            font-size: 18px;
+            font-size: 17px;
+
+            font-weight: 600;
         }
 
+
         .contact-icon {
+
             width: 45px;
+
             height: 45px;
 
-            border: 2px solid #00aaff;
+            border:
+                2px solid
+                #00aaff;
 
             border-radius: 50%;
 
             display: flex;
+
             align-items: center;
+
             justify-content: center;
 
             color: #00aaff;
 
             font-size: 20px;
+
+            flex-shrink: 0;
         }
 
+
         .contact-item a:hover {
+
             color: #00aaff;
         }
 
-        .contact-card {
-            background: linear-gradient(
-                145deg,
-                #063b58,
-                #021c2e
-            );
 
-            border: 1px solid #008fd0;
+        .contact-card {
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    #063b58,
+                    #021c2e
+                );
+
+            border:
+                1px solid
+                #008fd0;
 
             border-radius: 20px;
 
@@ -668,32 +1204,63 @@
             text-align: center;
         }
 
+
         .contact-card img {
+
             width: 180px;
+
             max-width: 80%;
+
             margin-bottom: 20px;
         }
 
+
         .contact-card h3 {
-            font-size: 27px;
-            margin-bottom: 10px;
+
+            font-family:
+                'Bebas Neue',
+                sans-serif;
+
+            font-size: 42px;
+
+            font-weight: 400;
+
+            letter-spacing: 3px;
+
+            margin-bottom: 5px;
         }
+
 
         .contact-card p {
+
+            font-family:
+                'Bebas Neue',
+                sans-serif;
+
             color: #00aaff;
-            font-weight: bold;
-            letter-spacing: 2px;
+
+            font-size: 25px;
+
+            letter-spacing: 4px;
         }
 
 
-        /* ================================
+        /* =========================================
            FOOTER
-        ================================= */
+        ========================================== */
 
         footer {
+
             background: #00121f;
 
-            border-top: 1px solid rgba(0, 174, 255, 0.3);
+            border-top:
+                1px solid
+                rgba(
+                    0,
+                    174,
+                    255,
+                    0.3
+                );
 
             text-align: center;
 
@@ -702,14 +1269,80 @@
             color: #9bc8da;
         }
 
+
         footer strong {
+
             color: #00aaff;
         }
 
 
-        /* ================================
+        /* =========================================
+           FLECHAS
+        ========================================== */
+
+        .screen-navigation {
+
+            position: fixed;
+
+            right: 25px;
+
+            bottom: 25px;
+
+            z-index: 1100;
+
+            display: flex;
+
+            gap: 10px;
+        }
+
+
+        .screen-arrow {
+
+            width: 45px;
+
+            height: 45px;
+
+            border:
+                1px solid
+                rgba(
+                    0,
+                    174,
+                    255,
+                    0.6
+                );
+
+            border-radius: 50%;
+
+            background:
+                rgba(
+                    0,
+                    20,
+                    35,
+                    0.9
+                );
+
+            color: white;
+
+            font-size: 24px;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+        }
+
+
+        .screen-arrow:hover {
+
+            background: #00a8f0;
+
+            transform:
+                translateY(-3px);
+        }
+
+
+        /* =========================================
            RESPONSIVE
-        ================================= */
+        ========================================== */
 
         @media (max-width: 900px) {
 
@@ -717,109 +1350,198 @@
                 gap: 15px;
             }
 
-            .hero h1 {
-                font-size: 45px;
-            }
 
             .price-grid {
-                grid-template-columns: 1fr;
+
+                grid-template-columns:
+                    1fr;
             }
+
 
             .services-grid {
-                grid-template-columns: 1fr;
+
+                grid-template-columns:
+                    1fr;
             }
+
 
             .package-description {
-                grid-template-columns: 1fr;
+
+                grid-template-columns:
+                    1fr;
             }
+
 
             .detailed-layout {
-                grid-template-columns: 1fr;
+
+                grid-template-columns:
+                    1fr;
             }
 
+
             .detailed-image {
+
                 min-height: 350px;
             }
 
+
             .contact-grid {
-                grid-template-columns: 1fr;
+
+                grid-template-columns:
+                    1fr;
             }
+
         }
 
 
         @media (max-width: 650px) {
 
             header {
-                position: static;
+
+                height: auto;
             }
+
 
             .navbar {
+
                 height: auto;
-                padding: 15px;
+
+                min-height: 75px;
+
+                padding: 10px 15px;
+
                 flex-direction: column;
-                gap: 15px;
+
+                gap: 10px;
             }
+
+
+            .nav-logo span {
+
+                display: none;
+            }
+
 
             nav {
+
                 flex-wrap: wrap;
+
                 justify-content: center;
+
+                gap: 10px 15px;
             }
 
-            .hero {
-                padding-top: 80px;
+
+            nav a {
+
+                font-size: 12px;
             }
 
-            .hero h1 {
-                font-size: 35px;
+
+            .nav-button {
+
+                padding:
+                    9px
+                    15px;
             }
 
-            .hero h2 {
-                font-size: 20px;
+
+            section {
+
+                padding-top: 145px;
+
+                padding-bottom: 75px;
             }
+
+
+            #inicio {
+
+                padding-top: 120px;
+            }
+
+
+            .hero-logo {
+
+                width: 220px;
+            }
+
 
             .hero p {
-                font-size: 16px;
+
+                font-size: 15px;
             }
+
 
             .section-title h2 {
+
+                font-size: 45px;
+            }
+
+
+            .package-heading h3 {
+
                 font-size: 32px;
             }
+
 
             .detailed-content {
-                padding: 35px 25px;
+
+                padding:
+                    35px
+                    25px;
             }
+
 
             .detailed-content h2 {
-                font-size: 32px;
+
+                font-size: 48px;
             }
 
+
             .contact-info h2 {
-                font-size: 32px;
+
+                font-size: 48px;
             }
+
+
+            .screen-navigation {
+
+                right: 12px;
+
+                bottom: 12px;
+            }
+
         }
 
     </style>
+
 </head>
 
 
 <body>
 
 
-<!-- ==========================================
-     NAVEGACIÓN
-=========================================== -->
+<!-- =========================================
+     HEADER
+========================================= -->
 
 <header>
 
     <div class="navbar">
 
-        <a href="#inicio" class="nav-logo">
 
-            <!-- REEMPLAZA ESTA IMAGEN -->
-            <img src="logo.PNG" alt="Hydroflow Logo">
+        <a href="#inicio"
+           data-page="inicio"
+           class="nav-logo">
+
+            <img
+                src="logo.PNG"
+                alt="Hydroflow Logo"
+            >
 
             <span>
-               HYDROFLOW <strong>DETAILING</strong>
+                HYDROFLOW
+                <strong>DETAILING</strong>
             </span>
 
         </a>
@@ -827,16 +1549,49 @@
 
         <nav>
 
-            <a href="#inicio">Inicio</a>
+            <a
+                href="#inicio"
+                data-page="inicio">
 
-            <a href="#paquetes">Paquetes</a>
+                Inicio
 
-            <a href="#servicios">Servicios</a>
+            </a>
 
-            <a href="#contacto">Contacto</a>
 
-            <a href="#contacto" class="nav-button">
+            <a
+                href="#paquetes"
+                data-page="paquetes">
+
+                Paquetes
+
+            </a>
+
+
+            <a
+                href="#servicios"
+                data-page="servicios">
+
+                Servicios
+
+            </a>
+
+
+            <a
+                href="#contacto"
+                data-page="contacto">
+
+                Contacto
+
+            </a>
+
+
+            <a
+                href="#contacto"
+                data-page="contacto"
+                class="nav-button">
+
                 Reservar
+
             </a>
 
         </nav>
@@ -846,17 +1601,18 @@
 </header>
 
 
+<!-- =========================================
+     INICIO
+========================================= -->
 
-<!-- ==========================================
-     HERO
-=========================================== -->
+<section
+    id="inicio"
+    class="hero active">
 
-<section class="hero" id="inicio">
 
     <div class="hero-content">
 
 
-        <!-- REEMPLAZA ESTA IMAGEN -->
         <img
             src="logo.PNG"
             alt="Hydroflow Detailing"
@@ -865,29 +1621,49 @@
 
 
         <h1>
+
             HYDRO<span>FLOW</span>
+
         </h1>
 
+
         <h2>
+
             DETAILING
+
         </h2>
 
 
         <p>
-            Dale a tu vehículo el cuidado que merece.
-            Servicios profesionales de detailing a domicilio
-            en el área metro.
+
+            Dale a tu vehículo el cuidado
+            que merece. Servicios profesionales
+            de detailing a domicilio en el
+            Área Metro.
+
         </p>
 
 
         <div class="hero-buttons">
 
-            <a href="#paquetes" class="btn btn-primary">
+
+            <a
+                href="#paquetes"
+                data-page="paquetes"
+                class="btn btn-primary">
+
                 Ver paquetes
+
             </a>
 
-            <a href="#contacto" class="btn btn-secondary">
+
+            <a
+                href="#contacto"
+                data-page="contacto"
+                class="btn btn-secondary">
+
                 Contactarnos
+
             </a>
 
         </div>
@@ -897,37 +1673,51 @@
 </section>
 
 
+<!-- =========================================
+     PAQUETES
+========================================= -->
 
-<!-- ==========================================
-     PAQUETE HYDRO
-=========================================== -->
+<section
+    id="paquetes"
+    class="packages">
 
-<section class="packages" id="paquetes">
 
     <div class="section-container">
+
 
         <div class="section-title">
 
             <h2>
-                Nuestros <span>Paquetes</span>
+
+                Nuestros
+                <span>Paquetes</span>
+
             </h2>
 
+
             <p>
-                Escoge el servicio ideal para tu vehículo.
+
+                Escoge el servicio ideal
+                para tu vehículo.
+
             </p>
 
         </div>
 
 
-
-        <!-- PAQUETE HYDRO -->
+        <!-- =====================================
+             PAQUETE HYDRO
+        ====================================== -->
 
         <div class="package-box">
+
 
             <div class="package-heading">
 
                 <h3>
+
                     – Paquete Hydro –
+
                 </h3>
 
             </div>
@@ -936,18 +1726,21 @@
             <div class="package-description">
 
 
-                <!-- LAVADO EXTERIOR -->
-
                 <div class="service-column">
 
+
                     <h4>
+
                         • Lavado exterior
+
                     </h4>
+
 
                     <ul>
 
                         <li>
-                            Limpieza de aros y guardalodo
+                            Limpieza de aros
+                            y guardalodo
                         </li>
 
                         <li>
@@ -964,13 +1757,15 @@
                 </div>
 
 
-                <!-- LAVADO INTERIOR -->
-
                 <div class="service-column">
 
+
                     <h4>
+
                         • Lavado interior
+
                     </h4>
+
 
                     <ul>
 
@@ -997,22 +1792,19 @@
             </div>
 
 
-
-            <!-- PRECIOS -->
-
             <div class="price-grid">
 
 
-                <!-- AUTO -->
-
                 <div class="price-card">
 
+
                     <div class="vehicle-label">
+
                         AUTO
+
                     </div>
 
 
-                    <!-- REEMPLAZA ESTA IMAGEN -->
                     <img
                         src="auto.png"
                         alt="Auto"
@@ -1021,27 +1813,31 @@
 
 
                     <span class="starting">
+
                         DESDE
+
                     </span>
 
+
                     <span class="price">
+
                         $55
+
                     </span>
 
                 </div>
 
 
-
-                <!-- SUV -->
-
                 <div class="price-card">
 
+
                     <div class="vehicle-label">
+
                         SUV
+
                     </div>
 
 
-                    <!-- REEMPLAZA ESTA IMAGEN -->
                     <img
                         src="suv.png"
                         alt="SUV"
@@ -1050,27 +1846,31 @@
 
 
                     <span class="starting">
+
                         DESDE
+
                     </span>
 
+
                     <span class="price">
+
                         $65
+
                     </span>
 
                 </div>
 
 
-
-                <!-- PICK-UP -->
-
                 <div class="price-card">
 
+
                     <div class="vehicle-label">
+
                         PICK-UP
+
                     </div>
 
 
-                    <!-- REEMPLAZA ESTA IMAGEN -->
                     <img
                         src="pickup.png"
                         alt="Pick-up"
@@ -1079,11 +1879,16 @@
 
 
                     <span class="starting">
+
                         DESDE
+
                     </span>
 
+
                     <span class="price">
+
                         $75
+
                     </span>
 
                 </div>
@@ -1093,18 +1898,19 @@
         </div>
 
 
-
-
-        <!-- ==========================================
-             PAQUETE DETALLADO PRO
-        =========================================== -->
+        <!-- =====================================
+             PAQUETE PRO
+        ====================================== -->
 
         <div class="package-box">
+
 
             <div class="package-heading">
 
                 <h3>
+
                     – Paquete Detallado Pro –
+
                 </h3>
 
             </div>
@@ -1113,13 +1919,15 @@
             <div class="package-description">
 
 
-                <!-- EXTERIOR -->
-
                 <div class="service-column">
 
+
                     <h4>
+
                         • Lavado exterior
+
                     </h4>
+
 
                     <ul>
 
@@ -1128,7 +1936,8 @@
                         </li>
 
                         <li>
-                            Limpieza de suspensión y frenos
+                            Limpieza de suspensión
+                            y frenos
                         </li>
 
                         <li>
@@ -1145,7 +1954,8 @@
                         </li>
 
                         <li>
-                            Acondicionamiento de plásticos
+                            Acondicionamiento
+                            de plásticos
                         </li>
 
                     </ul>
@@ -1153,14 +1963,15 @@
                 </div>
 
 
-
-                <!-- INTERIOR -->
-
                 <div class="service-column">
 
+
                     <h4>
+
                         • Lavado interior
+
                     </h4>
+
 
                     <ul>
 
@@ -1182,8 +1993,9 @@
                         </li>
 
                         <li>
-                            Acondicionamiento de plásticos
-                            y asientos interiores
+                            Acondicionamiento
+                            de plásticos y asientos
+                            interiores
                         </li>
 
                     </ul>
@@ -1193,87 +2005,103 @@
             </div>
 
 
-
-            <!-- PRECIOS PRO -->
-
             <div class="price-grid">
 
 
-                <!-- AUTO -->
-
                 <div class="price-card">
 
+
                     <div class="vehicle-label">
+
                         AUTO
+
                     </div>
 
-                    <!-- REEMPLAZA -->
+
                     <img
                         src="auto.png"
                         alt="Auto"
                         class="vehicle-image"
                     >
 
+
                     <span class="starting">
+
                         DESDE
+
                     </span>
 
+
                     <span class="price">
+
                         $75
+
                     </span>
 
                 </div>
 
 
-
-                <!-- SUV -->
-
                 <div class="price-card">
 
+
                     <div class="vehicle-label">
+
                         SUV
+
                     </div>
 
-                    <!-- REEMPLAZA -->
+
                     <img
                         src="suv.png"
                         alt="SUV"
                         class="vehicle-image"
                     >
 
+
                     <span class="starting">
+
                         DESDE
+
                     </span>
 
+
                     <span class="price">
+
                         $85
+
                     </span>
 
                 </div>
 
 
-
-                <!-- PICKUP -->
-
                 <div class="price-card">
 
+
                     <div class="vehicle-label">
+
                         PICK-UP
+
                     </div>
 
-                    <!-- REEMPLAZA -->
+
                     <img
                         src="pickup.png"
                         alt="Pick-up"
                         class="vehicle-image"
                     >
 
+
                     <span class="starting">
+
                         DESDE
+
                     </span>
 
+
                     <span class="price">
+
                         $100
+
                     </span>
 
                 </div>
@@ -1287,114 +2115,140 @@
 </section>
 
 
-
-<!-- ==========================================
+<!-- =========================================
      SERVICIOS
-=========================================== -->
+========================================= -->
 
-<section class="services" id="servicios">
+<section
+    id="servicios"
+    class="services">
+
 
     <div class="section-container">
+
 
         <div class="section-title">
 
             <h2>
+
                 <span>Servicios</span>
+
             </h2>
 
+
             <p>
-                Tratamos cada vehículo con atención al detalle.
+
+                Tratamos cada vehículo
+                con atención al detalle.
+
             </p>
 
         </div>
 
+
+        <!-- SERVICIOS PRINCIPALES -->
 
         <div class="services-grid">
 
 
             <div class="service-card">
 
+
                 <div class="service-icon">
                     💦
                 </div>
 
+
                 <h3>
+
                     Lavado Detallado
+
                 </h3>
 
+
                 <p>
+
                     Limpieza exterior profesional,
                     incluyendo carrocería, aros,
                     guardalodos y diferentes áreas
                     del vehículo.
+
                 </p>
 
             </div>
 
 
-
             <div class="service-card">
+
 
                 <div class="service-icon">
                     ✨
                 </div>
 
+
                 <h3>
+
                     Limpieza Interior
+
                 </h3>
 
+
                 <p>
+
                     Limpieza profunda del interior,
                     aspirado de alfombras, asientos,
                     cristales, dash y paneles.
+
                 </p>
 
             </div>
 
 
-
             <div class="service-card">
+
 
                 <div class="service-icon">
                     🛡️
                 </div>
 
+
                 <h3>
+
                     Protección
+
                 </h3>
 
+
                 <p>
-                    Aplicación de selladores hidrofóbicos
-                    para ayudar a proteger la pintura
-                    y mantener el vehículo limpio.
+
+                    Aplicación de selladores
+                    hidrofóbicos para ayudar
+                    a proteger la pintura.
+
                 </p>
 
             </div>
 
         </div>
 
-    </div>
 
-</section>
-
-
-
-<!-- ==========================================
-     SERVICIOS DETALLADOS
-=========================================== -->
-
-<section class="detailed">
-
-    <div class="section-container">
+        <!-- =====================================
+             SERVICIOS DETALLADOS
+             DENTRO DE SERVICIOS
+        ====================================== -->
 
         <div class="detailed-layout">
 
 
             <div class="detailed-content">
 
+
                 <h2>
-                    SERVICIOS<br>
+
+                    SERVICIOS
+                    <br>
                     DETALLADOS
+
                 </h2>
 
 
@@ -1409,7 +2263,8 @@
                     </li>
 
                     <li>
-                        PULIDO Y APLICACIÓN DE CERÁMICA
+                        PULIDO Y APLICACIÓN
+                        DE CERÁMICA
                     </li>
 
                 </ul>
@@ -1417,13 +2272,13 @@
             </div>
 
 
-
             <div class="detailed-image">
 
-                <div class="detailed-image-content">
+
+                <div
+                    class="detailed-image-content">
 
 
-                    <!-- REEMPLAZA ESTA IMAGEN -->
                     <img
                         src="logo.PNG"
                         alt="Hydroflow"
@@ -1431,11 +2286,16 @@
 
 
                     <h3>
+
                         HYDROFLOW
+
                     </h3>
 
+
                     <p>
+
                         DETAILING
+
                     </p>
 
                 </div>
@@ -1449,76 +2309,100 @@
 </section>
 
 
-
-<!-- ==========================================
+<!-- =========================================
      CONTACTO
-=========================================== -->
+========================================= -->
 
-<section class="contact" id="contacto">
+<section
+    id="contacto"
+    class="contact">
+
 
     <div class="section-container">
+
 
         <div class="contact-grid">
 
 
-            <!-- INFORMACIÓN -->
-
             <div class="contact-info">
 
+
                 <h2>
+
                     ¡Lleva tu auto al
-                    <span>próximo nivel!</span>
+                    <span>
+                        próximo nivel!
+                    </span>
+
                 </h2>
 
+
                 <p>
-                    Servicios de detailing a domicilio
-                    en el Área Metro.
-                    Comunícate con nosotros para
-                    coordinar tu cita.
+
+                    Servicios de detailing
+                    a domicilio en el Área Metro.
+                    Comunícate con nosotros
+                    para coordinar tu cita.
+
                 </p>
 
 
-
                 <div class="contact-item">
 
+
                     <div class="contact-icon">
+
                         ☎
+
                     </div>
 
-                    <a href="tel:+17876488108">
+
+                    <a
+                        href="tel:+17876488108">
+
                         (787)-648-8108
+
                     </a>
 
                 </div>
 
 
-
                 <div class="contact-item">
 
+
                     <div class="contact-icon">
+
                         ◎
+
                     </div>
+
 
                     <a
                         href="https://instagram.com/hydroflow_detailing"
-                        target="_blank"
-                    >
+                        target="_blank">
+
                         @hydroflow_detailing
+
                     </a>
 
                 </div>
 
 
-
                 <div class="contact-item">
 
+
                     <div class="contact-icon">
+
                         📍
+
                     </div>
 
+
                     <span>
+
                         Servicios a domicilio
                         en Área Metro
+
                     </span>
 
                 </div>
@@ -1526,13 +2410,9 @@
             </div>
 
 
-
-            <!-- TARJETA -->
-
             <div class="contact-card">
 
 
-                <!-- REEMPLAZA ESTA IMAGEN -->
                 <img
                     src="logo.PNG"
                     alt="Hydroflow Detailing"
@@ -1540,11 +2420,16 @@
 
 
                 <h3>
+
                     HYDROFLOW
+
                 </h3>
 
+
                 <p>
+
                     DETAILING
+
                 </p>
 
 
@@ -1553,9 +2438,10 @@
 
                 <a
                     href="tel:+17876488108"
-                    class="btn btn-primary"
-                >
+                    class="btn btn-primary">
+
                     Reservar ahora
+
                 </a>
 
             </div>
@@ -1567,25 +2453,358 @@
 </section>
 
 
+<!-- =========================================
+     FLECHAS
+========================================= -->
 
-<!-- ==========================================
-     FOOTER
-=========================================== -->
+<div class="screen-navigation">
 
-<footer>
 
-    <p>
-        © 2026
-        <strong>Hydroflow Detailing</strong>.
-        Todos los derechos reservados.
-    </p>
+    <button
+        class="screen-arrow"
+        id="prevPage">
 
-    <p style="margin-top: 8px;">
-        Servicios de detailing a domicilio
-        en Área Metro.
-    </p>
+        ‹
 
-</footer>
+    </button>
+
+
+    <button
+        class="screen-arrow"
+        id="nextPage">
+
+        ›
+
+    </button>
+
+</div>
+
+
+<!-- =========================================
+     JAVASCRIPT
+========================================= -->
+
+<script>
+
+
+    const pages = [
+
+        "inicio",
+
+        "paquetes",
+
+        "servicios",
+
+        "contacto"
+
+    ];
+
+
+    /* =========================================
+       MOSTRAR PANTALLA
+    ========================================== */
+
+    function showPage(
+        page,
+        updateURL = true
+    ) {
+
+
+        if (!pages.includes(page)) {
+
+            page = "inicio";
+
+        }
+
+
+        /* Ocultar todas */
+
+        document
+            .querySelectorAll("section")
+            .forEach(
+                section => {
+
+                    section.classList
+                        .remove("active");
+
+                }
+            );
+
+
+        /* Mostrar seleccionada */
+
+        const target =
+            document.getElementById(page);
+
+
+        if (target) {
+
+            target.classList
+                .add("active");
+
+            target.scrollTop = 0;
+
+        }
+
+
+        /* Botón activo */
+
+        document
+            .querySelectorAll("[data-page]")
+            .forEach(
+                link => {
+
+                    link.classList.toggle(
+
+                        "active",
+
+                        link.dataset.page
+                            === page
+
+                    );
+
+                }
+            );
+
+
+        /* Actualizar URL */
+
+        if (
+            updateURL &&
+            location.hash !== "#" + page
+        ) {
+
+            history.pushState(
+
+                {
+                    page: page
+                },
+
+                "",
+
+                "#" + page
+
+            );
+
+        }
+
+    }
+
+
+    /* =========================================
+       LINKS
+    ========================================== */
+
+    document.addEventListener(
+        "click",
+        function(event) {
+
+
+            const link =
+                event.target.closest(
+                    "[data-page]"
+                );
+
+
+            if (!link) {
+
+                return;
+
+            }
+
+
+            event.preventDefault();
+
+
+            showPage(
+                link.dataset.page
+            );
+
+        }
+    );
+
+
+    /* =========================================
+       INDEX ACTUAL
+    ========================================== */
+
+    function currentPageIndex() {
+
+
+        const current =
+            location.hash
+                .replace("#", "");
+
+
+        const index =
+            pages.indexOf(current);
+
+
+        return index >= 0
+            ? index
+            : 0;
+
+    }
+
+
+    /* =========================================
+       ANTERIOR
+    ========================================== */
+
+    document
+        .getElementById("prevPage")
+        .addEventListener(
+            "click",
+            function() {
+
+
+                const index =
+                    currentPageIndex();
+
+
+                const previous =
+                    (
+                        index
+                        - 1
+                        + pages.length
+                    )
+                    % pages.length;
+
+
+                showPage(
+                    pages[previous]
+                );
+
+            }
+        );
+
+
+    /* =========================================
+       SIGUIENTE
+    ========================================== */
+
+    document
+        .getElementById("nextPage")
+        .addEventListener(
+            "click",
+            function() {
+
+
+                const index =
+                    currentPageIndex();
+
+
+                const next =
+                    (
+                        index
+                        + 1
+                    )
+                    % pages.length;
+
+
+                showPage(
+                    pages[next]
+                );
+
+            }
+        );
+
+
+    /* =========================================
+       NAVEGADOR
+    ========================================== */
+
+    window.addEventListener(
+        "popstate",
+        function() {
+
+
+            showPage(
+
+                location.hash
+                    .replace("#", ""),
+
+                false
+
+            );
+
+        }
+    );
+
+
+    window.addEventListener(
+        "hashchange",
+        function() {
+
+
+            showPage(
+
+                location.hash
+                    .replace("#", ""),
+
+                false
+
+            );
+
+        }
+    );
+
+
+    /* =========================================
+       TECLADO
+    ========================================== */
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+
+            if (
+                event.key
+                === "ArrowRight"
+            ) {
+
+                document
+                    .getElementById(
+                        "nextPage"
+                    )
+                    .click();
+
+            }
+
+
+            if (
+                event.key
+                === "ArrowLeft"
+            ) {
+
+                document
+                    .getElementById(
+                        "prevPage"
+                    )
+                    .click();
+
+            }
+
+        }
+    );
+
+
+    /* =========================================
+       INICIAR
+    ========================================== */
+
+    showPage(
+
+        location.hash
+            .replace("#", "")
+        || "inicio",
+
+        false
+
+    );
+
+</script>
 
 
 </body>
