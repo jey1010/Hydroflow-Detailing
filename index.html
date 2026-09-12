@@ -1,2812 +1,1489 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <title>Hydroflow Detailing</title>
+<title>Hydroflow Detailing</title>
 
 
-    <!-- =========================================
-         GOOGLE FONTS
-    ========================================== -->
+<!-- GOOGLE FONTS -->
 
-    <link rel="preconnect"
-          href="https://fonts.googleapis.com">
+<link rel="preconnect"
+      href="https://fonts.googleapis.com">
 
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap"
-          rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
 
 
-    <style>
+<style>
 
-        /* =========================================
-           RESET
-        ========================================== */
+/* =========================================
+   RESET
+========================================= */
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-
-            background: #001b2e;
-
-            color: white;
-
-            overflow: hidden;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-
-        /* =========================================
-           HEADER
-        ========================================== */
-
-        header {
-
-            position: fixed;
-
-            top: 0;
-            left: 0;
-
-            width: 100%;
-
-            height: 80px;
-
-            z-index: 1000;
-
-            background:
-                rgba(0, 20, 35, 0.94);
-
-            backdrop-filter: blur(10px);
-
-            border-bottom:
-                1px solid
-                rgba(0, 174, 255, 0.4);
-        }
-
-
-        .navbar {
-
-            width: 100%;
-
-            max-width: 1200px;
-
-            height: 80px;
-
-            margin: auto;
-
-            padding: 0 25px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-        }
-
-
-        /* LOGO DEL MENU */
-
-        .nav-logo {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 12px;
-
-            cursor: pointer;
-        }
-
-
-        .nav-logo img {
-
-            width: 48px;
-
-            height: 48px;
-
-            object-fit: contain;
-        }
-
-
-        .nav-logo span {
-
-            font-family:
-                'Bebas Neue',
-                sans-serif;
-
-            font-size: 28px;
-
-            letter-spacing: 2px;
-        }
-
-
-        .nav-logo strong {
-
-            color: #00aaff;
-        }
-
-
-        /* MENU */
-
-        nav {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 28px;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
+html,
+body{
+    width:100%;
+    height:100%;
+}
 
-        nav a {
+body{
+    font-family:'Montserrat',sans-serif;
+    background:#001b2e;
+    color:white;
+    overflow:hidden;
+}
 
-            font-size: 14px;
+a{
+    text-decoration:none;
+    color:inherit;
+}
 
-            font-weight: 700;
 
-            cursor: pointer;
+/* =========================================
+   HEADER
+========================================= */
 
-            transition: 0.3s;
-        }
-
-
-        nav a:hover,
-        nav a.active {
-
-            color: #00aaff;
-        }
-
-
-        .nav-button {
-
-            background: #009fe3;
-
-            padding: 11px 21px;
-
-            border-radius: 25px;
-
-            color: white !important;
-        }
-
-
-        .nav-button:hover {
-
-            background: white;
-
-            color: #008fd0 !important;
-        }
-
-
-        /* =========================================
-           PANTALLAS
-        ========================================== */
-
-        section {
-
-            display: none;
-
-            width: 100%;
-
-            height: 100vh;
-
-            min-height: 100vh;
-
-            overflow-y: auto;
-
-            overflow-x: hidden;
-
-            padding: 110px 20px 50px;
-        }
-
-
-        section.active {
-
-            display: block;
-
-            animation:
-                pageIn
-                0.35s
-                ease;
-        }
-
-
-        @keyframes pageIn {
-
-            from {
-
-                opacity: 0;
-
-                transform:
-                    translateY(12px);
-            }
-
-            to {
-
-                opacity: 1;
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:80px;
+    z-index:1000;
 
-                transform:
-                    translateY(0);
-            }
-        }
-
-
-        /* =========================================
-           INICIO
-        ========================================== */
-
-        #inicio {
+    background:rgba(0,20,35,.94);
 
-            display: none;
+    backdrop-filter:blur(10px);
 
-            align-items: center;
+    border-bottom:
+        1px solid
+        rgba(0,174,255,.4);
+}
 
-            justify-content: center;
 
-            text-align: center;
+.navbar{
+    width:100%;
+    max-width:1200px;
+    height:80px;
+    margin:auto;
+    padding:0 25px;
 
-            padding:
-                80px
-                20px
-                20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
 
-            background:
 
-                linear-gradient(
-                    rgba(0, 30, 55, 0.35),
-                    rgba(0, 18, 35, 0.78)
-                ),
+.nav-logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    cursor:pointer;
+}
 
-                url("images/fondo-agua.jpg");
 
-            background-size: cover;
+.nav-logo img{
+    width:48px;
+    height:48px;
+    object-fit:contain;
+}
 
-            background-position: center;
-        }
-
 
-        #inicio.active {
-
-            display: flex;
-        }
+.nav-logo span{
+    font-family:
+        'Bebas Neue',
+        sans-serif;
 
+    font-size:28px;
+    letter-spacing:2px;
+}
 
-        .hero-content {
 
-            width: 100%;
+.nav-logo strong{
+    color:#00aaff;
+}
 
-            max-width: 950px;
 
-            margin: auto;
+nav{
+    display:flex;
+    align-items:center;
+    gap:28px;
+}
 
-            display: flex;
 
-            flex-direction: column;
+nav a{
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+}
 
-            align-items: center;
 
-            justify-content: center;
-        }
+nav a:hover,
+nav a.active{
+    color:#00aaff;
+}
 
 
-        .hero-logo {
+.nav-button{
+    background:#009fe3;
 
-            width: 280px;
+    padding:
+        11px
+        21px;
 
-            max-width: 70vw;
+    border-radius:25px;
 
-            margin-bottom: 10px;
+    color:white!important;
+}
 
-            /* SIN GLOW */
-        }
 
+.nav-button:hover{
+    background:white;
+    color:#008fd0!important;
+}
 
-        .hero h1 {
 
-            font-family:
-                'Bebas Neue',
-                sans-serif;
+/* =========================================
+   PANTALLAS
+========================================= */
 
-            font-size:
-                clamp(
-                    55px,
-                    8vw,
-                    90px
-                );
+section{
+    display:none;
 
-            font-weight: 400;
+    width:100%;
+    height:100vh;
+    min-height:100vh;
 
-            letter-spacing: 5px;
+    overflow-y:auto;
+    overflow-x:hidden;
 
-            line-height: 0.95;
+    padding:
+        110px
+        20px
+        50px;
+}
 
-            text-shadow:
-                0 4px 15px
-                rgba(0,0,0,0.8);
-        }
 
+section.active{
+    display:block;
 
-        .hero h1 span {
+    animation:
+        pageIn
+        .35s
+        ease;
+}
 
-            color: #00aaff;
-        }
 
+@keyframes pageIn{
 
-        .hero h2 {
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
 
-            font-family:
-                'Bebas Neue',
-                sans-serif;
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 
-            font-size:
-                clamp(
-                    28px,
-                    4vw,
-                    45px
-                );
+}
 
-            letter-spacing: 8px;
 
-            margin-top: 5px;
-        }
+/* =========================================
+   INICIO
+========================================= */
 
+#inicio{
 
-        .hero p {
+    display:none;
 
-            max-width: 700px;
+    align-items:center;
+    justify-content:center;
 
-            margin: 25px auto;
+    text-align:center;
 
-            font-size: 18px;
+    padding:
+        80px
+        20px
+        20px;
 
-            font-weight: 500;
+    background:
 
-            line-height: 1.7;
+        linear-gradient(
+            rgba(0,30,55,.35),
+            rgba(0,18,35,.78)
+        ),
 
-            color: #e4f6ff;
-        }
+        url("images/fondo-agua.jpg");
 
+    background-size:cover;
+    background-position:center;
+}
 
-        .hero-buttons {
 
-            display: flex;
+#inicio.active{
+    display:flex;
+}
 
-            justify-content: center;
 
-            gap: 15px;
+.hero-content{
 
-            flex-wrap: wrap;
+    width:100%;
+    max-width:950px;
 
-            margin-top: 15px;
-        }
+    margin:auto;
 
+    display:flex;
 
-        /* =========================================
-           BOTONES
-        ========================================== */
+    flex-direction:column;
 
-        .btn {
+    align-items:center;
 
-            display: inline-block;
+    justify-content:center;
+}
 
-            padding: 15px 30px;
 
-            border-radius: 30px;
+/* LOGO PRINCIPAL SIN GLOW */
 
-            font-size: 15px;
+.hero-logo{
 
-            font-weight: 800;
+    width:430px;
 
-            transition: 0.3s;
+    max-width:80vw;
 
-            cursor: pointer;
-        }
+    margin-bottom:35px;
+}
 
 
-        .btn-primary {
+.hero p{
 
-            background: #00a8f0;
-        }
+    max-width:700px;
 
+    margin:
+        25px
+        auto;
 
-        .btn-primary:hover {
+    font-size:18px;
 
-            background: white;
+    font-weight:500;
 
-            color: #008ed0;
+    line-height:1.7;
 
-            transform:
-                translateY(-3px);
-        }
+    color:#e4f6ff;
+}
 
 
-        .btn-secondary {
+.hero-buttons{
 
-            border:
-                2px solid
-                #00a8f0;
-        }
+    display:flex;
 
+    justify-content:center;
 
-        .btn-secondary:hover {
+    gap:15px;
 
-            background: #00a8f0;
+    flex-wrap:wrap;
 
-            transform:
-                translateY(-3px);
-        }
+    margin-top:15px;
+}
 
 
-        /* =========================================
-           CONTENEDORES
-        ========================================== */
+/* =========================================
+   BOTONES
+========================================= */
 
-        .section-container {
+.btn{
 
-            width: 100%;
+    display:inline-block;
 
-            max-width: 1100px;
+    padding:
+        15px
+        30px;
 
-            margin: auto;
-        }
+    border-radius:30px;
 
+    font-size:15px;
 
-        .section-title {
+    font-weight:800;
 
-            text-align: center;
+    transition:.3s;
 
-            margin-bottom: 50px;
-        }
+    cursor:pointer;
+}
 
 
-        .section-title h2 {
+.btn-primary{
 
-            font-family:
-                'Bebas Neue',
-                sans-serif;
+    background:#00a8f0;
+}
 
-            font-size: 55px;
 
-            font-weight: 400;
+.btn-primary:hover{
 
-            letter-spacing: 3px;
+    background:white;
 
-            text-transform: uppercase;
-        }
+    color:#008ed0;
 
+    transform:
+        translateY(-3px);
+}
 
-        .section-title h2 span {
 
-            color: #00aaff;
-        }
+.btn-secondary{
 
+    border:
+        2px solid
+        #00a8f0;
+}
 
-        .section-title p {
 
-            margin-top: 10px;
+.btn-secondary:hover{
 
-            color: #c7e8f7;
+    background:#00a8f0;
 
-            font-size: 16px;
+    transform:
+        translateY(-3px);
+}
 
-            font-weight: 500;
-        }
 
+/* BOTÓN RESERVAR */
 
-        /* =========================================
-           PAQUETES
-        ========================================== */
+.btn-reservar{
 
-        .packages {
+    border:
+        2px solid
+        #00a8f0;
 
-            background:
+    background:transparent;
 
-                linear-gradient(
-                    rgba(0, 28, 48, 0.95),
-                    rgba(0, 13, 26, 0.98)
-                ),
+    color:white;
 
-                url("images/fondo-agua.jpg");
+    box-shadow:
 
-            background-size: cover;
+        0 0 10px
+        rgba(0,168,240,.7),
 
-            background-position: center;
-        }
+        0 0 25px
+        rgba(0,168,240,.35);
 
+    text-transform:uppercase;
+}
 
-        .package-box {
 
-            margin-bottom: 70px;
-        }
+.btn-reservar:hover{
 
+    background:#00a8f0;
 
-        .package-heading {
+    color:white;
 
-            text-align: center;
+    box-shadow:
 
-            margin-bottom: 30px;
-        }
+        0 0 15px
+        rgba(0,168,240,.9),
 
+        0 0 35px
+        rgba(0,168,240,.5);
 
-        .package-heading h3 {
+    transform:
+        translateY(-3px);
+}
 
-            display: inline-block;
 
-            font-family:
-                'Bebas Neue',
-                sans-serif;
+/* =========================================
+   CONTENEDORES
+========================================= */
 
-            font-size: 38px;
+.section-container{
 
-            font-weight: 400;
+    width:100%;
 
-            font-style: italic;
+    max-width:1100px;
 
-            letter-spacing: 2px;
+    margin:auto;
+}
 
-            border-bottom:
-                3px solid
-                #00aaff;
 
-            padding:
-                0
-                20px
-                10px;
-        }
+.section-title{
 
+    text-align:center;
 
-        .package-description {
+    margin-bottom:50px;
+}
 
-            display: grid;
 
-            grid-template-columns:
-                1fr 1fr;
+.section-title h2{
 
-            gap: 25px;
+    font-family:
+        'Bebas Neue',
+        sans-serif;
 
-            margin-bottom: 35px;
-        }
+    font-size:55px;
 
+    font-weight:400;
 
-        .service-column {
+    letter-spacing:3px;
 
-            background:
-                rgba(
-                    0,
-                    95,
-                    150,
-                    0.2
-                );
+    text-transform:uppercase;
+}
 
-            border:
-                1px solid
-                rgba(
-                    0,
-                    174,
-                    255,
-                    0.3
-                );
 
-            border-radius: 15px;
+.section-title h2 span{
 
-            padding: 25px;
-        }
+    color:#00aaff;
+}
 
 
-        .service-column h4 {
+.section-title p{
 
-            font-family:
-                'Bebas Neue',
-                sans-serif;
+    margin-top:10px;
 
-            color: #00aaff;
+    color:#c7e8f7;
 
-            font-size: 29px;
+    font-size:16px;
 
-            font-weight: 400;
+    font-weight:500;
+}
 
-            letter-spacing: 1px;
 
-            margin-bottom: 20px;
-        }
+/* =========================================
+   PAQUETES
+========================================= */
 
+.packages{
 
-        .service-column ul {
+    background:
 
-            list-style: none;
-        }
+        linear-gradient(
+            rgba(0,28,48,.95),
+            rgba(0,13,26,.98)
+        ),
 
+        url("images/fondo-agua.jpg");
 
-        .service-column li {
+    background-size:cover;
 
-            margin-bottom: 13px;
+    background-position:center;
+}
 
-            line-height: 1.5;
 
-            color: #f1f9ff;
+.package-box{
 
-            font-size: 15px;
+    margin-bottom:70px;
+}
 
-            font-weight: 500;
-        }
 
+.package-heading{
 
-        .service-column li::before {
+    text-align:center;
 
-            content: "✓";
+    margin-bottom:30px;
+}
 
-            color: #00aaff;
 
-            font-weight: 900;
+.package-heading h3{
 
-            margin-right: 10px;
-        }
+    display:inline-block;
 
+    font-family:
+        'Bebas Neue',
+        sans-serif;
 
-        /* =========================================
-           PRECIOS
-        ========================================== */
+    font-size:38px;
 
-        .price-grid {
+    font-weight:400;
 
-            display: grid;
+    font-style:italic;
 
-            grid-template-columns:
-                repeat(3, 1fr);
+    letter-spacing:2px;
 
-            gap: 25px;
-        }
+    border-bottom:
+        3px solid
+        #00aaff;
 
+    padding:
+        0
+        20px
+        10px;
+}
 
-        .price-card {
 
-            background:
+.package-description{
 
-                linear-gradient(
-                    145deg,
-                    rgba(0,155,230,0.55),
-                    rgba(0,30,70,0.9)
-                );
+    display:grid;
 
-            border:
-                2px solid
-                rgba(
-                    0,
-                    170,
-                    255,
-                    0.8
-                );
+    grid-template-columns:
+        1fr 1fr;
 
-            border-radius: 15px;
+    gap:25px;
 
-            padding: 30px 20px;
+    margin-bottom:35px;
+}
 
-            text-align: center;
 
-            transition: 0.3s;
-        }
+.service-column{
 
+    background:
+        rgba(
+            0,
+            95,
+            150,
+            .2
+        );
 
-        .price-card:hover {
+    border:
+        1px solid
+        rgba(
+            0,
+            174,
+            255,
+            .3
+        );
 
-            transform:
-                translateY(-8px);
+    border-radius:15px;
 
-            box-shadow:
+    padding:25px;
+}
 
-                0 15px 35px
-                rgba(
-                    0,
-                    150,
-                    255,
-                    0.25
-                );
-        }
 
+.service-column h4{
 
-        .vehicle-label {
+    font-family:
+        'Bebas Neue',
+        sans-serif;
 
-            display: inline-block;
+    color:#00aaff;
 
-            padding:
-                9px
-                35px;
+    font-size:29px;
 
-            margin-bottom: 15px;
+    font-weight:400;
 
-            border-radius: 8px;
+    letter-spacing:1px;
 
-            background:
+    margin-bottom:20px;
+}
 
-                linear-gradient(
-                    #eeeeee,
-                    #a9b3ba
-                );
 
-            color: #00065c;
+.service-column ul{
 
-            font-family:
-                'Bebas Neue',
-                sans-serif;
+    list-style:none;
+}
 
-            font-size: 30px;
 
-            font-weight: 400;
+.service-column li{
 
-            font-style: italic;
+    margin-bottom:13px;
 
-            letter-spacing: 2px;
-        }
+    line-height:1.5;
 
+    color:#f1f9ff;
 
-        .price-card:first-child
-        .vehicle-label {
+    font-size:15px;
 
-            background:
+    font-weight:500;
+}
 
-                linear-gradient(
-                    #ffc62e,
-                    #f28c00
-                );
-        }
 
+.service-column li::before{
 
-        .vehicle-image {
+    content:"✓";
 
-            width: 100%;
+    color:#00aaff;
 
-            height: 130px;
+    font-weight:900;
 
-            object-fit: contain;
+    margin-right:10px;
+}
 
-            margin:
-                5px
-                0
-                20px;
-        }
 
+/* =========================================
+   PRECIOS
+========================================= */
 
-        .starting {
+.price-grid{
 
-            font-size: 14px;
+    display:grid;
 
-            font-weight: 800;
+    grid-template-columns:
+        repeat(3,1fr);
 
-            text-decoration:
-                underline;
-        }
+    gap:25px;
+}
 
 
-        .price {
+.price-card{
 
-            font-family:
-                'Bebas Neue',
-                sans-serif;
+    background:
 
-            font-size: 50px;
+        linear-gradient(
+            145deg,
+            rgba(0,155,230,.55),
+            rgba(0,30,70,.9)
+        );
 
-            font-weight: 400;
+    border:
+        2px solid
+        rgba(
+            0,
+            170,
+            255,
+            .8
+        );
 
-            font-style: italic;
+    border-radius:15px;
 
-            letter-spacing: 1px;
+    padding:
+        30px
+        20px;
 
-            margin-left: 5px;
-        }
+    text-align:center;
 
+    transition:.3s;
+}
 
-        /* =========================================
-           SERVICIOS
-        ========================================== */
 
-        .services {
+.price-card:hover{
 
-            background: #062b40;
-        }
+    transform:
+        translateY(-8px);
 
+    box-shadow:
 
-        .services-grid {
+        0 15px 35px
+        rgba(
+            0,
+            150,
+            255,
+            .25
+        );
+}
 
-            display: grid;
 
-            grid-template-columns:
-                repeat(3, 1fr);
+.vehicle-label{
 
-            gap: 25px;
+    display:inline-block;
 
-            margin-bottom: 60px;
-        }
+    padding:
+        9px
+        35px;
 
+    margin-bottom:15px;
 
-        .service-card {
+    border-radius:8px;
 
-            padding:
-                35px
-                25px;
+    background:
 
-            background:
+        linear-gradient(
+            #eeeeee,
+            #a9b3ba
+        );
 
-                rgba(
-                    0,
-                    140,
-                    210,
-                    0.1
-                );
+    color:#00065c;
 
-            border:
-                1px solid
-                rgba(
-                    0,
-                    174,
-                    255,
-                    0.4
-                );
+    font-family:
+        'Bebas Neue',
+        sans-serif;
 
-            border-radius: 15px;
+    font-size:30px;
 
-            text-align: center;
+    font-weight:400;
 
-            transition: 0.3s;
-        }
+    font-style:italic;
 
+    letter-spacing:2px;
+}
 
-        .service-card:hover {
 
-            transform:
-                translateY(-5px);
+.price-card:first-child
+.vehicle-label{
 
-            background:
+    background:
 
-                rgba(
-                    0,
-                    150,
-                    220,
-                    0.18
-                );
-        }
+        linear-gradient(
+            #ffc62e,
+            #f28c00
+        );
+}
 
 
-        .service-icon {
+.vehicle-image{
 
-            font-size: 45px;
+    width:100%;
 
-            margin-bottom: 20px;
-        }
+    height:130px;
 
+    object-fit:contain;
 
-        .service-card h3 {
+    margin:
+        5px
+        0
+        20px;
+}
 
-            font-family:
-                'Bebas Neue',
-                sans-serif;
 
-            color: #00aaff;
+.starting{
 
-            font-size: 30px;
+    font-size:14px;
 
-            font-weight: 400;
+    font-weight:800;
 
-            letter-spacing: 1px;
+    text-decoration:
+        underline;
+}
 
-            margin-bottom: 15px;
-        }
 
+.price{
 
-        .service-card p {
+    font-family:
+        'Bebas Neue',
+        sans-serif;
 
-            color: #d9f3ff;
+    font-size:50px;
 
-            line-height: 1.7;
+    font-weight:400;
 
-            font-size: 15px;
+    font-style:italic;
 
-            font-weight: 500;
-        }
+    letter-spacing:1px;
 
+    margin-left:5px;
+}
 
-        /* =========================================
-           SERVICIOS DETALLADOS
-           DENTRO DE SERVICIOS
-        ========================================== */
 
-        .detailed-layout {
+/* =========================================
+   SERVICIOS
+========================================= */
 
-            display: grid;
+.services{
 
-            grid-template-columns:
-                1fr 1fr;
+    background:#062b40;
+}
 
-            min-height: 450px;
 
-            border-radius: 20px;
+.services-grid{
 
-            overflow: hidden;
+    display:grid;
 
-            background: #082d42;
+    grid-template-columns:
+        repeat(4,1fr);
 
-            margin-top: 30px;
-        }
+    gap:25px;
 
+    margin-bottom:60px;
+}
 
-        .detailed-content {
 
-            padding:
-                55px
-                45px;
-        }
+.service-card{
 
+    padding:
+        35px
+        25px;
 
-        .detailed-content h2 {
+    background:
+        rgba(
+            0,
+            140,
+            210,
+            .1
+        );
 
-            font-family:
-                'Bebas Neue',
-                sans-serif;
+    border:
+        1px solid
+        rgba(
+            0,
+            174,
+            255,
+            .4
+        );
 
-            color: #00aaff;
+    border-radius:15px;
 
-            font-size: 60px;
+    text-align:center;
 
-            font-weight: 400;
+    transition:.3s;
+}
 
-            line-height: 0.95;
 
-            letter-spacing: 3px;
+.service-card:hover{
 
-            margin-bottom: 35px;
-        }
+    transform:
+        translateY(-5px);
 
+    background:
+        rgba(
+            0,
+            150,
+            220,
+            .18
+        );
+}
 
-        .detailed-content ul {
 
-            list-style: none;
-        }
+.service-icon{
 
+    font-size:45px;
 
-        .detailed-content li {
+    margin-bottom:20px;
+}
 
-            font-size: 17px;
 
-            font-weight: 700;
+.service-card h3{
 
-            margin-bottom: 20px;
+    font-family:
+        'Bebas Neue',
+        sans-serif;
 
-            line-height: 1.4;
-        }
+    color:#00aaff;
 
+    font-size:30px;
 
-        .detailed-content li::before {
+    font-weight:400;
 
-            content: "●";
+    letter-spacing:1px;
 
-            color: #00aaff;
+    margin-bottom:15px;
+}
 
-            margin-right: 15px;
-        }
 
+.service-card p{
 
-        .detailed-image {
+    color:#d9f3ff;
 
-            background:
+    line-height:1.7;
 
-                linear-gradient(
-                    rgba(0,0,0,0.25),
-                    rgba(0,0,0,0.6)
-                ),
+    font-size:15px;
 
-                url("images/detailing.jpg");
+    font-weight:500;
+}
 
-            background-size: cover;
 
-            background-position: center;
+/* =========================================
+   SERVICIOS DETALLADOS
+========================================= */
 
-            display: flex;
+.detailed-layout{
 
-            align-items: center;
+    display:grid;
 
-            justify-content: center;
-        }
+    grid-template-columns:
+        1fr 1fr;
 
+    min-height:450px;
 
-        .detailed-image-content {
+    border-radius:20px;
 
-            text-align: center;
-        }
+    overflow:hidden;
 
+    background:#082d42;
 
-        .detailed-image-content img {
+    margin-top:30px;
+}
 
-            width: 150px;
-        }
 
+.detailed-content{
 
-        .detailed-image-content h3 {
+    padding:
+        55px
+        45px;
+}
 
-            font-family:
-                'Bebas Neue',
-                sans-serif;
 
-            font-size: 45px;
+.detailed-content h2{
 
-            font-weight: 400;
+    font-family:
+        'Bebas Neue',
+        sans-serif;
 
-            letter-spacing: 3px;
+    color:#00aaff;
 
-            margin-top: 15px;
-        }
+    font-size:60px;
 
+    font-weight:400;
 
-        .detailed-image-content p {
+    line-height:.95;
 
-            font-family:
-                'Bebas Neue',
-                sans-serif;
+    letter-spacing:3px;
 
-            font-size: 30px;
+    margin-bottom:35px;
+}
 
-            letter-spacing: 5px;
 
-            font-weight: 400;
-        }
+.detailed-content ul{
 
+    list-style:none;
+}
 
-        /* =========================================
-           CONTACTO
-        ========================================== */
 
-        .contact {
+.detailed-content li{
 
-            background: #001b2e;
-        }
+    font-size:17px;
 
+    font-weight:700;
 
-        .contact-grid {
+    margin-bottom:20px;
 
-            display: grid;
+    line-height:1.4;
+}
 
-            grid-template-columns:
-                1fr 1fr;
 
-            gap: 50px;
+.detailed-content li::before{
 
-            align-items: center;
+    content:"●";
 
-            min-height: 65vh;
-        }
+    color:#00aaff;
 
+    margin-right:15px;
+}
 
-        .contact-info h2 {
 
-            font-family:
-                'Bebas Neue',
-                sans-serif;
+.detailed-image{
 
-            font-size: 60px;
+    background:
 
-            font-weight: 400;
+        linear-gradient(
+            rgba(0,0,0,.25),
+            rgba(0,0,0,.6)
+        ),
 
-            line-height: 1;
+        url("images/detailing.jpg");
 
-            letter-spacing: 2px;
+    background-size:cover;
 
-            margin-bottom: 25px;
-        }
+    background-position:center;
 
+    display:flex;
 
-        .contact-info h2 span {
+    align-items:center;
 
-            color: #00aaff;
-        }
+    justify-content:center;
+}
 
 
-        .contact-info > p {
+.detailed-image-content{
 
-            color: #c8e7f5;
+    text-align:center;
+}
 
-            font-size: 16px;
 
-            font-weight: 500;
+.detailed-image-content img{
 
-            line-height: 1.7;
+    width:150px;
+}
 
-            margin-bottom: 30px;
-        }
 
+.detailed-image-content h3{
 
-        .contact-item {
+    font-family:
+        'Bebas Neue',
+        sans-serif;
 
-            display: flex;
+    font-size:45px;
 
-            align-items: center;
+    font-weight:400;
 
-            gap: 15px;
+    letter-spacing:3px;
 
-            margin-bottom: 22px;
+    margin-top:15px;
+}
 
-            font-size: 17px;
 
-            font-weight: 600;
-        }
+.detailed-image-content p{
 
+    font-family:
+        'Bebas Neue',
+        sans-serif;
 
-        .contact-icon {
+    font-size:30px;
 
-            width: 45px;
+    letter-spacing:5px;
 
-            height: 45px;
+    font-weight:400;
+}
 
-            border:
-                2px solid
-                #00aaff;
 
-            border-radius: 50%;
+/* =========================================
+   RESERVAR
+========================================= */
 
-            display: flex;
+.booking{
 
-            align-items: center;
+    background:
 
-            justify-content: center;
+        linear-gradient(
+            rgba(0,20,35,.96),
+            rgba(0,10,22,.98)
+        ),
 
-            color: #00aaff;
+        url("images/fondo-agua.jpg");
 
-            font-size: 20px;
+    background-size:cover;
 
-            flex-shrink: 0;
-        }
+    background-position:center;
+}
 
 
-        .contact-item a:hover {
+.booking-container{
 
-            color: #00aaff;
-        }
+    width:100%;
 
+    max-width:1050px;
 
-        .contact-card {
+    margin:auto;
+}
 
-            background:
 
-                linear-gradient(
-                    145deg,
-                    #063b58,
-                    #021c2e
-                );
+.booking-back{
 
-            border:
-                1px solid
-                #008fd0;
+    display:inline-block;
 
-            border-radius: 20px;
+    margin-bottom:18px;
 
-            padding: 40px;
+    color:#c7e8f7;
 
-            text-align: center;
-        }
+    font-weight:700;
 
+    cursor:pointer;
 
-        .contact-card img {
+    transition:.3s;
+}
 
-            width: 180px;
 
-            max-width: 80%;
+.booking-back:hover{
 
-            margin-bottom: 20px;
-        }
+    color:#00aaff;
+}
 
 
-        .contact-card h3 {
+.booking-title{
 
-            font-family:
-                'Bebas Neue',
-                sans-serif;
+    text-align:center;
 
-            font-size: 42px;
+    margin-bottom:25px;
+}
 
-            font-weight: 400;
 
-            letter-spacing: 3px;
+.booking-title h2{
 
-            margin-bottom: 5px;
-        }
+    font-family:
+        'Bebas Neue',
+        sans-serif;
 
+    font-size:46px;
 
-        .contact-card p {
+    font-weight:400;
 
-            font-family:
-                'Bebas Neue',
-                sans-serif;
+    letter-spacing:5px;
+}
 
-            color: #00aaff;
 
-            font-size: 25px;
+.booking-title h2 span{
 
-            letter-spacing: 4px;
-        }
+    color:#00aaff;
+}
 
 
-        /* =========================================
-           FOOTER
-        ========================================== */
+.title-line{
 
-        footer {
+    height:2px;
 
-            background: #00121f;
+    width:90%;
 
-            border-top:
-                1px solid
-                rgba(
-                    0,
-                    174,
-                    255,
-                    0.3
-                );
+    max-width:950px;
 
-            text-align: center;
+    margin:
+        10px
+        auto
+        0;
 
-            padding: 30px 20px;
+    background:
 
-            color: #9bc8da;
-        }
+        linear-gradient(
+            90deg,
+            transparent,
+            #8bb0c0,
+            transparent
+        );
 
+    box-shadow:
+        0 0 8px
+        rgba(
+            0,
+            174,
+            255,
+            .35
+        );
+}
 
-        footer strong {
 
-            color: #00aaff;
-        }
+/* =========================================
+   SUPABASE
+========================================= */
 
+const SUPABASE_URL = "https://gqcrbqzhfcybguigkkwa.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_cTV8SNmiDsKvasLivQcc7Q_srxWsClY";
+const { createClient } = window.supabase;
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
-        /* =========================================
-           FLECHAS
-        ========================================== */
+/* =========================================
+   CALENDARIO Y RESERVAS
+========================================= */
 
-        .screen-navigation {
+const monthNames=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+const weekDays=["domingo","lunes","martes","miércoles","jueves","viernes","sábado"];
+const timeSlots=["8:00 AM","9:00 AM","10:00 AM","11:00 AM","12:00 PM","1:00 PM","2:00 PM","3:00 PM"];
 
-            position: fixed;
+let calendarDate=new Date();
+calendarDate.setDate(1);
+let selectedDate=null;
+let selectedTime=null;
+let selectedService=null;
+let occupiedTimes=[];
 
-            right: 25px;
+function formatDate(date){
+    return `${weekDays[date.getDay()]}, ${monthNames[date.getMonth()].toLowerCase()} ${date.getDate()}, ${date.getFullYear()}`;
+}
 
-            bottom: 25px;
+function toDatabaseDate(date){
+    const year=date.getFullYear();
+    const month=String(date.getMonth()+1).padStart(2,"0");
+    const day=String(date.getDate()).padStart(2,"0");
+    return `${year}-${month}-${day}`;
+}
 
-            z-index: 1100;
+function isPastDate(date){
+    const today=new Date();
+    today.setHours(0,0,0,0);
+    const compare=new Date(date);
+    compare.setHours(0,0,0,0);
+    return compare<today;
+}
 
-            display: flex;
+function isSunday(date){return date.getDay()===0;}
 
-            gap: 10px;
-        }
+function showBookingStatus(message,isError=false){
+    const element=document.getElementById("bookingStatus");
+    element.textContent=message;
+    element.style.color=isError ? "#ff7777" : "#00ff82";
+}
 
+function showBookingMessage(message,isError=false){
+    const element=document.getElementById("bookingMessage");
+    element.textContent=message;
+    element.style.color=isError ? "#ff7777" : "#00ff82";
+}
 
-        .screen-arrow {
+async function loadOccupiedTimes(){
+    occupiedTimes=[];
+    if(!selectedDate){renderTimes();return;}
 
-            width: 45px;
+    const {data,error}=await supabaseClient.rpc("obtener_horas_ocupadas",{p_fecha:toDatabaseDate(selectedDate)});
 
-            height: 45px;
+    if(error){
+        console.error("Error consultando disponibilidad:",error);
+        showBookingMessage("No pudimos consultar la disponibilidad. Intenta nuevamente.",true);
+        renderTimes();
+        return;
+    }
 
-            border:
-                1px solid
-                rgba(
-                    0,
-                    174,
-                    255,
-                    0.6
-                );
+    occupiedTimes=(data||[]).map(row=>row.hora);
 
-            border-radius: 50%;
+    if(selectedTime && occupiedTimes.includes(selectedTime)) selectedTime=null;
+    renderTimes();
+    updateBookingSummary();
+}
 
-            background:
-                rgba(
-                    0,
-                    20,
-                    35,
-                    0.9
-                );
+function renderCalendar(){
+    const month=calendarDate.getMonth();
+    const year=calendarDate.getFullYear();
+    document.getElementById("calendarMonth").textContent=`${monthNames[month]} ${year}`;
+    const daysContainer=document.getElementById("calendarDays");
+    daysContainer.innerHTML="";
+    const firstDay=new Date(year,month,1).getDay();
+    const mondayIndex=firstDay===0?6:firstDay-1;
+    const daysInMonth=new Date(year,month+1,0).getDate();
 
-            color: white;
+    for(let i=0;i<mondayIndex;i++){
+        const empty=document.createElement("div");
+        empty.className="calendar-day empty";
+        daysContainer.appendChild(empty);
+    }
 
-            font-size: 24px;
+    for(let day=1;day<=daysInMonth;day++){
+        const date=new Date(year,month,day);
+        const cell=document.createElement("div");
+        cell.className="calendar-day";
+        cell.textContent=day;
+        const today=new Date();
 
-            cursor: pointer;
+        if(date.getDate()===today.getDate()&&date.getMonth()===today.getMonth()&&date.getFullYear()===today.getFullYear()) cell.classList.add("today");
 
-            transition: 0.25s;
+        if(isPastDate(date)||isSunday(date)){
+            cell.classList.add("unavailable");
+            cell.title=isSunday(date)?"No hay citas los domingos":"Fecha no disponible";
+        }else{
+            cell.addEventListener("click",()=>selectDate(date));
         }
 
+        if(selectedDate&&date.getDate()===selectedDate.getDate()&&date.getMonth()===selectedDate.getMonth()&&date.getFullYear()===selectedDate.getFullYear()) cell.classList.add("selected");
+        daysContainer.appendChild(cell);
+    }
+}
 
-        .screen-arrow:hover {
+function renderTimes(){
+    const grid=document.getElementById("timeGrid");
+    grid.innerHTML="";
 
-            background: #00a8f0;
+    timeSlots.forEach(time=>{
+        const button=document.createElement("button");
+        button.type="button";
+        button.className="time-button";
+        button.textContent=time;
+        const occupied=occupiedTimes.includes(time);
 
-            transform:
-                translateY(-3px);
+        if(occupied){
+            button.disabled=true;
+            button.classList.add("occupied");
+            button.textContent=`${time} • OCUPADO`;
+        }else if(!selectedDate){
+            button.disabled=true;
+        }else{
+            button.addEventListener("click",()=>{
+                selectedTime=time;
+                document.querySelectorAll(".time-button").forEach(b=>b.classList.remove("selected"));
+                button.classList.add("selected");
+                showBookingMessage("");
+                updateBookingSummary();
+            });
         }
-
-
-        /* =========================================
-           RESPONSIVE
-        ========================================== */
-
-        @media (max-width: 900px) {
-
-            nav {
-                gap: 15px;
-            }
 
+        if(selectedTime===time&&!occupied) button.classList.add("selected");
+        grid.appendChild(button);
+    });
+}
 
-            .price-grid {
+async function selectDate(date){
+    selectedDate=new Date(date);
+    selectedTime=null;
+    occupiedTimes=[];
+    document.getElementById("selectedDateText").textContent=formatDate(selectedDate);
+    document.getElementById("customerForm").classList.remove("visible");
+    showBookingMessage("");
+    renderCalendar();
+    renderTimes();
+    updateBookingSummary();
+    await loadOccupiedTimes();
+}
 
-                grid-template-columns:
-                    1fr;
-            }
+function updateBookingSummary(){
+    const summary=document.getElementById("bookingSummary");
+    const continueButton=document.getElementById("bookingContinue");
 
+    if(selectedDate&&selectedTime&&selectedService){
+        summary.textContent=`${formatDate(selectedDate)} • ${selectedTime} • ${selectedService}`;
+        continueButton.disabled=false;
+    }else{
+        const parts=[];
+        if(selectedDate)parts.push(formatDate(selectedDate));
+        if(selectedTime)parts.push(selectedTime);
+        if(selectedService)parts.push(selectedService);
+        summary.textContent=parts.length?parts.join(" • "):"Selecciona día, hora y servicio.";
+        continueButton.disabled=true;
+    }
+}
 
-            .services-grid {
+document.getElementById("prevMonth").addEventListener("click",()=>{
+    const now=new Date();
+    const currentMonth=new Date(now.getFullYear(),now.getMonth(),1);
+    const previousMonth=new Date(calendarDate.getFullYear(),calendarDate.getMonth()-1,1);
+    if(previousMonth>=currentMonth){calendarDate=previousMonth;renderCalendar();}
+});
 
-                grid-template-columns:
-                    1fr;
-            }
+document.getElementById("nextMonth").addEventListener("click",()=>{
+    calendarDate.setMonth(calendarDate.getMonth()+1);
+    renderCalendar();
+});
 
+document.querySelectorAll(".service-option").forEach(button=>{
+    button.addEventListener("click",()=>{
+        selectedService=button.dataset.service;
+        document.querySelectorAll(".service-option").forEach(b=>b.classList.remove("selected"));
+        button.classList.add("selected");
+        showBookingMessage("");
+        updateBookingSummary();
+    });
+});
 
-            .package-description {
+document.getElementById("bookingContinue").addEventListener("click",async()=>{
+    if(!selectedDate||!selectedTime||!selectedService)return;
+    await loadOccupiedTimes();
+    if(!selectedTime||occupiedTimes.includes(selectedTime)){
+        showBookingMessage("Ese horario acaba de ser ocupado. Selecciona otro horario.",true);
+        return;
+    }
+    document.getElementById("customerForm").classList.add("visible");
+    document.getElementById("customerForm").scrollIntoView({behavior:"smooth",block:"center"});
+    showBookingStatus("");
+});
 
-                grid-template-columns:
-                    1fr;
-            }
+document.getElementById("confirmBooking").addEventListener("click",async()=>{
+    const name=document.getElementById("customerName").value.trim();
+    const phone=document.getElementById("customerPhone").value.trim();
+    const email=document.getElementById("customerEmail").value.trim();
+    const button=document.getElementById("confirmBooking");
 
+    if(!selectedDate||!selectedTime||!selectedService){showBookingStatus("Selecciona día, hora y servicio.",true);return;}
+    if(!name||!phone){showBookingStatus("Nombre y teléfono son obligatorios.",true);return;}
+    if(email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showBookingStatus("Escribe un email válido o déjalo vacío.",true);return;}
 
-            .detailed-layout {
+    button.disabled=true;
+    button.textContent="GUARDANDO...";
+    showBookingStatus("Procesando tu reserva...");
 
-                grid-template-columns:
-                    1fr;
-            }
+    const {data,error}=await supabaseClient.from("reservas").insert({
+        nombre:name,telefono:phone,email:email||null,fecha:toDatabaseDate(selectedDate),hora:selectedTime,servicio:selectedService,estado:"confirmada"
+    }).select().single();
 
-
-            .detailed-image {
-
-                min-height: 350px;
-            }
-
-
-            .contact-grid {
-
-                grid-template-columns:
-                    1fr;
-            }
-
+    if(error){
+        console.error("Error creando reserva:",error);
+        button.disabled=false;
+        button.textContent="CONFIRMAR RESERVA";
+        if(error.code==="23505"){
+            showBookingStatus("Ese horario acaba de ser reservado por otra persona. Selecciona otro.",true);
+            await loadOccupiedTimes();
+        }else{
+            showBookingStatus("No pudimos guardar la reserva. Intenta nuevamente.",true);
         }
-
-
-        @media (max-width: 650px) {
+        return;
+    }
 
-            header {
+    console.log("Reserva creada:",data);
+    showBookingStatus("¡Reserva confirmada correctamente!");
+    showBookingMessage(`¡Cita confirmada! ${formatDate(selectedDate)} a las ${selectedTime}.`);
+    button.textContent="RESERVA CONFIRMADA";
+    occupiedTimes.push(selectedTime);
+    renderTimes();
+    setTimeout(()=>document.getElementById("customerForm").classList.remove("visible"),2500);
+});
 
-                height: auto;
-            }
+renderCalendar();
+renderTimes();
+updateBookingSummary();
 
+/* =========================================
+   NAVEGADOR
+========================================= */
 
-            .navbar {
+window.addEventListener(
+    "popstate",
+    function(){
 
-                height: auto;
+        showPage(
 
-                min-height: 75px;
+            location.hash.replace(
+                "#",
+                ""
+            ),
 
-                padding: 10px 15px;
+            false
 
-                flex-direction: column;
+        );
 
-                gap: 10px;
-            }
+    }
+);
 
 
-            .nav-logo span {
+window.addEventListener(
+    "hashchange",
+    function(){
 
-                display: none;
-            }
+        showPage(
 
+            location.hash.replace(
+                "#",
+                ""
+            ),
 
-            nav {
+            false
 
-                flex-wrap: wrap;
+        );
 
-                justify-content: center;
+    }
+);
 
-                gap: 10px 15px;
-            }
 
+/* =========================================
+   TECLADO
+========================================= */
 
-            nav a {
+document.addEventListener(
+    "keydown",
+    function(event){
 
-                font-size: 12px;
-            }
+        if(
+            event.key===
+            "ArrowRight"
+        ){
 
+            document
+            .getElementById(
+                "nextPage"
+            )
+            .click();
 
-            .nav-button {
-
-                padding:
-                    9px
-                    15px;
-            }
-
-
-            section {
-
-                padding-top: 145px;
-
-                padding-bottom: 75px;
-            }
-
-
-            #inicio {
-
-                padding-top: 120px;
-            }
-
-
-            .hero-logo {
-
-                width: 220px;
-            }
-
-
-            .hero p {
-
-                font-size: 15px;
-            }
-
-
-            .section-title h2 {
-
-                font-size: 45px;
-            }
-
-
-            .package-heading h3 {
-
-                font-size: 32px;
-            }
-
-
-            .detailed-content {
-
-                padding:
-                    35px
-                    25px;
-            }
-
-
-            .detailed-content h2 {
-
-                font-size: 48px;
-            }
-
-
-            .contact-info h2 {
-
-                font-size: 48px;
-            }
-
-
-            .screen-navigation {
-
-                right: 12px;
-
-                bottom: 12px;
-            }
-
         }
-
-    </style>
-
-</head>
-
-
-<body>
-
-
-<!-- =========================================
-     HEADER
-========================================= -->
-
-<header>
-
-    <div class="navbar">
-
-
-        <a href="#inicio"
-           data-page="inicio"
-           class="nav-logo">
-
-            <img
-                src="logo.png"
-                alt="Hydroflow Logo"
-            >
-
-            <span>
-                HYDROFLOW
-                <strong>DETAILING</strong>
-            </span>
-
-        </a>
-
-
-        <nav>
-
-            <a
-                href="#inicio"
-                data-page="inicio">
-
-                Inicio
-
-            </a>
-
-
-            <a
-                href="#paquetes"
-                data-page="paquetes">
-
-                Paquetes
-
-            </a>
-
-
-            <a
-                href="#servicios"
-                data-page="servicios">
-
-                Servicios
-
-            </a>
-
-
-            <a
-                href="#contacto"
-                data-page="contacto">
-
-                Contacto
-
-            </a>
-
-
-            <a
-                href="#contacto"
-                data-page="contacto"
-                class="nav-button">
-
-                Reservar
-
-            </a>
-
-        </nav>
-
-    </div>
-
-</header>
-
-
-<!-- =========================================
-     INICIO
-========================================= -->
-
-<section
-    id="inicio"
-    class="hero active">
-
-
-    <div class="hero-content">
-
-
-        <img
-            src="logo.png"
-            alt="Hydroflow Detailing"
-            class="hero-logo"
-        >
-
-
-        <h1>
-
-            HYDRO<span>FLOW</span>
-
-        </h1>
-
-
-        <h2>
-
-            DETAILING
-
-        </h2>
-
-
-        <p>
-
-            Dale a tu vehículo el cuidado
-            que merece. Servicios profesionales
-            de detailing a domicilio en el
-            Área Metro.
-
-        </p>
-
-
-        <div class="hero-buttons">
-
-
-            <a
-                href="#paquetes"
-                data-page="paquetes"
-                class="btn btn-primary">
-
-                Ver paquetes
-
-            </a>
-
-
-            <a
-                href="#contacto"
-                data-page="contacto"
-                class="btn btn-secondary">
-
-                Contactarnos
-
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================
-     PAQUETES
-========================================= -->
-
-<section
-    id="paquetes"
-    class="packages">
-
-
-    <div class="section-container">
-
-
-        <div class="section-title">
-
-            <h2>
-
-                Nuestros
-                <span>Paquetes</span>
-
-            </h2>
-
-
-            <p>
-
-                Escoge el servicio ideal
-                para tu vehículo.
-
-            </p>
-
-        </div>
-
-
-        <!-- =====================================
-             PAQUETE HYDRO
-        ====================================== -->
-
-        <div class="package-box">
-
-
-            <div class="package-heading">
-
-                <h3>
-
-                    – Paquete Hydro –
-
-                </h3>
-
-            </div>
-
-
-            <div class="package-description">
-
-
-                <div class="service-column">
-
-
-                    <h4>
-
-                        • Lavado exterior
-
-                    </h4>
-
-
-                    <ul>
-
-                        <li>
-                            Limpieza de aros
-                            y guardalodo
-                        </li>
-
-                        <li>
-                            Prelavado
-                        </li>
-
-                        <li>
-                            Limpieza de carrocería
-                            con jabón pH balanceado
-                        </li>
-
-                    </ul>
-
-                </div>
-
-
-                <div class="service-column">
-
-
-                    <h4>
-
-                        • Lavado interior
-
-                    </h4>
-
-
-                    <ul>
-
-                        <li>
-                            Aspirado de alfombras
-                        </li>
-
-                        <li>
-                            Aspirado de asientos
-                        </li>
-
-                        <li>
-                            Limpieza de cristales
-                        </li>
-
-                        <li>
-                            Remoción de polvo
-                        </li>
-
-                    </ul>
-
-                </div>
-
-            </div>
-
-
-            <div class="price-grid">
-
-
-                <div class="price-card">
-
-
-                    <div class="vehicle-label">
-
-                        AUTO
-
-                    </div>
-
-
-                    <img
-                        src="auto.png"
-                        alt="Auto"
-                        class="vehicle-image"
-                    >
-
-
-                    <span class="starting">
-
-                        DESDE
-
-                    </span>
-
-
-                    <span class="price">
-
-                        $55
-
-                    </span>
-
-                </div>
-
-
-                <div class="price-card">
-
-
-                    <div class="vehicle-label">
-
-                        SUV
-
-                    </div>
-
-
-                    <img
-                        src="suv.png"
-                        alt="SUV"
-                        class="vehicle-image"
-                    >
-
-
-                    <span class="starting">
-
-                        DESDE
-
-                    </span>
-
-
-                    <span class="price">
-
-                        $65
-
-                    </span>
-
-                </div>
-
-
-                <div class="price-card">
-
-
-                    <div class="vehicle-label">
-
-                        PICK-UP
-
-                    </div>
-
-
-                    <img
-                        src="pickup.png"
-                        alt="Pick-up"
-                        class="vehicle-image"
-                    >
-
-
-                    <span class="starting">
-
-                        DESDE
-
-                    </span>
-
-
-                    <span class="price">
-
-                        $75
-
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- =====================================
-             PAQUETE PRO
-        ====================================== -->
-
-        <div class="package-box">
-
-
-            <div class="package-heading">
-
-                <h3>
-
-                    – Paquete Detallado Pro –
-
-                </h3>
-
-            </div>
-
-
-            <div class="package-description">
-
-
-                <div class="service-column">
-
-
-                    <h4>
-
-                        • Lavado exterior
-
-                    </h4>
-
-
-                    <ul>
-
-                        <li>
-                            Limpieza de aros
-                        </li>
-
-                        <li>
-                            Limpieza de suspensión
-                            y frenos
-                        </li>
-
-                        <li>
-                            Guardalodo
-                        </li>
-
-                        <li>
-                            Carrocería
-                        </li>
-
-                        <li>
-                            Sellador hidrofóbico
-                            (3 meses)
-                        </li>
-
-                        <li>
-                            Acondicionamiento
-                            de plásticos
-                        </li>
-
-                    </ul>
-
-                </div>
-
-
-                <div class="service-column">
-
-
-                    <h4>
-
-                        • Lavado interior
-
-                    </h4>
-
-
-                    <ul>
-
-                        <li>
-                            Aspirado de alfombras
-                        </li>
-
-                        <li>
-                            Remoción de polvo en dash,
-                            portavasos y paneles
-                        </li>
-
-                        <li>
-                            Limpieza de cristales
-                        </li>
-
-                        <li>
-                            Aspirado de asientos
-                        </li>
-
-                        <li>
-                            Acondicionamiento
-                            de plásticos y asientos
-                            interiores
-                        </li>
-
-                    </ul>
-
-                </div>
-
-            </div>
-
-
-            <div class="price-grid">
-
-
-                <div class="price-card">
-
-
-                    <div class="vehicle-label">
-
-                        AUTO
-
-                    </div>
-
-
-                    <img
-                        src="auto.png"
-                        alt="Auto"
-                        class="vehicle-image"
-                    >
-
-
-                    <span class="starting">
-
-                        DESDE
-
-                    </span>
-
-
-                    <span class="price">
-
-                        $75
-
-                    </span>
-
-                </div>
-
-
-                <div class="price-card">
-
-
-                    <div class="vehicle-label">
-
-                        SUV
-
-                    </div>
-
-
-                    <img
-                        src="suv.png"
-                        alt="SUV"
-                        class="vehicle-image"
-                    >
-
-
-                    <span class="starting">
-
-                        DESDE
-
-                    </span>
-
-
-                    <span class="price">
-
-                        $85
-
-                    </span>
-
-                </div>
-
-
-                <div class="price-card">
-
-
-                    <div class="vehicle-label">
-
-                        PICK-UP
-
-                    </div>
-
-
-                    <img
-                        src="pickup.png"
-                        alt="Pick-up"
-                        class="vehicle-image"
-                    >
-
-
-                    <span class="starting">
-
-                        DESDE
-
-                    </span>
-
-
-                    <span class="price">
-
-                        $100
-
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================
-     SERVICIOS
-========================================= -->
-
-<section
-    id="servicios"
-    class="services">
-
-
-    <div class="section-container">
-
-
-        <div class="section-title">
-
-            <h2>
-
-                <span>Servicios</span>
-
-            </h2>
-
-
-            <p>
-
-                Tratamos cada vehículo
-                con atención al detalle.
-
-            </p>
-
-        </div>
-
-
-        <!-- SERVICIOS PRINCIPALES -->
-
-        <div class="services-grid">
-
-
-            <div class="service-card">
-
-
-                <div class="service-icon">
-                    💦
-                </div>
-
-
-                <h3>
-
-                    Lavado Detallado
-
-                </h3>
-
-
-                <p>
-
-                    Limpieza exterior profesional,
-                    incluyendo carrocería, aros,
-                    guardalodos y diferentes áreas
-                    del vehículo.
-
-                </p>
-
-            </div>
-
-
-            <div class="service-card">
-
-
-                <div class="service-icon">
-                    ✨
-                </div>
-
-
-                <h3>
-
-                    Limpieza Interior
-
-                </h3>
-
-
-                <p>
-
-                    Limpieza profunda del interior,
-                    aspirado de alfombras, asientos,
-                    cristales, dash y paneles.
-
-                </p>
-
-            </div>
-
-
-            <div class="service-card">
-
-
-                <div class="service-icon">
-                    🛡️
-                </div>
-
-
-                <h3>
-
-                    Protección
-
-                </h3>
-
-
-                <p>
-
-                    Aplicación de selladores
-                    hidrofóbicos para ayudar
-                    a proteger la pintura.
-
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- =====================================
-             SERVICIOS DETALLADOS
-             DENTRO DE SERVICIOS
-        ====================================== -->
-
-        <div class="detailed-layout">
-
-
-            <div class="detailed-content">
-
-
-                <h2>
-
-                    SERVICIOS
-                    <br>
-                    DETALLADOS
-
-                </h2>
-
-
-                <ul>
-
-                    <li>
-                        LAVADO DETALLADO EXTERIOR
-                    </li>
-
-                    <li>
-                        LIMPIEZA PROFUNDA INTERIOR
-                    </li>
-
-                    <li>
-                        PULIDO Y APLICACIÓN
-                        DE CERÁMICA
-                    </li>
-
-                </ul>
-
-            </div>
-
-
-            <div class="detailed-image">
-
-
-                <div
-                    class="detailed-image-content">
-
-
-                    <img
-                        src="logo.png"
-                        alt="Hydroflow"
-                    >
-
-
-                    <h3>
-
-                        HYDROFLOW
-
-                    </h3>
-
-
-                    <p>
-
-                        DETAILING
-
-                    </p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================
-     CONTACTO
-========================================= -->
-
-<section
-    id="contacto"
-    class="contact">
-
-
-    <div class="section-container">
-
-
-        <div class="contact-grid">
-
-
-            <div class="contact-info">
-
-
-                <h2>
-
-                    ¡Lleva tu auto al
-                    <span>
-                        próximo nivel!
-                    </span>
-
-                </h2>
-
-
-                <p>
-
-                    Servicios de detailing
-                    a domicilio en el Área Metro.
-                    Comunícate con nosotros
-                    para coordinar tu cita.
-
-                </p>
-
-
-                <div class="contact-item">
-
-
-                    <div class="contact-icon">
-
-                        ☎
-
-                    </div>
-
-
-                    <a
-                        href="tel:+17876488108">
-
-                        (787)-648-8108
-
-                    </a>
-
-                </div>
-
-
-                <div class="contact-item">
-
-
-                    <div class="contact-icon">
-
-                        ◎
-
-                    </div>
-
-
-                    <a
-                        href="https://instagram.com/hydroflow_detailing"
-                        target="_blank">
-
-                        @hydroflow_detailing
-
-                    </a>
-
-                </div>
-
-
-                <div class="contact-item">
-
-
-                    <div class="contact-icon">
-
-                        📍
-
-                    </div>
-
-
-                    <span>
-
-                        Servicios a domicilio
-                        en Área Metro
-
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="contact-card">
-
-
-                <img
-                    src="logo.png"
-                    alt="Hydroflow Detailing"
-                >
-
-
-                <h3>
-
-                    HYDROFLOW
-
-                </h3>
-
-
-                <p>
-
-                    DETAILING
-
-                </p>
-
-
-                <br>
-
-
-                <a
-                    href="tel:+17876488108"
-                    class="btn btn-primary">
-
-                    Reservar ahora
-
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================
-     FLECHAS
-========================================= -->
-
-<div class="screen-navigation">
-
-
-    <button
-        class="screen-arrow"
-        id="prevPage">
-
-        ‹
-
-    </button>
-
-
-    <button
-        class="screen-arrow"
-        id="nextPage">
-
-        ›
-
-    </button>
-
-</div>
-
-
-<!-- =========================================
-     JAVASCRIPT
-========================================= -->
-
-<script>
-
-
-    const pages = [
-
-        "inicio",
-
-        "paquetes",
-
-        "servicios",
-
-        "contacto"
-
-    ];
-
-
-    /* =========================================
-       MOSTRAR PANTALLA
-    ========================================== */
-
-    function showPage(
-        page,
-        updateURL = true
-    ) {
-
-
-        if (!pages.includes(page)) {
-
-            page = "inicio";
-
-        }
-
-
-        /* Ocultar todas */
-
-        document
-            .querySelectorAll("section")
-            .forEach(
-                section => {
-
-                    section.classList
-                        .remove("active");
-
-                }
-            );
-
-
-        /* Mostrar seleccionada */
-
-        const target =
-            document.getElementById(page);
-
-
-        if (target) {
-
-            target.classList
-                .add("active");
-
-            target.scrollTop = 0;
-
-        }
-
-
-        /* Botón activo */
-
-        document
-            .querySelectorAll("[data-page]")
-            .forEach(
-                link => {
-
-                    link.classList.toggle(
-
-                        "active",
-
-                        link.dataset.page
-                            === page
-
-                    );
-
-                }
-            );
-
-
-        /* Actualizar URL */
-
-        if (
-            updateURL &&
-            location.hash !== "#" + page
-        ) {
-
-            history.pushState(
-
-                {
-                    page: page
-                },
 
-                "",
 
-                "#" + page
+        if(
+            event.key===
+            "ArrowLeft"
+        ){
 
-            );
+            document
+            .getElementById(
+                "prevPage"
+            )
+            .click();
 
         }
 
     }
+);
 
 
-    /* =========================================
-       LINKS
-    ========================================== */
+/* =========================================
+   INICIAR
+========================================= */
 
-    document.addEventListener(
-        "click",
-        function(event) {
+showPage(
 
+    location.hash.replace(
+        "#",
+        ""
+    )
 
-            const link =
-                event.target.closest(
-                    "[data-page]"
-                );
+    ||
 
+    "inicio",
 
-            if (!link) {
+    false
 
-                return;
-
-            }
-
-
-            event.preventDefault();
-
-
-            showPage(
-                link.dataset.page
-            );
-
-        }
-    );
-
-
-    /* =========================================
-       INDEX ACTUAL
-    ========================================== */
-
-    function currentPageIndex() {
-
-
-        const current =
-            location.hash
-                .replace("#", "");
-
-
-        const index =
-            pages.indexOf(current);
-
-
-        return index >= 0
-            ? index
-            : 0;
-
-    }
-
-
-    /* =========================================
-       ANTERIOR
-    ========================================== */
-
-    document
-        .getElementById("prevPage")
-        .addEventListener(
-            "click",
-            function() {
-
-
-                const index =
-                    currentPageIndex();
-
-
-                const previous =
-                    (
-                        index
-                        - 1
-                        + pages.length
-                    )
-                    % pages.length;
-
-
-                showPage(
-                    pages[previous]
-                );
-
-            }
-        );
-
-
-    /* =========================================
-       SIGUIENTE
-    ========================================== */
-
-    document
-        .getElementById("nextPage")
-        .addEventListener(
-            "click",
-            function() {
-
-
-                const index =
-                    currentPageIndex();
-
-
-                const next =
-                    (
-                        index
-                        + 1
-                    )
-                    % pages.length;
-
-
-                showPage(
-                    pages[next]
-                );
-
-            }
-        );
-
-
-    /* =========================================
-       NAVEGADOR
-    ========================================== */
-
-    window.addEventListener(
-        "popstate",
-        function() {
-
-
-            showPage(
-
-                location.hash
-                    .replace("#", ""),
-
-                false
-
-            );
-
-        }
-    );
-
-
-    window.addEventListener(
-        "hashchange",
-        function() {
-
-
-            showPage(
-
-                location.hash
-                    .replace("#", ""),
-
-                false
-
-            );
-
-        }
-    );
-
-
-    /* =========================================
-       TECLADO
-    ========================================== */
-
-    document.addEventListener(
-        "keydown",
-        function(event) {
-
-
-            if (
-                event.key
-                === "ArrowRight"
-            ) {
-
-                document
-                    .getElementById(
-                        "nextPage"
-                    )
-                    .click();
-
-            }
-
-
-            if (
-                event.key
-                === "ArrowLeft"
-            ) {
-
-                document
-                    .getElementById(
-                        "prevPage"
-                    )
-                    .click();
-
-            }
-
-        }
-    );
-
-
-    /* =========================================
-       INICIAR
-    ========================================== */
-
-    showPage(
-
-        location.hash
-            .replace("#", "")
-        || "inicio",
-
-        false
-
-    );
+);
 
 </script>
 
-
 </body>
-
 </html>
