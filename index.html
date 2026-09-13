@@ -3276,106 +3276,74 @@ SERVICIO DE DETAILING
 
 <div class="service-options">
 
+<button
+class="service-option"
+data-service="Lavado Detallado"
+>
+Lavado Detallado
+</button>
 
 <button
 class="service-option"
-data-service="Basic Detailing"
+data-service="Limpieza Interior"
 >
-
-Basic Detailing
-
+Limpieza Interior
 </button>
-
 
 <button
 class="service-option"
-data-service="Full Detailing"
+data-service="Protección"
 >
-
-Full Detailing
-
+Protección
 </button>
-
 
 <button
 class="service-option"
-data-service="Brillo a Máquina"
+data-service="Remoción de Brea"
 >
-
-Brillo a Máquina
-
+Remoción de Brea
 </button>
 
+</div>
+
+
+<div class="booking-service-group">
+
+<div class="booking-service-heading">
+
+<span>🚘</span>
+
+TIPO DE VEHÍCULO
+
+</div>
+
+<div class="service-options">
 
 <button
-class="service-option"
-data-service="Mantenimiento Cerámico"
+class="vehicle-option service-option"
+data-vehicle="Auto"
+type="button"
 >
-
-Mantenimiento Cerámico
-
+Auto
 </button>
-
 
 <button
-class="service-option"
-data-service="Shampoo Master"
+class="vehicle-option service-option"
+data-vehicle="SUV"
+type="button"
 >
-
-Shampoo Master
-
+SUV
 </button>
-
 
 <button
-class="service-option"
-data-service="Sellado de Pintura"
+class="vehicle-option service-option"
+data-vehicle="Pick-up"
+type="button"
 >
-
-Sellado de Pintura
-
+Pick-up
 </button>
 
-
-<button
-class="service-option"
-data-service="Interior Conditioner"
->
-
-Interior Conditioner
-
-</button>
-
-
-<button
-class="service-option"
-data-service="Cerámica 1 Año"
->
-
-Cerámica 1 Año
-
-</button>
-
-
-<button
-class="service-option"
-data-service="Cerámica 3 Años"
->
-
-Cerámica 3 Años
-
-</button>
-
-
-<button
-class="service-option"
-data-service="Cerámica 5 Años"
->
-
-Cerámica 5 Años
-
-</button>
-
+</div>
 
 </div>
 
@@ -3863,6 +3831,7 @@ calendarDate.setDate(1);
 let selectedDate=null;
 let selectedTime=null;
 let selectedService=null;
+let selectedVehicle=null;
 let occupiedTimes=[];
 
 function formatDate(date){
@@ -4054,9 +4023,9 @@ function updateBookingSummary(){
     const summary=document.getElementById("bookingSummary");
     const continueButton=document.getElementById("bookingContinue");
 
-    if(selectedDate && selectedTime && selectedService){
+    if(selectedDate && selectedTime && selectedService && selectedVehicle){
         summary.textContent=
-            `${formatDate(selectedDate)} • ${selectedTime} • ${selectedService}`;
+            `${formatDate(selectedDate)} • ${selectedTime} • ${selectedService} • ${selectedVehicle}`;
         continueButton.disabled=false;
     }else{
         const parts=[];
@@ -4064,10 +4033,11 @@ function updateBookingSummary(){
         if(selectedDate) parts.push(formatDate(selectedDate));
         if(selectedTime) parts.push(selectedTime);
         if(selectedService) parts.push(selectedService);
+        if(selectedVehicle) parts.push(selectedVehicle);
 
         summary.textContent=parts.length
             ? parts.join(" • ")
-            : "Selecciona día, hora y servicio.";
+            : "Selecciona día, hora, servicio y vehículo.";
 
         continueButton.disabled=true;
     }
@@ -4166,13 +4136,34 @@ document
     });
 });
 
+/* TIPO DE VEHÍCULO */
+
+document
+.querySelectorAll(".vehicle-option")
+.forEach(button=>{
+
+    button.addEventListener("click",function(){
+
+        selectedVehicle=button.dataset.vehicle;
+
+        document
+        .querySelectorAll(".vehicle-option")
+        .forEach(b=>b.classList.remove("selected"));
+
+        button.classList.add("selected");
+
+        updateBookingSummary();
+        hideCustomerForm();
+    });
+});
+
 /* CONTINUAR */
 
 document
 .getElementById("bookingContinue")
 .addEventListener("click",function(){
 
-    if(!selectedDate || !selectedTime || !selectedService){
+    if(!selectedDate || !selectedTime || !selectedService || !selectedVehicle){
         return;
     }
 
@@ -4195,9 +4186,9 @@ document
 .getElementById("confirmBooking")
 .addEventListener("click",async function(){
 
-    if(!selectedDate || !selectedTime || !selectedService){
+    if(!selectedDate || !selectedTime || !selectedService || !selectedVehicle){
         showBookingStatus(
-            "Selecciona día, hora y servicio.",
+            "Selecciona día, hora, servicio y vehículo.",
             true
         );
         return;
@@ -4232,7 +4223,7 @@ document
         email:email || null,
         fecha:dateToDatabase(selectedDate),
         hora:selectedTime,
-        servicio:selectedService,
+        servicio:`${selectedService} — Vehículo: ${selectedVehicle}`,
         estado:"confirmada"
     };
 
@@ -4273,7 +4264,7 @@ document
     try{
         const {data:emailResult,error:emailError}=
             await supabaseClient.functions.invoke(
-    "super-worker",
+                "notificar-reserva",
                 {
                     body:reservation
                 }
@@ -4306,8 +4297,8 @@ document
 
     document.getElementById("bookingMessage").textContent=
         emailNotificationSent
-            ? `Servicio: ${selectedService}. Gracias, ${name}. Hemos recibido tu reserva.`
-            : `Servicio: ${selectedService}. Gracias, ${name}. Hemos recibido tu reserva.`;
+            ? `Servicio: ${selectedService} • Vehículo: ${selectedVehicle}. Gracias, ${name}. Hemos recibido tu reserva.`
+            : `Servicio: ${selectedService} • Vehículo: ${selectedVehicle}. Gracias, ${name}. Hemos recibido tu reserva.`;
 
 
     document.getElementById("customerName").value="";
