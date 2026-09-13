@@ -4264,7 +4264,7 @@ document
     try{
         const {data:emailResult,error:emailError}=
             await supabaseClient.functions.invoke(
-                "super-worker",
+        "super-worker",
                 {
                     body:reservation
                 }
