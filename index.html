@@ -3539,7 +3539,7 @@ calendarDate.setDate(1);
 
 let selectedDate=null;
 let selectedTime=null;
-let selectedService=null;
+let selectedServices=[];
 let selectedVehicle=null;
 let occupiedTimes=[];
 
@@ -3739,16 +3739,16 @@ function updateBookingSummary(){
     const summary=document.getElementById("bookingSummary");
     const continueButton=document.getElementById("bookingContinue");
 
-    if(selectedDate && selectedTime && selectedService && selectedVehicle){
+    if(selectedDate && selectedTime && selectedServices.length && selectedVehicle){
         summary.textContent=
-            `${formatDate(selectedDate)} • ${selectedTime} • ${selectedService} • ${selectedVehicle}`;
+            `${formatDate(selectedDate)} • ${selectedTime} • ${selectedServices.join(", ")} • ${selectedVehicle}`;
         continueButton.disabled=false;
     }else{
         const parts=[];
 
         if(selectedDate) parts.push(formatDate(selectedDate));
         if(selectedTime) parts.push(selectedTime);
-        if(selectedService) parts.push(selectedService);
+        if(selectedServices.length) parts.push(selectedServices.join(", "));
         if(selectedVehicle) parts.push(selectedVehicle);
 
         summary.textContent=parts.length
@@ -3839,13 +3839,13 @@ document
 
     button.addEventListener("click",function(){
 
-        selectedService=button.dataset.service;
-
-        document
-        .querySelectorAll('.service-option:not(.vehicle-option)')
-        .forEach(b=>b.classList.remove("selected"));
-
-        button.classList.add("selected");
+        if(selectedServices.includes(button.dataset.service)){
+            selectedServices=selectedServices.filter(service=>service!==button.dataset.service);
+            button.classList.remove("selected");
+        }else{
+            selectedServices.push(button.dataset.service);
+            button.classList.add("selected");
+        }
 
         updateBookingSummary();
         hideCustomerForm();
@@ -3879,7 +3879,7 @@ document
 .getElementById("bookingContinue")
 .addEventListener("click",function(){
 
-    if(!selectedDate || !selectedTime || !selectedService || !selectedVehicle){
+    if(!selectedDate || !selectedTime || !selectedServices.length || !selectedVehicle){
         return;
     }
 
@@ -3902,7 +3902,7 @@ document
 .getElementById("confirmBooking")
 .addEventListener("click",async function(){
 
-    if(!selectedDate || !selectedTime || !selectedService || !selectedVehicle){
+    if(!selectedDate || !selectedTime || !selectedServices.length || !selectedVehicle){
         showBookingStatus(
             "Selecciona día, hora, servicio y vehículo.",
             true
@@ -3939,7 +3939,7 @@ document
         email:email || null,
         fecha:dateToDatabase(selectedDate),
         hora:selectedTime,
-        servicio:`${selectedService} — Vehículo: ${selectedVehicle}`,
+        servicio:`${selectedServices.join(", ")} — Vehículo: ${selectedVehicle}`,
         estado:"confirmada"
     };
 
