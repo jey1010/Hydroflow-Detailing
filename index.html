@@ -3820,10 +3820,15 @@ const weekDays=[
     "jueves","viernes","sábado"
 ];
 
-const timeSlots=[
-    "8:00 AM","9:00 AM","10:00 AM","11:00 AM",
-    "12:00 PM","1:00 PM","2:00 PM","3:00 PM"
-];
+const weeklyAvailability={
+    1:["10:00 AM","1:00 PM","3:00 PM"], // Lunes
+    2:["8:00 AM"],                       // Martes
+    3:["10:00 AM"],                      // Miércoles
+    4:["8:00 AM"],                       // Jueves
+    5:["10:00 AM","1:00 PM","3:00 PM"], // Viernes
+    6:["8:00 AM","10:00 AM","12:00 PM","1:00 PM"], // Sábado
+    0:[]                                // Domingo
+};
 
 let calendarDate=new Date();
 calendarDate.setDate(1);
@@ -3955,6 +3960,13 @@ async function loadOccupiedTimes(){
 function renderTimes(){
     const grid=document.getElementById("timeGrid");
     grid.innerHTML="";
+
+    if(!selectedDate){
+        updateBookingSummary();
+        return;
+    }
+
+    const timeSlots=weeklyAvailability[selectedDate.getDay()] || [];
 
     timeSlots.forEach(time=>{
         const button=document.createElement("button");
@@ -4118,7 +4130,7 @@ document
 /* SERVICIOS */
 
 document
-.querySelectorAll(".service-option")
+.querySelectorAll('.service-option:not(.vehicle-option)')
 .forEach(button=>{
 
     button.addEventListener("click",function(){
@@ -4126,7 +4138,7 @@ document
         selectedService=button.dataset.service;
 
         document
-        .querySelectorAll(".service-option")
+        .querySelectorAll('.service-option:not(.vehicle-option)')
         .forEach(b=>b.classList.remove("selected"));
 
         button.classList.add("selected");
