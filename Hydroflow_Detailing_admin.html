@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hydroflow Detailing — Admin</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+    min-height:100vh;
+    background:#05080b;
+    color:#fff;
+    font-family:'Montserrat',sans-serif;
+}
+
+.hidden{display:none!important}
+
+.login-screen{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    background:
+        radial-gradient(circle at 50% 35%,rgba(0,159,227,.12),transparent 35%),
+        #05080b;
+}
+
+.login-card{
+    width:100%;
+    max-width:430px;
+    background:rgba(10,15,20,.96);
+    border:1px solid rgba(0,159,227,.35);
+    border-radius:18px;
+    padding:38px;
+    box-shadow:0 0 45px rgba(0,159,227,.12);
+    text-align:center;
+}
+
+.login-logo{
+    width:170px;
+    max-width:70%;
+    margin-bottom:18px;
+}
+
+h1,h2,h3,.brand,.stat-number{
+    font-family:'Bebas Neue',sans-serif;
+    letter-spacing:1px;
+}
+
+.login-card h1{
+    font-size:34px;
+    margin-bottom:8px;
+}
+
+.login-card p{
+    color:#9ca8b2;
+    font-size:13px;
+    margin-bottom:28px;
+}
+
+.input{
+    width:100%;
+    padding:14px 15px;
+    margin-bottom:12px;
+    border:1px solid #26333d;
+    border-radius:9px;
+    background:#0d141a;
+    color:#fff;
+    outline:none;
+    font-family:'Montserrat',sans-serif;
+}
+
+.input:focus{border-color:#009fe3}
+
+.btn{
+    width:100%;
+    padding:14px 18px;
+    border:1px solid #009fe3;
+    border-radius:9px;
+    background:#009fe3;
+    color:#fff;
+    font-weight:800;
+    cursor:pointer;
+    font-family:'Montserrat',sans-serif;
+    transition:.2s;
+}
+
+.btn:hover{
+    box-shadow:0 0 20px rgba(0,159,227,.35);
+    transform:translateY(-1px);
+}
+
+.message{
+    margin-top:14px;
+    min-height:18px;
+    color:#ff6b6b;
+    font-size:13px;
+}
+
+.admin-app{
+    min-height:100vh;
+    padding:24px;
+}
+
+.topbar{
+    max-width:1400px;
+    margin:0 auto 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    padding:18px 22px;
+    background:#0a1015;
+    border:1px solid #1d2a33;
+    border-radius:14px;
+}
+
+.brand{
+    font-size:30px;
+}
+
+.brand span{color:#009fe3}
+
+.user-area{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.user-email{
+    color:#9ca8b2;
+    font-size:12px;
+}
+
+.logout{
+    width:auto;
+    padding:9px 15px;
+    background:transparent;
+    border-color:#3a4852;
+    font-size:12px;
+}
+
+.logout:hover{
+    border-color:#009fe3;
+    box-shadow:none;
+}
+
+.content{
+    max-width:1400px;
+    margin:0 auto;
+}
+
+.page-title{
+    margin:8px 0 22px;
+}
+
+.page-title h1{
+    font-size:42px;
+}
+
+.page-title p{
+    color:#8e9aa4;
+    font-size:13px;
+    margin-top:3px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.stat{
+    background:#0a1015;
+    border:1px solid #1d2a33;
+    border-radius:14px;
+    padding:20px;
+}
+
+.stat-label{
+    color:#8996a0;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+}
+
+.stat-number{
+    color:#009fe3;
+    font-size:36px;
+    margin-top:4px;
+}
+
+.controls{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-bottom:14px;
+}
+
+.date-filter{
+    width:auto;
+    min-width:180px;
+    margin:0;
+}
+
+.refresh{
+    width:auto;
+    background:transparent;
+    padding:12px 18px;
+}
+
+.table-wrap{
+    overflow-x:auto;
+    background:#0a1015;
+    border:1px solid #1d2a33;
+    border-radius:14px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:900px;
+}
+
+th{
+    text-align:left;
+    padding:14px;
+    color:#6f7d87;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:.8px;
+    border-bottom:1px solid #1d2a33;
+}
+
+td{
+    padding:16px 14px;
+    border-bottom:1px solid #151f26;
+    font-size:13px;
+    vertical-align:top;
+}
+
+tr:last-child td{border-bottom:0}
+
+.customer{
+    font-weight:800;
+}
+
+.secondary{
+    color:#82909a;
+    font-size:11px;
+    margin-top:4px;
+}
+
+.service{
+    max-width:260px;
+    line-height:1.5;
+}
+
+.vehicle{
+    display:inline-block;
+    padding:5px 8px;
+    border:1px solid #28404d;
+    border-radius:6px;
+    color:#8fdcff;
+    font-size:10px;
+    font-weight:800;
+}
+
+.status{
+    display:inline-block;
+    padding:5px 8px;
+    border-radius:6px;
+    background:rgba(0,180,100,.12);
+    color:#65dba7;
+    font-size:10px;
+    font-weight:800;
+    text-transform:uppercase;
+}
+
+.empty{
+    text-align:center;
+    padding:55px 20px;
+    color:#75828c;
+}
+
+.error-box{
+    max-width:700px;
+    margin:50px auto;
+    padding:25px;
+    border:1px solid #6c3030;
+    border-radius:12px;
+    color:#ff8c8c;
+    background:#170b0b;
+}
+
+@media(max-width:700px){
+    .admin-app{padding:12px}
+    .topbar{align-items:flex-start;flex-direction:column}
+    .user-area{width:100%;justify-content:space-between}
+    .user-email{max-width:65%;overflow:hidden;text-overflow:ellipsis}
+    .stats{grid-template-columns:1fr}
+    .controls{flex-direction:column;align-items:stretch}
+    .date-filter,.refresh{width:100%}
+    .page-title h1{font-size:35px}
+    .login-card{padding:28px 22px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen" class="login-screen">
+    <div class="login-card">
+        <img src="logo.png" alt="Hydroflow Detailing" class="login-logo">
+        <h1>PANEL PRIVADO</h1>
+        <p>Inicia sesión para ver las reservas de Hydroflow Detailing.</p>
+
+        <form id="loginForm">
+            <input
+                id="email"
+                class="input"
+                type="email"
+                placeholder="Email"
+                autocomplete="email"
+                required
+            >
+
+            <input
+                id="password"
+                class="input"
+                type="password"
+                placeholder="Contraseña"
+                autocomplete="current-password"
+                required
+            >
+
+            <button id="loginButton" class="btn" type="submit">
+                INICIAR SESIÓN
+            </button>
+
+            <div id="loginMessage" class="message"></div>
+        </form>
+    </div>
+</div>
+
+<!-- ADMIN -->
+<div id="adminApp" class="admin-app hidden">
+
+    <header class="topbar">
+        <div class="brand">
+            HYDROFLOW <span>DETAILING</span>
+        </div>
+
+        <div class="user-area">
+            <div id="userEmail" class="user-email"></div>
+            <button id="logoutButton" class="btn logout" type="button">
+                CERRAR SESIÓN
+            </button>
+        </div>
+    </header>
+
+    <main class="content">
+
+        <div class="page-title">
+            <h1>RESERVAS</h1>
+            <p>Panel privado de citas realizadas.</p>
+        </div>
+
+        <section class="stats">
+            <div class="stat">
+                <div class="stat-label">Total de reservas</div>
+                <div id="totalReservations" class="stat-number">0</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-label">Confirmadas</div>
+                <div id="confirmedReservations" class="stat-number">0</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-label">Fecha seleccionada</div>
+                <div id="selectedCount" class="stat-number">0</div>
+            </div>
+        </section>
+
+        <div class="controls">
+            <input id="dateFilter" class="input date-filter" type="date">
+
+            <button id="refreshButton" class="btn refresh" type="button">
+                ↻ ACTUALIZAR
+            </button>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Cliente</th>
+                        <th>Servicio</th>
+                        <th>Vehículo</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+
+                <tbody id="reservationsBody">
+                    <tr>
+                        <td colspan="6" class="empty">
+                            Cargando reservas...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+</div>
+
+<div id="fatalError" class="error-box hidden"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL =
+    "https://gqcrbqzhfcybguigkkwa.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_cTV8SNmiDsKvasLivQcc7Q_srxWsClY";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+const ALLOWED_EMAILS = [
+    "jermainet.martinez@gmail.com",
+    "adrianedu911@gmail.com"
+];
+
+let allReservations = [];
+
+const loginScreen =
+    document.getElementById("loginScreen");
+
+const adminApp =
+    document.getElementById("adminApp");
+
+const loginForm =
+    document.getElementById("loginForm");
+
+const loginButton =
+    document.getElementById("loginButton");
+
+const loginMessage =
+    document.getElementById("loginMessage");
+
+const userEmail =
+    document.getElementById("userEmail");
+
+const logoutButton =
+    document.getElementById("logoutButton");
+
+const dateFilter =
+    document.getElementById("dateFilter");
+
+const refreshButton =
+    document.getElementById("refreshButton");
+
+const reservationsBody =
+    document.getElementById("reservationsBody");
+
+const totalReservations =
+    document.getElementById("totalReservations");
+
+const confirmedReservations =
+    document.getElementById("confirmedReservations");
+
+const selectedCount =
+    document.getElementById("selectedCount");
+
+function showLogin(){
+    loginScreen.classList.remove("hidden");
+    adminApp.classList.add("hidden");
+}
+
+function showAdmin(email){
+    loginScreen.classList.add("hidden");
+    adminApp.classList.remove("hidden");
+    userEmail.textContent = email;
+}
+
+function escapeHtml(value){
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+function formatDate(dateString){
+    if(!dateString) return "—";
+
+    const parts = dateString.split("-");
+    if(parts.length !== 3) return dateString;
+
+    return `${parts[2]}/${parts[1]}/${parts[0]}`;
+}
+
+function parseService(serviceText){
+    const text = String(serviceText || "");
+
+    const vehicleMatch =
+        text.match(/\s*—\s*Vehículo:\s*(.+)$/i);
+
+    let service = text;
+    let vehicle = "—";
+
+    if(vehicleMatch){
+        vehicle = vehicleMatch[1].trim();
+        service = text
+            .replace(vehicleMatch[0],"")
+            .trim();
+    }
+
+    return {service,vehicle};
+}
+
+function renderReservations(){
+    const filterDate = dateFilter.value;
+
+    let reservations = allReservations;
+
+    if(filterDate){
+        reservations = reservations.filter(
+            reservation => reservation.fecha === filterDate
+        );
+    }
+
+    totalReservations.textContent =
+        allReservations.length;
+
+    confirmedReservations.textContent =
+        allReservations.filter(
+            r => r.estado === "confirmada"
+        ).length;
+
+    selectedCount.textContent =
+        filterDate ? reservations.length : 0;
+
+    if(!reservations.length){
+        reservationsBody.innerHTML = `
+            <tr>
+                <td colspan="6" class="empty">
+                    ${filterDate
+                        ? "No hay reservas para esta fecha."
+                        : "No hay reservas realizadas."}
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    reservationsBody.innerHTML =
+        reservations.map(reservation => {
+
+            const parsed =
+                parseService(reservation.servicio);
+
+            return `
+                <tr>
+                    <td>
+                        <strong>${escapeHtml(
+                            formatDate(reservation.fecha)
+                        )}</strong>
+                    </td>
+
+                    <td>
+                        <strong>${escapeHtml(
+                            reservation.hora
+                        )}</strong>
+                    </td>
+
+                    <td>
+                        <div class="customer">
+                            ${escapeHtml(reservation.nombre)}
+                        </div>
+
+                        <div class="secondary">
+                            ${escapeHtml(reservation.telefono)}
+                        </div>
+
+                        ${
+                            reservation.email
+                            ? `<div class="secondary">
+                                ${escapeHtml(reservation.email)}
+                               </div>`
+                            : ""
+                        }
+                    </td>
+
+                    <td class="service">
+                        ${escapeHtml(parsed.service)}
+                    </td>
+
+                    <td>
+                        <span class="vehicle">
+                            ${escapeHtml(parsed.vehicle)}
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="status">
+                            ${escapeHtml(reservation.estado)}
+                        </span>
+                    </td>
+                </tr>
+            `;
+        }).join("");
+}
+
+async function loadReservations(){
+
+    reservationsBody.innerHTML = `
+        <tr>
+            <td colspan="6" class="empty">
+                Cargando reservas...
+            </td>
+        </tr>
+    `;
+
+    const {data,error} =
+        await supabaseClient
+            .from("reservas")
+            .select("*")
+            .order("fecha",{ascending:true})
+            .order("hora",{ascending:true});
+
+    if(error){
+        console.error(error);
+
+        reservationsBody.innerHTML = `
+            <tr>
+                <td colspan="6" class="empty">
+                    No se pudieron cargar las reservas.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+    allReservations = data || [];
+    renderReservations();
+}
+
+loginForm.addEventListener("submit",async function(event){
+
+    event.preventDefault();
+
+    loginMessage.textContent = "";
+
+    const email =
+        document.getElementById("email")
+            .value.trim()
+            .toLowerCase();
+
+    const password =
+        document.getElementById("password")
+            .value;
+
+    if(!ALLOWED_EMAILS.includes(email)){
+        loginMessage.textContent =
+            "Este usuario no tiene acceso al panel.";
+        return;
+    }
+
+    loginButton.disabled = true;
+    loginButton.textContent = "ENTRANDO...";
+
+    const {data,error} =
+        await supabaseClient.auth.signInWithPassword({
+            email,
+            password
+        });
+
+    loginButton.disabled = false;
+    loginButton.textContent = "INICIAR SESIÓN";
+
+    if(error){
+        loginMessage.textContent =
+            "Email o contraseña incorrectos.";
+        return;
+    }
+
+    if(!data.user ||
+       !ALLOWED_EMAILS.includes(
+           data.user.email.toLowerCase()
+       )){
+        await supabaseClient.auth.signOut();
+
+        loginMessage.textContent =
+            "Este usuario no tiene acceso al panel.";
+        return;
+    }
+
+    showAdmin(data.user.email);
+    await loadReservations();
+});
+
+logoutButton.addEventListener("click",async function(){
+
+    await supabaseClient.auth.signOut();
+    allReservations = [];
+    dateFilter.value = "";
+    showLogin();
+
+});
+
+dateFilter.addEventListener(
+    "change",
+    renderReservations
+);
+
+refreshButton.addEventListener(
+    "click",
+    loadReservations
+);
+
+async function checkSession(){
+
+    const {data} =
+        await supabaseClient.auth.getSession();
+
+    const session = data.session;
+
+    if(
+        session &&
+        session.user &&
+        ALLOWED_EMAILS.includes(
+            session.user.email.toLowerCase()
+        )
+    ){
+        showAdmin(session.user.email);
+        await loadReservations();
+    }else{
+        if(session){
+            await supabaseClient.auth.signOut();
+        }
+
+        showLogin();
+    }
+}
+
+supabaseClient.auth.onAuthStateChange(
+    async function(event,session){
+
+        if(event === "SIGNED_OUT"){
+            showLogin();
+            return;
+        }
+
+        if(
+            session &&
+            session.user &&
+            ALLOWED_EMAILS.includes(
+                session.user.email.toLowerCase()
+            )
+        ){
+            showAdmin(session.user.email);
+        }
+    }
+);
+
+checkSession();
+</script>
+
+</body>
+</html>
