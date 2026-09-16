@@ -302,6 +302,28 @@ tr:last-child td{border-bottom:0}
     background:#170b0b;
 }
 
+
+.delete-btn{
+    width:auto;
+    padding:8px 11px;
+    border:1px solid #6c3030;
+    border-radius:7px;
+    background:transparent;
+    color:#ff8c8c;
+    font-size:11px;
+    font-weight:800;
+    cursor:pointer;
+    font-family:'Montserrat',sans-serif;
+    transition:.2s;
+}
+
+.delete-btn:hover{
+    border-color:#ff4d4d;
+    background:rgba(255,77,77,.08);
+    box-shadow:0 0 14px rgba(255,77,77,.18);
+    transform:translateY(-1px);
+}
+
 @media(max-width:700px){
     .admin-app{padding:12px}
     .topbar{align-items:flex-start;flex-direction:column}
@@ -416,7 +438,7 @@ tr:last-child td{border-bottom:0}
 
                 <tbody id="reservationsBody">
                     <tr>
-                        <td colspan="6" class="empty">
+                        <td colspan="7" class="empty">
                             Cargando reservas...
                         </td>
                     </tr>
@@ -563,7 +585,7 @@ function renderReservations(){
     if(!reservations.length){
         reservationsBody.innerHTML = `
             <tr>
-                <td colspan="6" class="empty">
+                <td colspan="7" class="empty">
                     ${filterDate
                         ? "No hay reservas para esta fecha."
                         : "No hay reservas realizadas."}
@@ -626,16 +648,65 @@ function renderReservations(){
                             ${escapeHtml(reservation.estado)}
                         </span>
                     </td>
+
+                    <td>
+                        <button
+                            class="delete-btn"
+                            type="button"
+                            data-id="${escapeHtml(reservation.id)}"
+                        >
+                            BORRAR
+                        </button>
+                    </td>
                 </tr>
             `;
         }).join("");
+}
+
+
+async function deleteReservation(id){
+
+    const reservation =
+        allReservations.find(r => r.id === id);
+
+    if(!reservation){
+        alert("No se encontró la reserva.");
+        return;
+    }
+
+    const parsed = parseService(reservation.servicio);
+
+    const confirmed = confirm(
+        `¿Seguro que quieres borrar esta cita?\n\n` +
+        `Cliente: ${reservation.nombre}\n` +
+        `Fecha: ${formatDate(reservation.fecha)}\n` +
+        `Hora: ${reservation.hora}\n` +
+        `Servicio: ${parsed.service}`
+    );
+
+    if(!confirmed) return;
+
+    const {error} =
+        await supabaseClient
+            .from("reservas")
+            .delete()
+            .eq("id", id);
+
+    if(error){
+        console.error(error);
+        alert("No se pudo borrar la cita. Verifica las políticas de Supabase.");
+        return;
+    }
+
+    await loadReservations();
+    alert("La cita fue borrada correctamente.");
 }
 
 async function loadReservations(){
 
     reservationsBody.innerHTML = `
         <tr>
-            <td colspan="6" class="empty">
+            <td colspan="7" class="empty">
                 Cargando reservas...
             </td>
         </tr>
@@ -653,7 +724,7 @@ async function loadReservations(){
 
         reservationsBody.innerHTML = `
             <tr>
-                <td colspan="6" class="empty">
+                <td colspan="7" class="empty">
                     No se pudieron cargar las reservas.
                 </td>
             </tr>
@@ -733,6 +804,20 @@ dateFilter.addEventListener(
     "change",
     renderReservations
 );
+
+
+reservationsBody.addEventListener("click", function(event){
+
+    const button = event.target.closest(".delete-btn");
+
+    if(!button) return;
+
+    const id = button.dataset.id;
+
+    if(id){
+        deleteReservation(id);
+    }
+});
 
 refreshButton.addEventListener(
     "click",
