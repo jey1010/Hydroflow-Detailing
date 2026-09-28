@@ -1589,6 +1589,52 @@ section.active{
    RESUMEN
 ========================================= */
 
+
+.vehicle-selects{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-top:10px;
+}
+
+.vehicle-field{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.vehicle-field label{
+    color:#7f8c96;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.7px;
+}
+
+.vehicle-select{
+    width:100%;
+    min-height:48px;
+    padding:12px 13px;
+    border:1px solid #26333d;
+    border-radius:9px;
+    background:#0d141a;
+    color:#fff;
+    outline:none;
+    font-family:'Montserrat',sans-serif;
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.vehicle-select:focus{
+    border-color:#009fe3;
+    box-shadow:0 0 14px rgba(0,159,227,.12);
+}
+
+.vehicle-select:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
 .booking-summary{
 
     margin-top:20px;
@@ -2882,31 +2928,28 @@ TIPO DE VEHÍCULO
 
 </div>
 
-<div class="service-options">
+<div class="vehicle-selects">
 
-<button
-class="vehicle-option service-option"
-data-vehicle="Auto"
-type="button"
->
-Auto
-</button>
+<div class="vehicle-field">
+<label for="vehicleMake">MARCA</label>
+<select id="vehicleMake" class="vehicle-select">
+<option value="">Selecciona una marca</option>
+</select>
+</div>
 
-<button
-class="vehicle-option service-option"
-data-vehicle="SUV"
-type="button"
->
-SUV
-</button>
+<div class="vehicle-field">
+<label for="vehicleModel">MODELO</label>
+<select id="vehicleModel" class="vehicle-select" disabled>
+<option value="">Primero selecciona una marca</option>
+</select>
+</div>
 
-<button
-class="vehicle-option service-option"
-data-vehicle="Pick-up"
-type="button"
->
-Pick-up
-</button>
+<div class="vehicle-field">
+<label for="vehicleYear">AÑO</label>
+<select id="vehicleYear" class="vehicle-select">
+<option value="">Selecciona el año</option>
+</select>
+</div>
 
 </div>
 
@@ -3402,6 +3445,9 @@ let selectedDate=null;
 let selectedTime=null;
 let selectedServices=[];
 let selectedVehicle=null;
+let selectedVehicleMake="";
+let selectedVehicleModel="";
+let selectedVehicleYear="";
 let occupiedTimes=[];
 
 function formatDate(date){
@@ -3614,7 +3660,7 @@ function updateBookingSummary(){
 
         summary.textContent=parts.length
             ? parts.join(" • ")
-            : "Selecciona día, hora, servicio y vehículo.";
+            : "Selecciona día, hora, servicio, marca, modelo y año del vehículo.";
 
         continueButton.disabled=true;
     }
@@ -3715,24 +3761,181 @@ document
 
 /* TIPO DE VEHÍCULO */
 
-document
-.querySelectorAll(".vehicle-option")
-.forEach(button=>{
+const vehicleMake=document.getElementById("vehicleMake");
+const vehicleModel=document.getElementById("vehicleModel");
+const vehicleYear=document.getElementById("vehicleYear");
 
-    button.addEventListener("click",function(){
+/*
+   Marcas representadas en Puerto Rico.
+   La lista incluye marcas de volumen, lujo y exóticas.
+*/
+const puertoRicoVehicleMakes=[
+    "Acura",
+    "Alfa Romeo",
+    "Aston Martin",
+    "Audi",
+    "Bentley",
+    "BMW",
+    "Buick",
+    "Cadillac",
+    "Chevrolet",
+    "Chrysler",
+    "Dodge",
+    "Ferrari",
+    "FIAT",
+    "Ford",
+    "Genesis",
+    "GMC",
+    "Honda",
+    "Hyundai",
+    "INFINITI",
+    "Jaguar",
+    "Jeep",
+    "Kia",
+    "Lamborghini",
+    "Land Rover",
+    "Lexus",
+    "Lincoln",
+    "Maserati",
+    "Mazda",
+    "McLaren",
+    "Mercedes-Benz",
+    "MINI",
+    "Mitsubishi",
+    "Nissan",
+    "Porsche",
+    "RAM",
+    "Rivian",
+    "Rolls-Royce",
+    "Subaru",
+    "Tesla",
+    "Toyota",
+    "Volkswagen",
+    "Volvo"
+];
 
-        selectedVehicle=button.dataset.vehicle;
-
-        document
-        .querySelectorAll(".vehicle-option")
-        .forEach(b=>b.classList.remove("selected"));
-
-        button.classList.add("selected");
-
-        updateBookingSummary();
-        hideCustomerForm();
-    });
+puertoRicoVehicleMakes.forEach(make=>{
+    const option=document.createElement("option");
+    option.value=make;
+    option.textContent=make;
+    vehicleMake.appendChild(option);
 });
+
+/* AÑOS 1980-2027 */
+for(let year=2027;year>=1980;year--){
+    const option=document.createElement("option");
+    option.value=String(year);
+    option.textContent=String(year);
+    vehicleYear.appendChild(option);
+}
+
+function resetVehicleSelection(){
+    selectedVehicle=null;
+    selectedVehicleMake="";
+    selectedVehicleModel="";
+    selectedVehicleYear="";
+    updateBookingSummary();
+    hideCustomerForm();
+}
+
+function updateVehicleSelection(){
+    selectedVehicleMake=vehicleMake.value;
+    selectedVehicleModel=vehicleModel.value;
+    selectedVehicleYear=vehicleYear.value;
+
+    if(
+        selectedVehicleMake &&
+        selectedVehicleModel &&
+        selectedVehicleYear
+    ){
+        selectedVehicle=
+            `${selectedVehicleMake} ${selectedVehicleModel} ${selectedVehicleYear}`;
+    }else{
+        selectedVehicle=null;
+    }
+
+    updateBookingSummary();
+    hideCustomerForm();
+}
+
+async function loadVehicleModels(make){
+    vehicleModel.innerHTML=
+        `<option value="">Cargando modelos...</option>`;
+    vehicleModel.disabled=true;
+
+    if(!make){
+        vehicleModel.innerHTML=
+            `<option value="">Primero selecciona una marca</option>`;
+        resetVehicleSelection();
+        return;
+    }
+
+    try{
+        const response=await fetch(
+            `https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMake/${encodeURIComponent(make)}?format=json`
+        );
+
+        if(!response.ok){
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const data=await response.json();
+
+        const models=[...
+            new Set(
+                (data.Results||[])
+                    .map(item=>String(item.Model_Name||"").trim())
+                    .filter(Boolean)
+            )
+        ].sort((a,b)=>a.localeCompare(b));
+
+        vehicleModel.innerHTML=
+            `<option value="">Selecciona un modelo</option>`;
+
+        models.forEach(model=>{
+            const option=document.createElement("option");
+            option.value=model;
+            option.textContent=model;
+            vehicleModel.appendChild(option);
+        });
+
+        if(!models.length){
+            vehicleModel.innerHTML=
+                `<option value="">No hay modelos disponibles</option>`;
+        }else{
+            vehicleModel.disabled=false;
+        }
+
+    }catch(error){
+        console.error("Error cargando modelos:",error);
+
+        vehicleModel.innerHTML=
+            `<option value="">No se pudieron cargar los modelos</option>`;
+    }
+
+    vehicleModel.value="";
+    selectedVehicleModel="";
+    selectedVehicle=null;
+    updateBookingSummary();
+    hideCustomerForm();
+}
+
+vehicleMake.addEventListener("change",async function(){
+    selectedVehicleMake=this.value;
+    selectedVehicleModel="";
+    selectedVehicleYear=vehicleYear.value;
+
+    await loadVehicleModels(this.value);
+});
+
+vehicleModel.addEventListener("change",function(){
+    updateVehicleSelection();
+});
+
+vehicleYear.addEventListener("change",function(){
+    updateVehicleSelection();
+});
+
 
 /* CONTINUAR */
 
@@ -3765,7 +3968,7 @@ document
 
     if(!selectedDate || !selectedTime || !selectedServices.length || !selectedVehicle){
         showBookingStatus(
-            "Selecciona día, hora, servicio y vehículo.",
+            "Selecciona día, hora, servicio, marca, modelo y año del vehículo.",
             true
         );
         return;
@@ -3800,7 +4003,7 @@ document
         email:email || null,
         fecha:dateToDatabase(selectedDate),
         hora:selectedTime,
-        servicio:`${selectedServices.join(", ")} — Vehículo: ${selectedVehicle}`,
+        servicio:`${selectedServices.join(", ")} — Vehículo: ${selectedVehicleMake} ${selectedVehicleModel} ${selectedVehicleYear}`,
         estado:"confirmada"
     };
 
@@ -3874,13 +4077,23 @@ document
 
     document.getElementById("bookingMessage").textContent=
         emailNotificationSent
-            ? `Servicio: ${selectedService} • Vehículo: ${selectedVehicle}. Gracias, ${name}. Hemos recibido tu reserva.`
-            : `Servicio: ${selectedService} • Vehículo: ${selectedVehicle}. Gracias, ${name}. Hemos recibido tu reserva.`;
+            ? `Servicio: ${selectedServices.join(", ")} • Vehículo: ${selectedVehicle}. Gracias, ${name}. Hemos recibido tu reserva.`
+            : `Servicio: ${selectedServices.join(", ")} • Vehículo: ${selectedVehicle}. Gracias, ${name}. Hemos recibido tu reserva.`;
 
 
     document.getElementById("customerName").value="";
     document.getElementById("customerPhone").value="";
     document.getElementById("customerEmail").value="";
+
+    vehicleMake.value="";
+    vehicleModel.innerHTML=
+        `<option value="">Primero selecciona una marca</option>`;
+    vehicleModel.disabled=true;
+    vehicleYear.value="";
+    selectedVehicle=null;
+    selectedVehicleMake="";
+    selectedVehicleModel="";
+    selectedVehicleYear="";
 
     renderTimes();
 
